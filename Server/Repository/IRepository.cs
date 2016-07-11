@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    interface IRepository <TEntity>
+    interface IRepository <TEntity> where TEntity:class
     {
         TEntity get(int id);
         IEnumerable<TEntity> GetaAll();
