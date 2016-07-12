@@ -10,10 +10,10 @@ namespace Client
 {
     public class App : Application
     {
+        public static NavigationPage NavigationPage;
         public App()
         {
-            // The root page of your application
-            MainPage = new LoginView();
+            MainPage = new NavigationPage(new LoginView());
         }
 
         protected override void OnStart()

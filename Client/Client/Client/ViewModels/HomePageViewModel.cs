@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 namespace Client.ViewModels
 {
     [ImplementPropertyChanged]
-    class LoginViewModel
+    class HomePageViewModel
     {
-        private string Username { get; set; }
-        private string Password { get; set; }
+        public string GreetingText { get; set; }
     }
 }
