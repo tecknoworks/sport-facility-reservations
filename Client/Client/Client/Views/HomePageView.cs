@@ -49,6 +49,8 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            searchButton.Clicked += Button_Clicked;
+
             var viewFieldsButton = new Button
             {
                 Text = "View fields",
@@ -95,6 +97,12 @@ namespace Client.Views
             
 
             Content = relativeLayout;
+        }
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            var searchPageView = new SearchPageView();
+            await Navigation.PushAsync(searchPageView);
+
         }
     }
 }
