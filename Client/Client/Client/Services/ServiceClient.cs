@@ -13,5 +13,7 @@ namespace Client.Services
         {
             return Guid.NewGuid().ToString();
         }
+        //sa spuna da te-am inregistrat
+        //exista deja un cont creat cu aceste date 
     }
 }
