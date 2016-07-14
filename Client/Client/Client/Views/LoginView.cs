@@ -64,14 +64,14 @@ namespace Client.Views
             {
                 Text = "Don't have an account?",
                 FontSize = 10,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             var button2 = new Button
             {
                 Text = "Register",
                 BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             button2.Clicked += Button_Clicked2;
