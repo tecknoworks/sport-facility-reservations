@@ -6,14 +6,18 @@ using System.Data.Sql;
 using System.Data.Linq;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using Repository.Models;
+ 
 
 
 namespace Repository
 {
-    //public class ClientRepository: ORepository<Client>
-    //{
-      
+    public class ClientRepository 
+    {
        
-    //}
+     
+
+      
+    }
 
 }
