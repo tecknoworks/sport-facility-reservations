@@ -24,24 +24,77 @@ namespace Client.Views
             _viewModel = new HomePageViewModel();
             BindingContext = _viewModel;
 
+            var greetLayout = new StackLayout { Padding = 50, Orientation = StackOrientation.Horizontal, VerticalOptions = LayoutOptions.Start };
             var label = new Label
             {
                 Text = "your name",
+                TextColor = Color.White,
                 Font = Font.SystemFontOfSize(NamedSize.Large),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             label.SetBinding(Label.TextProperty, "GreetingText");
+            greetLayout.Children.Add(label);
 
             _viewModel.GreetingText = _greetingText;
+            
+            var contentLayout = new StackLayout { Padding = 50, VerticalOptions = LayoutOptions.End };
 
-            Content = new StackLayout
+            var searchButton = new Button
             {
-                Children =
-                {
-                    label
-                }
+                Text = "Search",
+                WidthRequest = 200,
+                HeightRequest = 50,
+                BorderWidth = 5,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            var viewFieldsButton = new Button
+            {
+                Text = "View fields",
+                BorderWidth = 5,
+                WidthRequest = 200,
+                HeightRequest = 50,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+
+            };
+            var editAccountButton = new Button
+            {
+                Text = "Edit My Account",
+                WidthRequest = 200,
+                HeightRequest = 50,
+                BorderWidth = 5,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+            contentLayout.Children.Add(viewFieldsButton);
+            contentLayout.Children.Add(searchButton);
+            contentLayout.Children.Add(editAccountButton);
+
+            var myImage = new Image
+            {
+                Source = ImageSource.FromFile("image4.jpg")
+            };
+            var relativeLayout = new RelativeLayout();
+            relativeLayout.Children.Add(myImage,
+                Constraint.Constant(0),
+                Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height; }));
+            relativeLayout.Children.Add(greetLayout,
+                Constraint.Constant(0),
+                Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height/2; }));
+            relativeLayout.Children.Add(contentLayout,
+                Constraint.Constant(0),
+                Constraint.Constant(0),
+                Constraint.RelativeToParent((parent) => { return parent.Width ; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height / 2; }));
+            
+
+            Content = relativeLayout;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Client.Views
 {
     class LoginView: ContentPage
     {
+        public Image Img { get; set; }
         public LoginViewModel _viewModel;
         private Entry _usernameEntry;
         public LoginView()
@@ -29,6 +30,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+
             var passwordLabel = new Label
             {
                 Text = "Password",
@@ -63,11 +65,11 @@ namespace Client.Views
             {
                 Children =
                 {
-                    usernameLabel,
-                    _usernameEntry,
-                    passwordLabel,
-                    passwordEntry,
-                    button
+                   usernameLabel,
+                   _usernameEntry,
+                   passwordLabel,
+                   passwordEntry,
+                   button
                 }
             };
         }
