@@ -20,6 +20,7 @@ namespace Client.Views
         private async Task Init()
         {
             
+
             _viewModel = new RegisterViewModel();
             BindingContext = _viewModel;
 
@@ -73,6 +74,13 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            var picker = new Picker
+            {
+                Title = "Type",
+             
+            };
+            picker.Items.Add("Owner");
+            picker.Items.Add("Player");
 
             Content = new StackLayout
             {
@@ -83,7 +91,11 @@ namespace Client.Views
                     lastName,
                     phone,
                     password,
+                    picker,
                     button
+                    
+
+                  
                 }
             };
         }

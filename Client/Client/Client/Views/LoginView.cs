@@ -64,16 +64,17 @@ namespace Client.Views
             {
                 Text = "Don't have an account?",
                 FontSize = 10,
-                HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                HorizontalOptions = LayoutOptions.Center,
+               
             };
             var button2 = new Button
             {
                 Text = "Register",
                 BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                HorizontalOptions = LayoutOptions.Center,
+             
             };
+
             button2.Clicked += Button_Clicked2;
 
             Content = new StackLayout
@@ -87,7 +88,8 @@ namespace Client.Views
                     button,
                     registerLabel,
                     button2
-                    
+
+
                 }
             };
         }
