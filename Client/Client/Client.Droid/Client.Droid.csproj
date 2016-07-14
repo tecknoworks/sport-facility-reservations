@@ -93,6 +93,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\drawable\image.png" />
+    <AndroidResource Include="Resources\drawable\image2.jpg" />
+    <AndroidResource Include="Resources\drawable\image3.jpg" />
+    <AndroidResource Include="Resources\drawable\image4.jpg" />
+    <AndroidResource Include="Resources\drawable\image5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Client\Client.csproj">
