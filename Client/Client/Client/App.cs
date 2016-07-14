@@ -14,6 +14,7 @@ namespace Client
         public App()
         {
             MainPage = new NavigationPage(new LoginView());
+       
         }
 
         protected override void OnStart()
