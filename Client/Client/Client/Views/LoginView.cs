@@ -97,7 +97,7 @@ namespace Client.Views
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var homePageView = new HomePageView($"Hello {_usernameEntry.Text}");
+            var homePageView = new HomePageView($"Hello, {_usernameEntry.Text}");
             await Navigation.PushAsync(homePageView);
 
         }

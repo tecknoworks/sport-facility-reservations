@@ -30,11 +30,11 @@ namespace Client.Views
                 Text = "your name",
                 TextColor = Color.White,
                 Font = Font.SystemFontOfSize(NamedSize.Large),
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             label.SetBinding(Label.TextProperty, "GreetingText");
-            greetLayout.Children.Add(label);
+            //greetLayout.Children.Add(label);
 
             _viewModel.GreetingText = _greetingText;
             
@@ -70,9 +70,11 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            contentLayout.Children.Add(label);
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
             contentLayout.Children.Add(editAccountButton);
+
 
             var myImage = new Image
             {
