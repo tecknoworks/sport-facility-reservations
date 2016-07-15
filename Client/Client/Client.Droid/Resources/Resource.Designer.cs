@@ -51,28 +51,25 @@ namespace Client.Droid
 			public const int icon = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int image = 2130837506;
+			public const int image3 = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int image2 = 2130837507;
+			public const int image4 = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int image3 = 2130837508;
+			public const int image5 = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int image4 = 2130837509;
+			public const int monoandroidsplash = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int image5 = 2130837510;
+			public const int squash2 = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int monoandroidsplash = 2130837511;
+			public const int squash_field = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int squash_field = 2130837512;
-			
-			// aapt resource value: 0x7f020009
-			public const int tennis_field = 2130837513;
+			public const int tennis_field = 2130837512;
 			
 			static Drawable()
 			{
