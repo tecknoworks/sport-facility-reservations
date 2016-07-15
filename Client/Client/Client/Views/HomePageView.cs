@@ -30,11 +30,11 @@ namespace Client.Views
                 Text = "your name",
                 TextColor = Color.White,
                 Font = Font.SystemFontOfSize(NamedSize.Large),
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             label.SetBinding(Label.TextProperty, "GreetingText");
-            greetLayout.Children.Add(label);
+            //greetLayout.Children.Add(label);
 
             _viewModel.GreetingText = _greetingText;
             
@@ -49,6 +49,8 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            searchButton.Clicked += Button_Clicked;
+
             var viewFieldsButton = new Button
             {
                 Text = "View fields",
@@ -68,9 +70,11 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            contentLayout.Children.Add(label);
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
             contentLayout.Children.Add(editAccountButton);
+
 
             var myImage = new Image
             {
@@ -95,6 +99,12 @@ namespace Client.Views
             
 
             Content = relativeLayout;
+        }
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            var searchPageView = new SearchPageView();
+            await Navigation.PushAsync(searchPageView);
+
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Client.Views
         }
         private async Task Init()
         {
-            
             _viewModel = new RegisterViewModel();
             BindingContext = _viewModel;
 
@@ -101,7 +100,7 @@ namespace Client.Views
                     phone,
                     password,
                     type,
-                    button        
+                    button
                 }
             };
         }
