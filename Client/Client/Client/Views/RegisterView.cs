@@ -37,6 +37,15 @@ namespace Client.Views
             };
             firstName.SetBinding(Entry.TextProperty, "FirstName");
 
+            var username = new Entry
+            {
+                Placeholder = "Username",
+                Keyboard = Keyboard.Default,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+            firstName.SetBinding(Entry.TextProperty, "Username");
+
             var lastName = new Entry
             {
                 Placeholder = "Last Name",
@@ -72,24 +81,25 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            var picker = new Picker
+            var type = new Picker
             {
                 Title = "Type",
              
             };
-            picker.Items.Add("Owner");
-            picker.Items.Add("Player");
+            type.Items.Add("Owner");
+            type.Items.Add("Player");
 
             Content = new StackLayout
             {
                 Children =
                 {
                     label,
+                    username,
                     firstName,
                     lastName,
                     phone,
                     password,
-                    picker,
+                    type,
                     button
                 }
             };
