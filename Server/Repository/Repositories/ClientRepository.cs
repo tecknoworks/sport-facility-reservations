@@ -14,8 +14,8 @@ namespace Repository
 {
     public class ClientRepository : IClientRepository
     {
-        SportFacilityEntities context;
-        public ClientRepository(SportFacilityEntities context)
+        SportFacilityEntities1 context;
+        public ClientRepository(SportFacilityEntities1 context)
         {
             this.context = context;
         }

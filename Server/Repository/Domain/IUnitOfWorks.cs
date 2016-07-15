@@ -8,7 +8,7 @@ namespace Repository
 {
     public interface IUnitOfWork : IDisposable
     {
-        IClientRepository ClientRepository { get; }
+        IClientRepository clientRepository { get; }
 
         int Complete();
     }

@@ -14,8 +14,17 @@ namespace Repository.Models
     
     public partial class Field
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Field()
+        {
+            this.Reservations = new HashSet<Reservation>();
+        }
+    
         public int id { get; set; }
         public string Name { get; set; }
-        public System.Data.Entity.Spatial.DbGeography Location { get; set; }
+        public string Location { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

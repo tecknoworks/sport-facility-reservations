@@ -15,123 +15,124 @@ namespace Server.Controllers
 {
     public class ClientsController : ApiController
     {
-        SportFacilityEntities context;
+      
         private UnitOfWork unitOfWork = new UnitOfWork();
-        private SportFacilityEntities db = new SportFacilityEntities();
+        // private SportFacilityEntities1 db = new SportFacilityEntities1();
 
         // GET: api/Clients
         public IEnumerable<Client> GetClients()
         {
-           var clients = unitOfWork.ClientRepository.GetAll();
+            var clients = unitOfWork.clientRepository.GetAll();
             return clients;
         }
 
-        // GET: api/Clients/5
-        [ResponseType(typeof(Client))]
-        public IHttpActionResult GetClient(int id)
-        {
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
+        //    // GET: api/Clients/5
+        //    [ResponseType(typeof(Client))]
+        //    public IHttpActionResult GetClient(int id)
+        //    {
+        //        Client client = db.Clients.Find(id);
+        //        if (client == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-            return Ok(client);
-        }
+        //        return Ok(client);
+        //    }
 
-        // PUT: api/Clients/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutClient(int id, Client client)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    // PUT: api/Clients/5
+        //    [ResponseType(typeof(void))]
+        //    public IHttpActionResult PutClient(int id, Client client)
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
 
-            if (id != client.id)
-            {
-                return BadRequest();
-            }
+        //        if (id != client.id)
+        //        {
+        //            return BadRequest();
+        //        }
 
-            db.Entry(client).State = EntityState.Modified;
+        //        db.Entry(client).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //        try
+        //        {
+        //            db.SaveChanges();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!ClientExists(id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //        return StatusCode(HttpStatusCode.NoContent);
+        //    }
 
-        // POST: api/Clients
-        [ResponseType(typeof(Client))]
-        public IHttpActionResult PostClient(Client client)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    // POST: api/Clients
+        //    [ResponseType(typeof(Client))]
+        //    public IHttpActionResult PostClient(Client client)
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
 
-            db.Clients.Add(client);
+        //        db.Clients.Add(client);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (ClientExists(client.id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //        try
+        //        {
+        //            db.SaveChanges();
+        //        }
+        //        catch (DbUpdateException)
+        //        {
+        //            if (ClientExists(client.id))
+        //            {
+        //                return Conflict();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
 
-            return CreatedAtRoute("DefaultApi", new { id = client.id }, client);
-        }
+        //        return CreatedAtRoute("DefaultApi", new { id = client.id }, client);
+        //    }
 
-        // DELETE: api/Clients/5
-        [ResponseType(typeof(Client))]
-        public IHttpActionResult DeleteClient(int id)
-        {
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
+        //    // DELETE: api/Clients/5
+        //    [ResponseType(typeof(Client))]
+        //    public IHttpActionResult DeleteClient(int id)
+        //    {
+        //        Client client = db.Clients.Find(id);
+        //        if (client == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-            db.Clients.Remove(client);
-            db.SaveChanges();
+        //        db.Clients.Remove(client);
+        //        db.SaveChanges();
 
-            return Ok(client);
-        }
+        //        return Ok(client);
+        //    }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //    protected override void Dispose(bool disposing)
+        //    {
+        //        if (disposing)
+        //        {
+        //            db.Dispose();
+        //        }
+        //        base.Dispose(disposing);
+        //    }
 
-        private bool ClientExists(int id)
-        {
-            return db.Clients.Count(e => e.id == id) > 0;
-        }
+        //    private bool ClientExists(int id)
+        //    {
+        //        return db.Clients.Count(e => e.id == id) > 0;
+        //    }
+        //}
     }
 }

@@ -10,15 +10,15 @@ namespace Repository
 
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly SportFacilityEntities _context;
-        SportFacilityEntities context = new SportFacilityEntities();
+        //private readonly SportFacilityEntities1 context;
+        SportFacilityEntities1 _context = new SportFacilityEntities1();
         public UnitOfWork()
         {
            
-            ClientRepository = new ClientRepository(_context);
+            clientRepository = new ClientRepository(_context);
 
         }
-        public IClientRepository ClientRepository { get; }
+        public IClientRepository clientRepository { get; }
 
 
         public int Complete()

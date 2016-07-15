@@ -18,5 +18,8 @@ namespace Repository.Models
         public int id_c { get; set; }
         public int id_f { get; set; }
         public System.DateTime Date { get; set; }
+    
+        public virtual Client Client { get; set; }
+        public virtual Field Field { get; set; }
     }
 }
