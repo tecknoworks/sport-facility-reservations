@@ -127,7 +127,7 @@ namespace Client.Views
                 {
                     labelFirstName,
                     firstName,
-                    labelLastName,
+                    labelLastName, 
                     lastName,
                     labelUsername,
                     username,

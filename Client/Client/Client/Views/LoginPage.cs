@@ -8,12 +8,12 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class LoginView : ContentPage
+    class LoginPage : ContentPage
     {
         public Image Img { get; set; }
         public LoginViewModel _viewModel;
         private Entry _usernameEntry;
-        public LoginView()
+        public LoginPage()
         {
             Title = "Login";
             Init();

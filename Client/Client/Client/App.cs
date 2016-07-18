@@ -13,7 +13,7 @@ namespace Client
         public static NavigationPage NavigationPage;
         public App()
         {
-            MainPage = new NavigationPage(new LoginView());
+            MainPage = new NavigationPage(new LoginPage());
        
         }
 
