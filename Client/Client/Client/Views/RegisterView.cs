@@ -22,59 +22,91 @@ namespace Client.Views
             _viewModel = new RegisterViewModel();
             BindingContext = _viewModel;
 
-            var label = new Label
+            var labelFirstName = new Label
             {
-                Text = "Register",
-                HorizontalOptions = LayoutOptions.Center,
+                Text = "First Name",
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             var firstName = new Entry
             {
-                Placeholder = "First Name",
-                Keyboard = Keyboard.Default,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                Placeholder = "Input",
+                Keyboard = Keyboard.Default
+               
             };
             firstName.SetBinding(Entry.TextProperty, "FirstName");
 
-            var username = new Entry
+            var labelLastName = new Label
             {
-                Placeholder = "Username",
-                Keyboard = Keyboard.Default,
-                HorizontalOptions = LayoutOptions.Center,
+                Text = "Last Name",
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            firstName.SetBinding(Entry.TextProperty, "Username");
 
             var lastName = new Entry
             {
                 Placeholder = "Last Name",
-                Keyboard = Keyboard.Default,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                Keyboard = Keyboard.Default,          
             };
             lastName.SetBinding(Entry.TextProperty, "LastName");
 
+            var labelUsername = new Label
+            {
+                Text = "Username",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+            var username = new Entry
+            {
+                Placeholder = "Input",
+                Keyboard = Keyboard.Default
+            };
+            firstName.SetBinding(Entry.TextProperty, "Username");
+
+            var labelPhone = new Label
+            {
+                Text = "Phone",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
             var phone = new Entry
             {
-                Placeholder = "Phone",
-                Keyboard = Keyboard.Default,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                Placeholder = "Input",
+                Keyboard = Keyboard.Default            
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
 
+            var labelPassword = new Label
+            {
+                Text = "Password",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
             var password = new Entry
             {
-                Placeholder = "Password",
+                Placeholder = "Input",
                 Keyboard = Keyboard.Default,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
                 IsPassword = true
             };
             phone.SetBinding(Entry.TextProperty, "Password");
 
-            var button = new Button
+            var labelConfirmPassword = new Label
+            {
+                Text = "Confirm Password",
+                HorizontalOptions = LayoutOptions.Start,
+               // VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var confirmPassword = new Entry
+            {
+                Placeholder = "Input",
+                Keyboard = Keyboard.Default,
+                IsPassword = true
+            };
+
+            var buttonRegister = new Button
             {
                 Text = "Register",
                 BorderWidth = 1,
@@ -93,14 +125,20 @@ namespace Client.Views
             {
                 Children =
                 {
-                    label,
-                    username,
+                    labelFirstName,
                     firstName,
+                    labelLastName,
                     lastName,
-                    phone,
+                    labelUsername,
+                    username,
+                    labelPassword,
                     password,
+                    labelConfirmPassword,
+                    confirmPassword,
+                    labelPhone,
+                    phone, 
                     type,
-                    button
+                    buttonRegister
                 }
             };
         }
