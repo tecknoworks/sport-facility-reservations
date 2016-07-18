@@ -8,6 +8,7 @@ namespace Client.ViewModels
 {
     class RegisterViewModel
     {
+        private string Username { get; set; }
         private string FirstName { get; set; }
         private string LastName { get; set; }
         private string Phone { get; set; }

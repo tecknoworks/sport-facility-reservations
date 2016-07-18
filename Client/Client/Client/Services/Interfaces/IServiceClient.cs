@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client.Services.Interfaces
 {
-    interface IServiceClient
+    public interface IServiceClient
     {
         string Login(string username, string password);
+        string Register(string username, string password, string phone, string type);
     }
 }

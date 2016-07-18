@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class SearchPageView:ContentPage
+    class SearchPageView: ContentPage
     {
         private SearchPageViewModel _viewModel;
         public SearchPageView()
@@ -27,9 +27,10 @@ namespace Client.Views
             };
             var soccerFields = new Image
             {
+                BackgroundColor = Color.Yellow,
                 Source = "football_field.jpg",
-                WidthRequest = 300,
-                HeightRequest = 250
+               // WidthRequest = 300,
+               // HeightRequest = 200
             };
             soccerFields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { soccerFields.Opacity = 0.6; soccerFields.FadeTo(1); }));
 
@@ -40,73 +41,46 @@ namespace Client.Views
             var tennisFields = new Image
             {
                 Source = "tennis_field.png",
-                WidthRequest = 300,
-                HeightRequest = 250
+               // WidthRequest = 300,
+               // HeightRequest = 200
             };
             tennisFields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { tennisFields.Opacity = 0.6; tennisFields.FadeTo(1); }));
 
-            var squashLabel = new Label
+            var squashlabel = new Label
             {
-                Text = "Squash Court"
+                Text = "squash court"
             };
-            var squashFields = new Image
+            var squashfields = new Image
             {
+                BackgroundColor = Color.Red,
                 Source = "squash2.jpg",
-                WidthRequest = 300,
-                HeightRequest = 250
+               // WidthRequest = 300,
+               // HeightRequest = 200
             };
-            squashFields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { squashFields.Opacity = 0.6; squashFields.FadeTo(1); }));
-
-            //var relativeLayout1 = new RelativeLayout();
-            //relativeLayout1.Children.Add(soccerFields,
-            //    Constraint.Constant(0),
-            //    Constraint.Constant(0),
-            //    Constraint.RelativeToParent((parent) => { return parent.Width; }),
-            //    Constraint.RelativeToParent((parent) => { return parent.Height; }));
-            //relativeLayout1.Children.Add(soccerLabel,
-            //    Constraint.Constant(0),
-            //    Constraint.Constant(0),
-            //    Constraint.RelativeToParent((parent) => { return parent.Width; }),
-            //    Constraint.RelativeToParent((parent) => { return parent.Height; }));
-
-            //var relativeLayout2 = new RelativeLayout();
-            //relativeLayout2.Children.Add(tennisFields,
-            //    Constraint.Constant(0),
-            //    Constraint.Constant(0),
-            //    Constraint.RelativeToParent((parent) => { return parent.Width; }),
-            //    Constraint.RelativeToParent((parent) => { return parent.Height; }));
-            //relativeLayout2.Children.Add(tennisLabel,
-            //    Constraint.Constant(0),
-            //    Constraint.Constant(0),
-            //    Constraint.RelativeToParent((parent) => { return parent.Width; }),
-            //    Constraint.RelativeToParent((parent) => { return parent.Height; }));
-
-            //var soccerFields = new Button
-            //{
-            //    Image = "football_field.jpg",
-            //    Text = "Soccer Fields",
-            //    //WidthRequest = 200,
-            //    HeightRequest = 250,
-            //    BorderWidth = 5
-            //};
-
-            //var tennisFields = new Button
-            //{
-            //    Text = "Tennis Fields",
-            //   // WidthRequest = 200,
-            //    HeightRequest = 250,
-            //    BorderWidth = 5
-            //};
+            squashfields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { squashfields.Opacity = 0.6; squashfields.FadeTo(1); }));
 
             Content = new StackLayout
             {
+                BackgroundColor = Color.Accent,
                 Children =
                 {
                     soccerFields,
                     tennisFields,
-                   // squashFields
+                    squashfields
                 }
             };
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+
+            var requiredHight = height / 3;
+            var layout = (StackLayout)Content;
+            foreach(var children in layout.Children)
+            {
+                children.HeightRequest = requiredHight;
+            }
         }
     }
 }
