@@ -10,7 +10,6 @@ using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
-    public class LoginPage : ContentPage
     {
         public Image Img { get; set; }
         public LoginViewModel _viewModel;
@@ -39,6 +38,7 @@ namespace Client.Views
                     new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Auto },
+                    new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Auto }
                 },
                 ColumnDefinitions =
@@ -53,7 +53,7 @@ namespace Client.Views
             var usernameLabel = new Label
             {
                 Text = "Username",
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             grid.Children.Add(usernameLabel, 0, 2);
@@ -61,69 +61,64 @@ namespace Client.Views
             var passwordLabel = new Label
             {
                 Text = "Password",
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(passwordLabel, 0, 3);
+            grid.Children.Add(passwordLabel, 0, 4);
 
             _usernameEntry = new Entry
             {
                 Placeholder = "Fill in your username",
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default              
             };
-            grid.Children.Add(_usernameEntry, 1, 2);
+            grid.Children.Add(_usernameEntry, 0, 3);
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
 
             var passwordEntry = new Entry
             {
                 Placeholder = "Fill in your password",
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
-            grid.Children.Add(passwordEntry, 1, 3);
+            grid.Children.Add(passwordEntry, 0, 5);
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
 
-            var loginButton = new Button
+            var button = new Button
             {
                 Text = "Login",
                 FontSize = 10,
                 BorderWidth = 1,
                 WidthRequest = 100,
                 HeightRequest = 30,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(loginButton, 1, 4);
-            loginButton.Clicked += Button_Clicked;
+            grid.Children.Add(button, 0, 6);
+            button.Clicked += Button_Clicked;
 
             var registerLabel = new Label
             {
                 Text = "Don't have an account?",
                 FontSize = 10,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(registerLabel, 1, 6);
+            grid.Children.Add(registerLabel, 0, 7);
 
 
-            var registerButton = new Button
+            var button2 = new Button
             {
                 Text = "Register",
                 FontSize = 10,
                 WidthRequest = 100,
                 HeightRequest = 30,
                 BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
 
             };
-            grid.Children.Add(registerButton, 1, 7);
-            registerButton.Clicked += Button_Clicked2;
-            
+            grid.Children.Add(button2, 0, 8);
+            button2.Clicked += Button_Clicked2;
             this.Content = grid;
         }
         private async void Button_Clicked(object sender, EventArgs e)
