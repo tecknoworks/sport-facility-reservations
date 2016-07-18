@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
+    public class LoginPage
     {
         public Image Img { get; set; }
         public LoginViewModel _viewModel;
