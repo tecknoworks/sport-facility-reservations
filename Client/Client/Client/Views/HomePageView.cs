@@ -23,8 +23,7 @@ namespace Client.Views
         {
             _viewModel = new HomePageViewModel();
             BindingContext = _viewModel;
-
-            var greetLayout = new StackLayout { Padding = 50, Orientation = StackOrientation.Horizontal, VerticalOptions = LayoutOptions.Start };
+            
             var label = new Label
             {
                 Text = "your name",
@@ -34,7 +33,6 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             label.SetBinding(Label.TextProperty, "GreetingText");
-            //greetLayout.Children.Add(label);
 
             _viewModel.GreetingText = _greetingText;
             
@@ -86,11 +84,7 @@ namespace Client.Views
                 Constraint.Constant(0),
                 Constraint.RelativeToParent((parent) => { return parent.Width; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height; }));
-            relativeLayout.Children.Add(greetLayout,
-                Constraint.Constant(0),
-                Constraint.Constant(0),
-                Constraint.RelativeToParent((parent) => { return parent.Width; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height/2; }));
+           
             relativeLayout.Children.Add(contentLayout,
                 Constraint.Constant(0),
                 Constraint.Constant(0),

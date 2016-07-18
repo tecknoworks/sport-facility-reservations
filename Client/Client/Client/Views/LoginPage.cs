@@ -1,19 +1,21 @@
 ﻿using Client.ViewModels;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
-    class LoginView: ContentPage
+    public class LoginPage : ContentPage
     {
         public Image Img { get; set; }
         public LoginViewModel _viewModel;
         private Entry _usernameEntry;
-        public LoginView()
+        public LoginPage()
         {
             Title = "Login";
             Init();
@@ -21,8 +23,10 @@ namespace Client.Views
 
         private async Task Init()
         {
-            _viewModel = new LoginViewModel();
-            BindingContext = _viewModel;
+            var viewModel = App.Container.Resolve<LoginViewModel>();
+            
+            BindingContext = viewModel;
+
             Grid grid = new Grid
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
@@ -40,8 +44,8 @@ namespace Client.Views
                 ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = GridLength.Auto },
-        
-                
+
+
                 }
             };
 
@@ -52,7 +56,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(usernameLabel, 0,2);
+            grid.Children.Add(usernameLabel, 0, 2);
 
             var passwordLabel = new Label
             {
@@ -119,20 +123,7 @@ namespace Client.Views
             };
             grid.Children.Add(registerButton, 1, 7);
             registerButton.Clicked += Button_Clicked2;
-
-            //Content = new StackLayout
-            //{
-            //    Children =
-            //    {
-            //        usernameLabel,
-            //        _usernameEntry,
-            //        passwordLabel,
-            //        passwordEntry,
-            //        button,
-            //        registerLabel,
-            //        button2
-            //    }
-            //};
+            
             this.Content = grid;
         }
         private async void Button_Clicked(object sender, EventArgs e)
