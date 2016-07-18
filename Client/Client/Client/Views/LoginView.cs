@@ -83,7 +83,7 @@ namespace Client.Views
             grid.Children.Add(passwordEntry, 1, 3);
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
 
-            var button = new Button
+            var loginButton = new Button
             {
                 Text = "Login",
                 FontSize = 10,
@@ -93,8 +93,8 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(button, 1, 4);
-            button.Clicked += Button_Clicked;
+            grid.Children.Add(loginButton, 1, 4);
+            loginButton.Clicked += Button_Clicked;
 
             var registerLabel = new Label
             {
@@ -106,7 +106,7 @@ namespace Client.Views
             grid.Children.Add(registerLabel, 1, 6);
 
 
-            var button2 = new Button
+            var registerButton = new Button
             {
                 Text = "Register",
                 FontSize = 10,
@@ -117,8 +117,8 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand
 
             };
-            grid.Children.Add(button2, 1, 7);
-            button2.Clicked += Button_Clicked2;
+            grid.Children.Add(registerButton, 1, 7);
+            registerButton.Clicked += Button_Clicked2;
 
             //Content = new StackLayout
             //{
