@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Repository.Models;
- 
+using Repository.Domain;
+using Repository.Repositories;
 
 namespace Repository
 {
@@ -11,14 +12,15 @@ namespace Repository
     public class UnitOfWork : IUnitOfWork
     {
         //private readonly SportFacilityEntities1 context;
-        SportFacilityEntities1 _context = new SportFacilityEntities1();
-        public UnitOfWork()
-        {
-           
-            clientRepository = new ClientRepository(_context);
+        private readonly FacilityContext _context;
 
+        public UnitOfWork(FacilityContext context)
+        {
+            _context = context;
+            userRepository = new UserRepository(_context);
+           
         }
-        public IClientRepository clientRepository { get; }
+        public IUserRepository userRepository { get; }
 
 
         public int Complete()
