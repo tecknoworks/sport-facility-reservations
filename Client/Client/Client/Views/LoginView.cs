@@ -39,8 +39,7 @@ namespace Client.Views
                 },
                 ColumnDefinitions =
                 {
-                    new ColumnDefinition { Width = GridLength.Auto },
-        
+              
                 
                 }
             };
@@ -60,16 +59,16 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(passwordLabel, 0, 3);
+            grid.Children.Add(passwordLabel, 0, 4);
 
             _usernameEntry = new Entry
             {
-                Placeholder = "Fill in your username",
+                Placeholder = "Fill in your password",
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Keyboard = Keyboard.Default
             };
-            grid.Children.Add(_usernameEntry, 1, 2);
+            grid.Children.Add(_usernameEntry, 0, 3);
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
 
             var passwordEntry = new Entry
@@ -80,7 +79,7 @@ namespace Client.Views
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
-            grid.Children.Add(passwordEntry, 1, 3);
+            grid.Children.Add(passwordEntry, 0,5 );
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
 
             var button = new Button
@@ -93,7 +92,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(button, 1, 4);
+            grid.Children.Add(button, 0, 6);
             button.Clicked += Button_Clicked;
 
             var registerLabel = new Label
@@ -103,7 +102,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(registerLabel, 1, 6);
+            grid.Children.Add(registerLabel, 0, 7);
 
 
             var button2 = new Button
@@ -117,7 +116,7 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand
 
             };
-            grid.Children.Add(button2, 1, 7);
+            grid.Children.Add(button2, 0, 8);
             button2.Clicked += Button_Clicked2;
 
             //Content = new StackLayout
