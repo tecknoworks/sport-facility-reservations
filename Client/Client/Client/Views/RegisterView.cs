@@ -45,7 +45,7 @@ namespace Client.Views
 
             var lastName = new Entry
             {
-                Placeholder = "Last Name",
+                Placeholder = " Input",
                 Keyboard = Keyboard.Default,          
             };
             lastName.SetBinding(Entry.TextProperty, "LastName");
