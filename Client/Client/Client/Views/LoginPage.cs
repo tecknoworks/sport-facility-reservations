@@ -24,7 +24,7 @@ namespace Client.Views
         private async Task Init()
         {
             var viewModel = App.Container.Resolve<LoginViewModel>();
-            
+
             BindingContext = viewModel;
 
             Grid grid = new Grid
@@ -81,11 +81,6 @@ namespace Client.Views
             {
                 Text = "Login",
                 FontSize = 10,
-                BorderWidth = 1,
-                WidthRequest = 100,
-                HeightRequest = 30,
-                HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand
             };
             grid.Children.Add(loginButton, 0, 6);
             loginButton.Clicked += Button_Clicked;
@@ -94,7 +89,7 @@ namespace Client.Views
             {
                 Text = "Don't have an account?",
                 FontSize = 10,
-                HorizontalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             grid.Children.Add(registerLabel, 0, 7);
@@ -104,12 +99,6 @@ namespace Client.Views
             {
                 Text = "Register",
                 FontSize = 10,
-                WidthRequest = 100,
-                HeightRequest = 30,
-                BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-
             };
             grid.Children.Add(registerButton, 0, 8);
             registerButton.Clicked += Button_Clicked2;
