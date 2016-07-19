@@ -8,10 +8,10 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class SearchPageView: ContentPage
+    class SearchPage: ContentPage
     {
         private SearchPageViewModel _viewModel;
-        public SearchPageView()
+        public SearchPage()
         {
             Title = "Search page";
             Init();   

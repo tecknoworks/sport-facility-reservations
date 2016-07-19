@@ -107,15 +107,13 @@ namespace Client.Views
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var homePageView = new HomePageView($"Hello, {_usernameEntry.Text}");
+            var homePageView = new HomePage($"Hello, {_usernameEntry.Text}");
             await Navigation.PushAsync(homePageView);
-
         }
         private async void Button_Clicked2(object sender, EventArgs e)
         {
-            var homePageView = new RegisterView();
-            await Navigation.PushAsync(homePageView);
-
+            var registerPageView = new RegisterPage();
+            await Navigation.PushAsync(registerPageView);
         }
     }
 }

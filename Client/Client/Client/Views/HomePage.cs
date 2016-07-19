@@ -8,11 +8,11 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class HomePageView: ContentPage
+    class HomePage: ContentPage
     {
-        private HomePageViewModel _viewModel;
+        private HomeViewModel _viewModel;
         private string _greetingText;
-        public HomePageView(string greetingText)
+        public HomePage(string greetingText)
         {
             Title = "Home Page";
             _greetingText = greetingText;
@@ -21,7 +21,7 @@ namespace Client.Views
 
         public async Task Init()
         {
-            _viewModel = new HomePageViewModel();
+            _viewModel = new HomeViewModel();
             BindingContext = _viewModel;
             
             var label = new Label
@@ -96,7 +96,7 @@ namespace Client.Views
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var searchPageView = new SearchPageView();
+            var searchPageView = new SearchPage();
             await Navigation.PushAsync(searchPageView);
 
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Client.ViewModels
 {
     [ImplementPropertyChanged]
-    class HomePageViewModel
+    class HomeViewModel
     {
         public string GreetingText { get; set; }
     }
