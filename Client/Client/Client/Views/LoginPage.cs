@@ -24,7 +24,7 @@ namespace Client.Views
         private async Task Init()
         {
             var viewModel = App.Container.Resolve<LoginViewModel>();
-            
+
             BindingContext = viewModel;
 
             Grid grid = new Grid
@@ -39,21 +39,16 @@ namespace Client.Views
                     new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Auto },
+                    new RowDefinition { Height = GridLength.Auto },
                     new RowDefinition { Height = GridLength.Auto }
                 },
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition { Width = GridLength.Auto },
-
-
-                }
             };
 
 
             var usernameLabel = new Label
             {
                 Text = "Username",
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             grid.Children.Add(usernameLabel, 0, 2);
@@ -61,43 +56,33 @@ namespace Client.Views
             var passwordLabel = new Label
             {
                 Text = "Password",
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(passwordLabel, 0, 3);
+            grid.Children.Add(passwordLabel, 0, 4);
 
             _usernameEntry = new Entry
             {
-                Placeholder = "Fill in your username",
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
+
                 Keyboard = Keyboard.Default
             };
-            grid.Children.Add(_usernameEntry, 1, 2);
+            grid.Children.Add(_usernameEntry, 0, 3);
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
 
             var passwordEntry = new Entry
             {
-                Placeholder = "Fill in your password",
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
-            grid.Children.Add(passwordEntry, 1, 3);
+            grid.Children.Add(passwordEntry, 0, 5);
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
 
             var loginButton = new Button
             {
                 Text = "Login",
                 FontSize = 10,
-                BorderWidth = 1,
-                WidthRequest = 100,
-                HeightRequest = 30,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(loginButton, 1, 4);
+            grid.Children.Add(loginButton, 0, 6);
             //loginButton.SetBinding(Button.CommandProperty, "NavigateCommand");
             loginButton.Clicked += LoginButton_Clicked;
 
@@ -108,23 +93,17 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            grid.Children.Add(registerLabel, 1, 6);
+            grid.Children.Add(registerLabel, 0, 7);
 
 
             var registerButton = new Button
             {
                 Text = "Register",
                 FontSize = 10,
-                WidthRequest = 100,
-                HeightRequest = 30,
-                BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-
             };
-            grid.Children.Add(registerButton, 1, 7);
+            grid.Children.Add(registerButton, 0, 8);
             registerButton.Clicked += RegisterButton_Clicked;
-            
+
             this.Content = grid;
         }
         private async void LoginButton_Clicked(object sender, EventArgs e)

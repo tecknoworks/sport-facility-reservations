@@ -30,9 +30,7 @@ namespace Client.Views
             };
             var firstName = new Entry
             {
-                Placeholder = "Input",
-                Keyboard = Keyboard.Default
-               
+                Keyboard = Keyboard.Default           
             };
             firstName.SetBinding(Entry.TextProperty, "FirstName");
 
@@ -45,7 +43,6 @@ namespace Client.Views
 
             var lastName = new Entry
             {
-                Placeholder = "Last Name",
                 Keyboard = Keyboard.Default,          
             };
             lastName.SetBinding(Entry.TextProperty, "LastName");
@@ -58,7 +55,6 @@ namespace Client.Views
             };
             var username = new Entry
             {
-                Placeholder = "Input",
                 Keyboard = Keyboard.Default
             };
             firstName.SetBinding(Entry.TextProperty, "Username");
@@ -72,7 +68,6 @@ namespace Client.Views
 
             var phone = new Entry
             {
-                Placeholder = "Input",
                 Keyboard = Keyboard.Default            
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
@@ -86,7 +81,6 @@ namespace Client.Views
 
             var password = new Entry
             {
-                Placeholder = "Input",
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
@@ -96,12 +90,12 @@ namespace Client.Views
             {
                 Text = "Confirm Password",
                 HorizontalOptions = LayoutOptions.Start,
-               // VerticalOptions = LayoutOptions.CenterAndExpand
+                VerticalOptions = LayoutOptions.CenterAndExpand
+
             };
 
             var confirmPassword = new Entry
-            {
-                Placeholder = "Input",
+            {          
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
@@ -109,14 +103,21 @@ namespace Client.Views
             var buttonRegister = new Button
             {
                 Text = "Register",
-                BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Center,
+                 WidthRequest =100,
+                 HeightRequest =30,
+                FontSize = 10,
+
+            };
+
+            var labelType = new Label
+            {
+                Text = "Type",
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+
             var type = new Picker
-            {
-                Title = "Type",
-             
+            {                                           
             };
             type.Items.Add("Owner");
             type.Items.Add("Player");
@@ -136,7 +137,8 @@ namespace Client.Views
                     labelConfirmPassword,
                     confirmPassword,
                     labelPhone,
-                    phone, 
+                    phone,
+                    labelType,
                     type,
                     buttonRegister
                 }
