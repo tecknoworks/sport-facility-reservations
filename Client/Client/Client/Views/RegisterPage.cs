@@ -8,11 +8,11 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class RegisterView : ContentPage
+    class RegisterPage : ContentPage
     {
         public RegisterViewModel _viewModel;
 
-        public RegisterView()
+        public RegisterPage()
         {
             Title = "Register";
             Init();

@@ -1,4 +1,5 @@
 ﻿using Client.ViewModels;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,12 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class HomePageView: ContentPage
+    class HomePage: ContentPage
     {
-        private HomePageViewModel _viewModel;
+        private HomeViewModel _viewModel;
         private string _greetingText;
-        public HomePageView(string greetingText)
+
+        public HomePage(string greetingText)
         {
             Title = "Home Page";
             _greetingText = greetingText;
@@ -21,9 +23,11 @@ namespace Client.Views
 
         public async Task Init()
         {
-            _viewModel = new HomePageViewModel();
+            // Prism.Mvvm.ViewModelLocator.SetAutowireViewModel(true);
+            //var viewModel = App.Container.Resolve<HomeViewModel>();
+            _viewModel = new HomeViewModel();
             BindingContext = _viewModel;
-            
+
             var label = new Label
             {
                 Text = "your name",
@@ -96,7 +100,7 @@ namespace Client.Views
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var searchPageView = new SearchPageView();
+            var searchPageView = new SearchPage();
             await Navigation.PushAsync(searchPageView);
 
         }
