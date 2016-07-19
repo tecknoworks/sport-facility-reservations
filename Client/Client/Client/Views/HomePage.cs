@@ -13,7 +13,6 @@ namespace Client.Views
     {
         private HomeViewModel _viewModel;
         private string _greetingText;
-
         public HomePage(string greetingText)
         {
             Title = "Home Page";
