@@ -12,6 +12,15 @@ namespace Server.Controllers
         // GET: api/Default
         public IEnumerable<string> Get()
         {
+
+
+
+
+
+
+            var context = new Repository.Domain.FacilityContext();
+            var x = context.Users.ToList();
+
             return new string[] { "value1", "value2" };
         }
 
