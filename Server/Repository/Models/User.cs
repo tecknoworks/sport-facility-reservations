@@ -13,7 +13,7 @@ namespace Repository.Models
 
         public string Password { get; set; }
 
-        public string Teste { get; set; }
+        public string Test { get; set; }
 
         public virtual ICollection<Reservation> Reservations { get; set; }
     }

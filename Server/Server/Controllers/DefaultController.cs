@@ -18,6 +18,7 @@ namespace Server.Controllers
 
 
 
+
             var context = new Repository.Domain.FacilityContext();
             var x = context.Users.ToList();
 
