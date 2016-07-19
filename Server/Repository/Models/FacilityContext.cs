@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Repository.Domain;
+using Repository.Migrations;
 using Repository.Models;
 using Repository.Repositories;
 
@@ -15,8 +16,9 @@ namespace Repository.Domain
         public FacilityContext()
             : base("FacilityContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
+            //this.Configuration.LazyLoadingEnabled = false;
            // Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacilityContext, Repository.Migrations.Configuration>("FacilityContext"));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacilityContext, Configuration>("FacilityContext"));
         }
 
         public virtual DbSet<User> Users { get; set; }
