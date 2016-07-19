@@ -83,7 +83,8 @@ namespace Client.Views
                 FontSize = 10,
             };
             grid.Children.Add(loginButton, 0, 6);
-            loginButton.Clicked += Button_Clicked;
+            //loginButton.SetBinding(Button.CommandProperty, "NavigateCommand");
+            loginButton.Clicked += LoginButton_Clicked;
 
             var registerLabel = new Label
             {
@@ -101,16 +102,16 @@ namespace Client.Views
                 FontSize = 10,
             };
             grid.Children.Add(registerButton, 0, 8);
-            registerButton.Clicked += Button_Clicked2;
+            registerButton.Clicked += RegisterButton_Clicked;
 
             this.Content = grid;
         }
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void LoginButton_Clicked(object sender, EventArgs e)
         {
             var homePageView = new HomePage($"Hello, {_usernameEntry.Text}");
             await Navigation.PushAsync(homePageView);
         }
-        private async void Button_Clicked2(object sender, EventArgs e)
+        private async void RegisterButton_Clicked(object sender, EventArgs e)
         {
             var registerPageView = new RegisterPage();
             await Navigation.PushAsync(registerPageView);

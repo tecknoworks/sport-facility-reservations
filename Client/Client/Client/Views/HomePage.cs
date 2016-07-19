@@ -1,4 +1,5 @@
 ﻿using Client.ViewModels;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,11 @@ namespace Client.Views
 
         public async Task Init()
         {
+            // Prism.Mvvm.ViewModelLocator.SetAutowireViewModel(true);
+            //var viewModel = App.Container.Resolve<HomeViewModel>();
             _viewModel = new HomeViewModel();
             BindingContext = _viewModel;
-            
+
             var label = new Label
             {
                 Text = "your name",
