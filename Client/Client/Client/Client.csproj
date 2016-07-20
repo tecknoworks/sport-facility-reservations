@@ -46,7 +46,8 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SearchPageViewModel.cs" />
-    <Compile Include="ViewModels\SoccerFieldsView.cs" />
+    <Compile Include="ViewModels\SoccerFieldsViewModel.cs" />
+    <Compile Include="Views\SoccerFieldsView.cs" />
     <Compile Include="Views\HomePage.cs" />
     <Compile Include="Views\LoginPage.cs" />
     <Compile Include="Views\RegisterPage.cs" />

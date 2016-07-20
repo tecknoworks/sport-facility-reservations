@@ -11,13 +11,20 @@ namespace Client.Services
     {
         public string Login(string username, string password)
         {
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
+                return new ArgumentNullException("Fields must not be null", "username").ToString();
             return Guid.NewGuid().ToString();
         }
         public string Register(string username, string password, string phone, string type)
         {
             return Guid.NewGuid().ToString();
         }
+        
         //sa spuna da te-am inregistrat
         //exista deja un cont creat cu aceste date - TBD
+
+
+
+
     }
 }
