@@ -52,14 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201607190810108_UpdateUser.cs" />
-    <Compile Include="Migrations\201607190810108_UpdateUser.Designer.cs">
-      <DependentUpon>201607190810108_UpdateUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607190838064_InitialCreate.cs" />
-    <Compile Include="Migrations\201607190838064_InitialCreate.Designer.cs">
-      <DependentUpon>201607190838064_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FacilityContext.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
@@ -83,14 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607190810108_UpdateUser.resx">
-      <DependentUpon>201607190810108_UpdateUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607190838064_InitialCreate.resx">
-      <DependentUpon>201607190838064_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
