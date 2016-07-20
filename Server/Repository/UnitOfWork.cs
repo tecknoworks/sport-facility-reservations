@@ -20,7 +20,7 @@ namespace Repository
             userRepository = new UserRepository(_context);
            
         }
-        public IUserRepository userRepository { get; }
+        public IUserRepository userRepository { get; private set; }
 
 
         public int Complete()

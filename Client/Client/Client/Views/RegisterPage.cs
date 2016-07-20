@@ -93,14 +93,14 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-           
 
             _confirmPassword = new Entry
             {
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
-            _password.SetBinding(Entry.TextProperty, "ConfirmPassword");
+            _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
+            _confirmPassword.TextChanged += OnAlertClicked;
 
             var buttonRegister = new Button
             {
@@ -109,12 +109,7 @@ namespace Client.Views
                 HeightRequest = 30,
                 FontSize = 10,
             };
-            buttonRegister.SetBinding(Button.CommandProperty, "SubmitCommand");
-
-            //buttonRegister.Clicked += (sender, e) =>
-            //{
-            //    DisplayAlert("Account created", "Add processing login here", "OK");
-            //};
+            buttonRegister.Clicked += OnAlertClicked;
 
             var labelType = new Label
             {
@@ -151,7 +146,20 @@ namespace Client.Views
                 }
             };
         }
-        
+        private async void OnAlertClicked(object sender, EventArgs e)
+        {
+            if (_password.Text.Equals(_confirmPassword.Text))
+                await (DisplayAlert("Message", "Password completed", "OK"));
+            
+            else
+                await (DisplayAlert("Message", "Password deosn't match ", "Cancel"));
+
+        }
+       
+
+        //    DisplayAlert("Account created", "Add processing login here", "OK");
+
+
     }
 }
 
