@@ -24,46 +24,22 @@ namespace Server.Controllers
             return unitOfWork.userRepository.GetAll();
         }
 
-        //    // PUT: api/Login/5
-        //    [ResponseType(typeof(void))]
-        //public IHttpActionResult PutUser(int id, User user)
+
+        //// POST: api/Login
+        //[ResponseType(typeof(User))]
+        //public IHttpActionResult PostUser(User user)
         //{
         //    if (!ModelState.IsValid)
         //    {
         //        return BadRequest(ModelState);
         //    }
 
-        //    if (id != user.ID)
-        //    {
-        //        return BadRequest();
-        //    }
+        //    unitOfWork.userRepository.Add(user);
+        //   // unitOfWork.userRepository.SaveChanges();
 
-        //    unitOfWork.userRepository.Entry(user).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        unitOfWork.userRepository.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        //    return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
         //}
 
-        //      private bool UserExists(int id)
-        //     {
-        //        return unitOfWork.userRepository.Count(e => e.ID == id) > 0;
-        //     }
-
-        //        return StatusCode(HttpStatusCode.NoContent);
-        //    }
 
         //    // GET: api/Login/5
         //    [ResponseType(typeof(User))]
