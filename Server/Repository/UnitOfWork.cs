@@ -11,18 +11,17 @@ namespace Repository
 
     public class UnitOfWork : IUnitOfWork
     {
-        //private readonly SportFacilityEntities1 context;
-        private readonly FacilityContext _context;
 
-        public UnitOfWork(FacilityContext context)
-        {
+        //private readonly SportFacilityEntities1 context;
+        public  FacilityContext _context;
+        public UnitOfWork(FacilityContext context) {
             _context = context;
-            userRepository = new UserRepository(_context);
-           
+            userRepository=new UserRepository(_context);
         }
         public IUserRepository userRepository { get; }
 
 
+       
         public int Complete()
         {
             return _context.SaveChanges();
