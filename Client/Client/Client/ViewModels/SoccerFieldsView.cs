@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Widget;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace Client.ViewModels
 
         public async Task Init()
         {
+           
+
             var label = new Label
             {
                 Text = "Hello"
