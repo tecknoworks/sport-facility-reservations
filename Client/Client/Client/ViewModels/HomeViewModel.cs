@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Commander;
+using Prism.Mvvm;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace Client.ViewModels
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+
+        [OnCommand("SayHelloCommand")]
+        public async void OnSayHello()
+        {
         }
 
     }

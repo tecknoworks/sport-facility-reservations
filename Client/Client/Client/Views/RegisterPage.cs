@@ -11,7 +11,8 @@ namespace Client.Views
     class RegisterPage : ContentPage
     {
         public RegisterViewModel _viewModel;
-
+        Entry _password;
+        Entry _confirmPassword;
         public RegisterPage()
         {
             Title = "Register";
@@ -30,7 +31,7 @@ namespace Client.Views
             };
             var firstName = new Entry
             {
-                Keyboard = Keyboard.Default           
+                Keyboard = Keyboard.Default
             };
             firstName.SetBinding(Entry.TextProperty, "FirstName");
 
@@ -43,7 +44,7 @@ namespace Client.Views
 
             var lastName = new Entry
             {
-                Keyboard = Keyboard.Default,          
+                Keyboard = Keyboard.Default,
             };
             lastName.SetBinding(Entry.TextProperty, "LastName");
 
@@ -68,7 +69,7 @@ namespace Client.Views
 
             var phone = new Entry
             {
-                Keyboard = Keyboard.Default            
+                Keyboard = Keyboard.Default
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
 
@@ -79,35 +80,36 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            var password = new Entry
+            _password = new Entry
             {
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
-            phone.SetBinding(Entry.TextProperty, "Password");
+            _password.SetBinding(Entry.TextProperty, "Password");
 
             var labelConfirmPassword = new Label
             {
                 Text = "Confirm Password",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
-
             };
 
-            var confirmPassword = new Entry
-            {          
+            _confirmPassword = new Entry
+            {
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
+            _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
+            _confirmPassword.TextChanged += OnAlertClicked;
 
             var buttonRegister = new Button
             {
-                Text = "Register",
-                 WidthRequest =100,
-                 HeightRequest =30,
+                Text = "Submit",
+                WidthRequest = 100,
+                HeightRequest = 30,
                 FontSize = 10,
-
             };
+            buttonRegister.Clicked += OnAlertClicked;
 
             var labelType = new Label
             {
@@ -117,7 +119,7 @@ namespace Client.Views
             };
 
             var type = new Picker
-            {                                           
+            {
             };
             type.Items.Add("Owner");
             type.Items.Add("Player");
@@ -128,14 +130,14 @@ namespace Client.Views
                 {
                     labelFirstName,
                     firstName,
-                    labelLastName, 
+                    labelLastName,
                     lastName,
                     labelUsername,
                     username,
                     labelPassword,
-                    password,
+                    _password,
                     labelConfirmPassword,
-                    confirmPassword,
+                    _confirmPassword,
                     labelPhone,
                     phone,
                     labelType,
@@ -144,6 +146,20 @@ namespace Client.Views
                 }
             };
         }
+        private async void OnAlertClicked(object sender, EventArgs e)
+        {
+            if (_password.Text.Equals(_confirmPassword.Text))
+                await (DisplayAlert("Message", "Password completed", "OK"));
+            
+            else
+                await (DisplayAlert("Message", "Password deosn't match ", "Cancel"));
+
+        }
+       
+
+        //    DisplayAlert("Account created", "Add processing login here", "OK");
+
+
     }
 }
 

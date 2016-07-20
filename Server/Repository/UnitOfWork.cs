@@ -18,7 +18,7 @@ namespace Repository
             _context = context;
             userRepository=new UserRepository(_context);
         }
-        public IUserRepository userRepository { get; }
+        public IUserRepository userRepository { get; private set; }
 
 
        

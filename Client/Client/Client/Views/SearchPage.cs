@@ -10,6 +10,7 @@ namespace Client.Views
 {
     class SearchPage: ContentPage
     {
+        public static NavigationPage NavigationPage;
         private SearchPageViewModel _viewModel;
         public SearchPage()
         {
@@ -32,7 +33,9 @@ namespace Client.Views
                // WidthRequest = 300,
                // HeightRequest = 200
             };
-            soccerFields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { soccerFields.Opacity = 0.6; soccerFields.FadeTo(1); }));
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += OnTapGestureRecognizerTapped;
+            soccerFields.GestureRecognizers.Add(tapGestureRecognizer);
 
             var tennisLabel = new Label
             {
@@ -69,6 +72,11 @@ namespace Client.Views
                     squashfields
                 }
             };
+        }
+
+        public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
+        {
+           await Navigation.PushAsync(new SoccerFieldsView());
         }
 
         protected override void OnSizeAllocated(double width, double height)
