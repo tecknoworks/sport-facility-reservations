@@ -27,7 +27,7 @@ namespace Repository.Migrations
             new User{ID=3, Name="Carson2 Alexander", Password="clock2"},
             };
 
-            users.ForEach(s => context.Users.Add(s));
+            users.ForEach(s => context.Users.AddOrUpdate(s));
             context.SaveChanges();
             //  This method will be called after migrating to the latest version.
 
