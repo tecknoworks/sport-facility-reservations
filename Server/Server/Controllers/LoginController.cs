@@ -18,6 +18,7 @@ namespace Server.Controllers
     {
         // public FacilityContext _context = new FacilityContext();
         public UnitOfWork unitOfWork = new UnitOfWork(new FacilityContext());
+        
         // GET: api/Login
         public IEnumerable<User> GetUsers()
         {
@@ -25,20 +26,49 @@ namespace Server.Controllers
         }
 
 
-        //// POST: api/Login
-        //[ResponseType(typeof(User))]
-        //public IHttpActionResult PostUser(User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // POST: api/Login/post
+        [ResponseType(typeof(User))]
+        [ActionName("Add")]
+        public IHttpActionResult PostUser(int id,string name,string password)
+        {
+           
 
-        //    unitOfWork.userRepository.Add(user);
-        //   // unitOfWork.userRepository.SaveChanges();
+            User user = new User {ID = id, Name = name, Password = password };
+          //  var users = unitOfWork.userRepository.GetAll();
+            unitOfWork.userRepository.Add(user);
+            unitOfWork.Complete();
 
-        //    return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
-        //}
+            //foreach (User i in users)
+            //    if (i.Name.Equals(user.Name))
+            //    {
+
+            //        unitOfWork.userRepository.Add(user);
+            //        unitOfWork.Complete();
+            //        return Ok(User);
+
+
+            //       }
+
+            //// unitOfWork.userRepository.SaveChanges();
+            ////return Ok(User);
+
+
+            return ResponseMessage( Request.CreateResponse(HttpStatusCode.BadRequest,user));
+        }
+
+        //GET: api/Login/5
+        [ActionName("GetBy")]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
+        {
+            User user = unitOfWork.userRepository.Get(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
 
 
         //    // GET: api/Login/5
@@ -120,5 +150,7 @@ namespace Server.Controllers
         //        return db.Users.Count(e => e.ID == id) > 0;
         //    }
         //}
+
+   
     }
 }
