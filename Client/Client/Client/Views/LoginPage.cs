@@ -20,7 +20,6 @@ namespace Client.Views
             Title = "Login";
             Init();
         }
-
         private async Task Init()
         {
             var viewModel = App.Container.Resolve<LoginViewModel>();
@@ -43,7 +42,6 @@ namespace Client.Views
                     new RowDefinition { Height = GridLength.Auto }
                 },
             };
-
 
             var usernameLabel = new Label
             {
