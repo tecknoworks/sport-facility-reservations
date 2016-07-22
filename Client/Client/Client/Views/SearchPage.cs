@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class SearchPage: ContentPage
+    public class SearchPage: ContentPage
     {
         public static NavigationPage NavigationPage;
         private SearchPageViewModel _viewModel;

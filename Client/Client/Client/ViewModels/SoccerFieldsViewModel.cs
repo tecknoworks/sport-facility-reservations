@@ -10,6 +10,10 @@ namespace Client.ViewModels
     class SoccerFieldsViewModel
     {
         IServiceClient _serviceClient;
-
+       
+        public SoccerFieldsViewModel(IServiceClient serviceClient)
+        {
+            _serviceClient = serviceClient;
+        }
     }
 }
