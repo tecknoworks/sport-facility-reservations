@@ -86,7 +86,7 @@ namespace Client.Views
             _password = new Entry
             {
                 Keyboard = Keyboard.Default,
-                IsPassword = true
+                IsPassword = true,
             };
             _password.SetBinding(Entry.TextProperty, "Password");
 
@@ -120,9 +120,9 @@ namespace Client.Views
             var type = new Picker
             {
             };
-            type.Items.Add("Owner");    // 0 = PICKER_OWNER_INDEX
+            type.Items.Add("Owner");  // 0 = PICKER_OWNER_INDEX
             type.Items.Add("Player");
-            // type.SetBinding(Picker.SelectedIndexProperty, "IndexType");
+            type.SetBinding(Picker.SelectedIndexProperty, "IndexType");
 
             var labelField = new Label
             {
@@ -133,15 +133,14 @@ namespace Client.Views
 
             var fieldName = new Label
             {
-                Text = "Name",
+                Text = "Field Name",
                 HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            fieldName.SetBinding(Label.TextProperty, "FieldName");
 
             var fieldNameEntry = new Entry
             {
-                Keyboard = Keyboard.Default,
+                Keyboard = Keyboard.Default
             };
 
             var fieldDimension = new Label
@@ -151,6 +150,30 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
+            var labelLungime = new Label
+            {
+                Text = "Length",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var entryLungime = new Entry
+            {
+                Keyboard = Keyboard.Numeric
+            };
+
+            var labelLatime = new Label
+            {
+                Text = "Width",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var entryLatime = new Entry
+            {
+                Keyboard = Keyboard.Numeric
+            };
+
             var fieldAvailability = new Label
             {
                 Text = "Availabity",
@@ -158,19 +181,44 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
+            var time1 = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+            var time2 = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+
             var price = new Label
             {
                 Text = "Price",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
-
-            var city = new Label
+            var priceEntry= new Entry
             {
-                Text = "City",
+                Keyboard = Keyboard.Default
+            };
+
+            var adress = new Label
+            {
+                Text = "Adress",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
+            var adressEntry = new Entry
+            {
+                Keyboard = Keyboard.Default
+            };
+
+            var sportsLabel = new Label
+            {
+                Text = "Sports",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+
+            var sports = new Picker
+            {
+            };
+            sports.Items.Add("Football");
+            sports.Items.Add("Tennis");
+
 
             var layout = new StackLayout
             {
@@ -195,11 +243,21 @@ namespace Client.Views
             var ownerLayout = new StackLayout() { Orientation = StackOrientation.Vertical, IsVisible = false };
 
             ownerLayout.Children.Add(labelField);
+            ownerLayout.Children.Add(sportsLabel);
+            ownerLayout.Children.Add(sports);
             ownerLayout.Children.Add(fieldName);
             ownerLayout.Children.Add(fieldNameEntry);
+            ownerLayout.Children.Add(adress);
+            ownerLayout.Children.Add(adressEntry);
             ownerLayout.Children.Add(fieldDimension);
+            ownerLayout.Children.Add(labelLungime);
+            ownerLayout.Children.Add(entryLungime);
+            ownerLayout.Children.Add(labelLatime);
+            ownerLayout.Children.Add(entryLatime);
             ownerLayout.Children.Add(fieldAvailability);
-            ownerLayout.Children.Add(city);
+            ownerLayout.Children.Add(time1);
+            ownerLayout.Children.Add(time2);
+            ownerLayout.Children.Add(price);
 
             ownerLayout.SetBinding(StackLayout.IsVisibleProperty, "IsOwner");
 
@@ -218,7 +276,7 @@ namespace Client.Views
         private async void OnAlertClicked(object sender, EventArgs e)
         {
             if (_password.Text.Equals(_confirmPassword.Text))
-                await (DisplayAlert("Message", "Password completed", "OK"));
+                await (DisplayAlert("Message", "Password Match", "OK"));
 
             else
                 await (DisplayAlert("Message", "Password deosn't match ", "Cancel"));

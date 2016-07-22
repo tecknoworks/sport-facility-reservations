@@ -21,28 +21,6 @@ namespace Client.ViewModels
         public int IndexType{ get; set; }
         public bool IsOwner { get; set; }
         public string FieldName { get; set; }
-    //    {
-    //        get { return NameFieldVisibility; }
-    //set
-    //        {
-    //            if (IndexType == 0) return ;
-    //            NameFieldVisibility =value;
-    //        }
-
-    //    }
-
-
-        
-
-
-
-        //[OnCommand("Command")]
-        //public void Command()
-        //{
-        //    NameField = $"Hello";
-
-        //}
-
-
+         
     }
 }

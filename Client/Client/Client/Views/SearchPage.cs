@@ -76,7 +76,6 @@ namespace Client.Views
 
         public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
         {
-           await Navigation.PushAsync(new SoccerFieldsView());
         }
 
         protected override void OnSizeAllocated(double width, double height)
