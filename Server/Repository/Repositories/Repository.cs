@@ -51,6 +51,7 @@ namespace Repository.Repositories
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
+            Context.SaveChanges();
         }
 
         

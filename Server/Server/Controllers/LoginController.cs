@@ -18,27 +18,43 @@ namespace Server.Controllers
     {
         // public FacilityContext _context = new FacilityContext();
         public UnitOfWork unitOfWork = new UnitOfWork(new FacilityContext());
+
         // GET: api/Login
+        [HttpGet]
         public IEnumerable<User> GetUsers()
         {
             return unitOfWork.userRepository.GetAll();
         }
 
 
-        //// POST: api/Login
-        //[ResponseType(typeof(User))]
-        //public IHttpActionResult PostUser(User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // POST: api/Login/post
 
-        //    unitOfWork.userRepository.Add(user);
-        //   // unitOfWork.userRepository.SaveChanges();
+        [HttpPost()]     
+        [ResponseType(typeof(User))]
+        //[ActionName("Add")]
+        public void PostUser(User user)
+        {
 
-        //    return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
-        //}
+
+            unitOfWork.userRepository.Add(user);
+            unitOfWork.Complete();
+
+        }
+
+        //GET: api/Login/5
+        //[ActionName("GetBy")]
+        [HttpGet]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
+        {
+            User user = unitOfWork.userRepository.Get(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
 
 
         //    // GET: api/Login/5
@@ -120,5 +136,7 @@ namespace Server.Controllers
         //        return db.Users.Count(e => e.ID == id) > 0;
         //    }
         //}
+
+   
     }
 }
