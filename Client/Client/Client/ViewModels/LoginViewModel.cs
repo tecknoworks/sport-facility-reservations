@@ -1,5 +1,6 @@
 ﻿using Client.Services.Interfaces;
 using Client.Views;
+using Commander;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -18,8 +19,8 @@ namespace Client.ViewModels
         private readonly IServiceClient _serviceClient;
         private readonly INavigationService _navigationService;
 
-        private string Username { get; set; }
-        private string Password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         string _title = "Login Page";
         public string Title
@@ -35,16 +36,26 @@ namespace Client.ViewModels
             set { SetProperty(ref _canNavigate, value); }
         }
 
-        public DelegateCommand NavigateCommand { get; set; }
+      //  public DelegateCommand NavigateCommand { get; set; }
 
         // TODO: Make it work when we have time
         public LoginViewModel(IServiceClient serviceClient/*, INavigationService navigationService*/)
         {
             _serviceClient = serviceClient;
+            Username = "";
+            Password = "";
             //_navigationService = navigationService;
             //NavigateCommand = new DelegateCommand(Navigate);//.ObservesCanExecute((vm) => CanNavigate);
             // TODO: create a method for login (ICommand style) and call the line above
             //_serviceClient.Login(Username, Password);
+        }
+
+       
+
+        [OnCommand("CheckCommand")]
+        public void OnCheck()
+        {
+            _serviceClient.Login(Username, Password);
         }
 
         //public void Navigate()
@@ -53,7 +64,7 @@ namespace Client.ViewModels
         //    _navigationService.Navigate("HomePage");
         //    //CanNavigate = true;
         //}
-        
-        
+
+
     }
 }

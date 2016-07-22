@@ -14,13 +14,14 @@ namespace Client.Views
     {
         public Image Img { get; set; }
         public LoginViewModel _viewModel;
-        private Entry _usernameEntry;
+        public Entry _usernameEntry;
         public LoginPage()
         {
             Title = "Login";
             Init();
         }
-        private async Task Init()
+
+        public async Task Init()
         {
             var viewModel = App.Container.Resolve<LoginViewModel>();
 
@@ -43,6 +44,7 @@ namespace Client.Views
                 },
             };
 
+
             var usernameLabel = new Label
             {
                 Text = "Username",
@@ -64,16 +66,16 @@ namespace Client.Views
 
                 Keyboard = Keyboard.Default
             };
-            grid.Children.Add(_usernameEntry, 0, 3);
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
+            grid.Children.Add(_usernameEntry, 0, 3);
 
             var passwordEntry = new Entry
             {
                 Keyboard = Keyboard.Default,
                 IsPassword = true
             };
-            grid.Children.Add(passwordEntry, 0, 5);
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
+            grid.Children.Add(passwordEntry, 0, 5);
 
             var loginButton = new Button
             {
@@ -81,7 +83,7 @@ namespace Client.Views
                 FontSize = 10,
             };
             grid.Children.Add(loginButton, 0, 6);
-            //loginButton.SetBinding(Button.CommandProperty, "NavigateCommand");
+            loginButton.SetBinding(Button.CommandProperty, "CheckCommand");
             loginButton.Clicked += LoginButton_Clicked;
 
             var registerLabel = new Label
