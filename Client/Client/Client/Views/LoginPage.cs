@@ -83,7 +83,6 @@ namespace Client.Views
                 FontSize = 10,
             };
             grid.Children.Add(loginButton, 0, 6);
-            loginButton.SetBinding(Button.CommandProperty, "CheckCommand");
             loginButton.Clicked += LoginButton_Clicked;
 
             var registerLabel = new Label
@@ -108,6 +107,8 @@ namespace Client.Views
         }
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
+            _viewModel.OnCheck();
+
             var homePageView = new HomePage($"Hello, {_usernameEntry.Text}");
 
             if (string.IsNullOrEmpty(_viewModel.Token))

@@ -28,7 +28,6 @@ namespace Client.Views
             };
             var soccerFields = new Image
             {
-                BackgroundColor = Color.Yellow,
                 Source = "football_field.jpg",
                // WidthRequest = 300,
                // HeightRequest = 200
@@ -47,7 +46,9 @@ namespace Client.Views
                // WidthRequest = 300,
                // HeightRequest = 200
             };
-            tennisFields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { tennisFields.Opacity = 0.6; tennisFields.FadeTo(1); }));
+            var tapGestureRecognizer2 = new TapGestureRecognizer();
+            tapGestureRecognizer2.Tapped += OnTapGestureRecognizerTapped2;
+            tennisFields.GestureRecognizers.Add(tapGestureRecognizer2);
 
             var squashlabel = new Label
             {
@@ -55,7 +56,6 @@ namespace Client.Views
             };
             var squashfields = new Image
             {
-                BackgroundColor = Color.Red,
                 Source = "squash2.jpg",
                // WidthRequest = 300,
                // HeightRequest = 200
@@ -64,7 +64,6 @@ namespace Client.Views
 
             Content = new StackLayout
             {
-                BackgroundColor = Color.Accent,
                 Children =
                 {
                     soccerFields,
@@ -77,6 +76,11 @@ namespace Client.Views
         public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
         {
             await Navigation.PushAsync(new SoccerFieldsView());
+        }
+
+        public async void OnTapGestureRecognizerTapped2(object sender, EventArgs args)
+        {
+            await Navigation.PushAsync(new OwnerHomePage());
         }
 
         protected override void OnSizeAllocated(double width, double height)

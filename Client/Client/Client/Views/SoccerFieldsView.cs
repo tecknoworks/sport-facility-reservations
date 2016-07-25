@@ -74,6 +74,7 @@ namespace Client.ViewModels
                 Text = "Dimension"
             };
             grid.Children.Add(dimensionLabel, 0, 2);
+           
             
 
             var cityLabel = new Label
