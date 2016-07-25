@@ -26,12 +26,12 @@ namespace Server.Controllers
         {
             return unitOfWork.userRepository.GetAll();
         }
-        
+
         [Route("GetUserById")]
         public IHttpActionResult GetUserById(int id)
         {
             var user = GetUsers().FirstOrDefault((p) => p.ID == id);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -41,25 +41,15 @@ namespace Server.Controllers
         [Route("GetUserByName")]
         public IHttpActionResult GetUserByName(string name, string password)
         {
-            var userr = GetUsers().FirstOrDefault((q) => q.Name.Equals(name)&& q.Password.Equals(password));
-            if(userr == null)
+            var userr = GetUsers().FirstOrDefault((q) => q.Name.Equals(name) && q.Password.Equals(password));
+            if (userr == null)
             {
                 return NotFound();
             }
             return Ok(userr);
         }
-        
-       [HttpPut]
-        public void Put(string name/*, string password*/)
-        {
-
-            User user1 = new User();
-            user1.Name = name;
-           // user1.Password = password;
-            unitOfWork.userRepository.Add(user1);
-            // FacilityContext.Users.AddOrUpdate(user1);
-            
-        }
+     
+      
 
         //[Route("CreateUser")]
         //public IHttpActionResult CreateUser(int id, string name, string password, bool status)
@@ -94,25 +84,30 @@ namespace Server.Controllers
             return Ok(user2);
 
         }
-        //// POST: api/Login
-        //[ResponseType(typeof(User))]
-        //public IHttpActionResult PostUser(User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        [HttpPost()]     
+        [HttpPost]
         [ResponseType(typeof(User))]
         //[ActionName("Add")]
-        public void PostUser(User user)
+        public HttpResponseMessage PostUser(User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            IEnumerable<User> users = GetUsers();
+            foreach (User user1 in users)
+            {
+                if (user1.UserName.Equals(user.UserName))
+                {
+                    var message = string.Format("User Name {0} is taken ", user.UserName);
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
 
-
-            unitOfWork.userRepository.Add(user);
-            unitOfWork.Complete();
-
+                }
+            }
+                unitOfWork.userRepository.Add(user);
+                unitOfWork.Complete();
+                return Request.CreateResponse(HttpStatusCode.OK, user);
+            
         }
 
         //GET: api/Login/5
@@ -211,6 +206,6 @@ namespace Server.Controllers
         //    }
         //}
 
-   
+
     }
 }
