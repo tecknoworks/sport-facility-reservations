@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
@@ -12,8 +13,8 @@ namespace Client.Views
     {
         private const int PICKER_OWNER_INDEX = 0;
         public RegisterViewModel _viewModel;
-        Entry _password;
-        Entry _confirmPassword;
+        public  Entry _password;
+        public Entry _confirmPassword;
         public RegisterPage()
         {
             Title = "Register";
@@ -21,7 +22,7 @@ namespace Client.Views
         }
         public async Task Init()
         {
-            _viewModel = new RegisterViewModel();
+            _viewModel = App.Container.Resolve<RegisterViewModel>();
             BindingContext = _viewModel;
 
             var labelFirstName = new Label
@@ -61,7 +62,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default
             };
-            firstName.SetBinding(Entry.TextProperty, "Username");
+            username.SetBinding(Entry.TextProperty, "Username");
 
             var labelPhone = new Label
             {
@@ -108,8 +109,7 @@ namespace Client.Views
             {
                 Text = "Submit"
             };
-
-            buttonRegister.Clicked += OnAlertClicked;
+            
 
             var labelType = new Label
             {
@@ -117,6 +117,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            
 
             var type = new Picker
             {
@@ -183,7 +184,7 @@ namespace Client.Views
             };
 
             var startTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
-            var endTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+            var stopTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
 
             var price = new Label
             {
@@ -191,7 +192,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
-            var priceEntry= new Entry
+            var priceEntry = new Entry
             {
                 Keyboard = Keyboard.Default
             };
@@ -257,7 +258,7 @@ namespace Client.Views
             ownerLayout.Children.Add(entryLatime);
             ownerLayout.Children.Add(fieldAvailability);
             ownerLayout.Children.Add(startTime);
-            ownerLayout.Children.Add(endTime);
+            ownerLayout.Children.Add(stopTime);
             ownerLayout.Children.Add(price);
             ownerLayout.Children.Add(priceEntry);
 
@@ -270,6 +271,7 @@ namespace Client.Views
 
             layout.Children.Add(ownerLayout);
             layout.Children.Add(buttonRegister);
+            buttonRegister.Clicked += OnAlertClicked;
 
             var scrollView = new ScrollView { Content = layout };
             Content = scrollView;
@@ -277,13 +279,22 @@ namespace Client.Views
 
         private async void OnAlertClicked(object sender, EventArgs e)
         {
-            if (_password.Text.Equals(_confirmPassword.Text))
+            _viewModel.OnReg();
+            if (string.IsNullOrEmpty(_viewModel.Token))
+            {
+                await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
+            }
+
+            else if (_password.Text.Equals(_confirmPassword.Text))
                 await (DisplayAlert("Message", "Password Match", "OK"));
 
             else
                 await (DisplayAlert("Message", "Password deosn't match ", "Cancel"));
-        }
 
+
+
+            }
+        }
     }
-}
+
 

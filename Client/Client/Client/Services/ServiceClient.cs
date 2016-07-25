@@ -8,7 +8,7 @@ using Client.Models;
 
 namespace Client.Services
 {
-    class ServiceClient: IServiceClient
+    public class ServiceClient: IServiceClient
     {
         public string Login(string username, string password)
         {
@@ -17,8 +17,11 @@ namespace Client.Services
 
             return Guid.NewGuid().ToString();
         }
-        public string Register(string username, string password, string phone, string type)
+        public string Register(string username, string password, string confirmPassword)// string phone, int type, string sport, string nameSports, string adress, int lungime, int latime, DateTime startTime, DateTime stopTime, int price)
         {
+            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password)|| String.IsNullOrWhiteSpace(confirmPassword) ) //|| String.IsNullOrEmpty(phone) || type.Equals(null) || String.IsNullOrEmpty(sport) || String.IsNullOrWhiteSpace(nameSports) || String.IsNullOrEmpty(adress)|| lungime.Equals(null) || latime.Equals(null) || startTime.Equals(null)|| stopTime.Equals(null) || price.Equals(null))
+                throw new ArgumentNullException("Fields must not be null", nameof(username));
+
             return Guid.NewGuid().ToString();
         }
 
