@@ -22,6 +22,19 @@ namespace Client.Services
             return Guid.NewGuid().ToString();
         }
 
+        public List<Fields> Search(string name, string city)
+        {
+            List<Fields> fieldsList = FieldsSeeder.GetData();
+            List<Fields> display = new List<Fields>();
+            foreach (Fields item in fieldsList)
+            {
+                if (item.Name.Equals(name) && item.City.Equals(city))
+                    display.Add(item);
+            }
+
+            return display;
+        }
+
         public List<Fields> Search(string filter)
         {
             List<Fields> fieldsList = FieldsSeeder.GetData();
@@ -34,6 +47,8 @@ namespace Client.Services
 
             return display;
         }
+
+        
 
         //sa spuna da te-am inregistrat
         //exista deja un cont creat cu aceste date - TBD

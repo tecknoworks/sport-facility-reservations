@@ -1,4 +1,5 @@
 ﻿using Commander;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,14 +9,18 @@ using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
-    class RegisterViewModel
+    [ImplementPropertyChanged]
+    public class RegisterViewModel
     {
-        private string Label { get; set; }
-        private string Username { get; set; }
-        private string FirstName { get; set; }
-        private string LastName { get; set; }
-        private string Phone { get; set; }
-        private string Password { get; set; }
-        private string ConfimrPassword { get; set; }
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
+        public string Password { get; set; }
+        public string ConfimrPassword { get; set; }
+        public int IndexType{ get; set; }
+        public bool IsOwner { get; set; }
+        public string FieldName { get; set; }
+         
     }
 }

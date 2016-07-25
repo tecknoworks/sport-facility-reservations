@@ -9,8 +9,8 @@ namespace Client.Models
     public class Fields
     {
         public string Name { get; set; }
-        private List<DateTime> Availability { get; set; }
-        private string City { get; set; }
+        public List<DateTime> Availability { get; set; }
+        public string City { get; set; }
 
         public Fields(string Name, List<DateTime> Availability, string City)
         {
