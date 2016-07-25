@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Client.Services
 {
-    class FieldsSeeder
+    public class FieldsSeeder
     {
         internal static List<Fields> GetData()
         {

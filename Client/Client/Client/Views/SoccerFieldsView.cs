@@ -67,6 +67,7 @@ namespace Client.ViewModels
 
             };
             grid.Children.Add(nameEntry, 1, 1);
+            nameEntry.SetBinding(Entry.TextProperty, "Name");
 
             var dimensionLabel = new Label
             {
@@ -86,6 +87,7 @@ namespace Client.ViewModels
                 Keyboard = Keyboard.Default
             };
             grid.Children.Add(cityEntry, 1, 3);
+            cityEntry.SetBinding(Entry.TextProperty, "City");
 
             var searchButton = new Button
             {
@@ -93,6 +95,7 @@ namespace Client.ViewModels
                 FontSize = 10
             };
             grid.Children.Add(searchButton, 1, 4);
+            searchButton.SetBinding(Button.CommandProperty, "SearchCommand");
 
             Content = grid;
 
