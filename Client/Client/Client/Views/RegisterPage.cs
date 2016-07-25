@@ -108,6 +108,7 @@ namespace Client.Views
             {
                 Text = "Submit"
             };
+
             buttonRegister.Clicked += OnAlertClicked;
 
             var labelType = new Label
@@ -181,8 +182,8 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            var time1 = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
-            var time2 = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+            var startTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+            var endTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
 
             var price = new Label
             {
@@ -255,9 +256,10 @@ namespace Client.Views
             ownerLayout.Children.Add(labelLatime);
             ownerLayout.Children.Add(entryLatime);
             ownerLayout.Children.Add(fieldAvailability);
-            ownerLayout.Children.Add(time1);
-            ownerLayout.Children.Add(time2);
+            ownerLayout.Children.Add(startTime);
+            ownerLayout.Children.Add(endTime);
             ownerLayout.Children.Add(price);
+            ownerLayout.Children.Add(priceEntry);
 
             ownerLayout.SetBinding(StackLayout.IsVisibleProperty, "IsOwner");
 
