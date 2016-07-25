@@ -1,4 +1,5 @@
-﻿using Client.Views;
+﻿using Client.Services.Interfaces;
+using Client.Views;
 using Commander;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
-    class SearchPageViewModel
+    public class SearchPageViewModel
     {
-
+        
     }
 }

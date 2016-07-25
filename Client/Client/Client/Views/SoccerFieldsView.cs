@@ -1,15 +1,16 @@
-﻿using Android.Widget;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
 
 namespace Client.ViewModels
 {
     public class SoccerFieldsView: ContentPage
     {
+        SoccerFieldsViewModel _viewModel;
         public SoccerFieldsView()
         {
             Title = "Soccer Field";
@@ -18,6 +19,9 @@ namespace Client.ViewModels
 
         public async Task Init()
         {
+
+            _viewModel = App.Container.Resolve<SoccerFieldsViewModel>();
+            BindingContext = _viewModel;
 
             Grid grid = new Grid
             {
@@ -38,6 +42,19 @@ namespace Client.ViewModels
             };
             grid.Children.Add(availabilityLabel, 0, 0);
 
+            var datePicker = new DatePicker
+            {
+                Format = "D",
+                VerticalOptions= LayoutOptions.CenterAndExpand
+            };
+            grid.Children.Add(datePicker, 1, 0);
+
+            var timePicker = new TimePicker
+            {
+                Format = "T"
+            };
+            grid.Children.Add(timePicker, 2, 0);
+
             var nameLabel = new Label
             {
                 Text = "Name"
@@ -46,7 +63,8 @@ namespace Client.ViewModels
 
             var nameEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+
             };
             grid.Children.Add(nameEntry, 1, 1);
 
@@ -61,13 +79,23 @@ namespace Client.ViewModels
             {
                 Text = "City"
             };
+            grid.Children.Add(cityLabel, 0, 3);
 
             var cityEntry = new Entry
             {
                 Keyboard = Keyboard.Default
             };
+            grid.Children.Add(cityEntry, 1, 3);
+
+            var searchButton = new Button
+            {
+                Text = "Search",
+                FontSize = 10
+            };
+            grid.Children.Add(searchButton, 1, 4);
 
             Content = grid;
+
         }
     }
 }

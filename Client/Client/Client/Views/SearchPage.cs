@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Client.Views
 {
-    class SearchPage: ContentPage
+    public class SearchPage: ContentPage
     {
         public static NavigationPage NavigationPage;
         private SearchPageViewModel _viewModel;
@@ -76,6 +76,7 @@ namespace Client.Views
 
         public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
         {
+           await Navigation.PushAsync(new SoccerFieldsView());
         }
 
         protected override void OnSizeAllocated(double width, double height)

@@ -21,6 +21,8 @@ namespace Client.ViewModels
 
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Token { get; set; }
+        public string LoginMessage { get; set; }
 
         string _title = "Login Page";
         public string Title
@@ -55,7 +57,14 @@ namespace Client.ViewModels
         [OnCommand("CheckCommand")]
         public void OnCheck()
         {
-            _serviceClient.Login(Username, Password);
+            try
+            {
+                Token = _serviceClient.Login(Username, Password);
+            }
+            catch(ArgumentNullException)
+            {
+                LoginMessage = "Unable to log in. Username or password is empty.";  
+            }
         }
 
         //public void Navigate()

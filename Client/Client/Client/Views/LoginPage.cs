@@ -23,9 +23,9 @@ namespace Client.Views
 
         public async Task Init()
         {
-            var viewModel = App.Container.Resolve<LoginViewModel>();
+            _viewModel = App.Container.Resolve<LoginViewModel>();
 
-            BindingContext = viewModel;
+            BindingContext = _viewModel;
 
             Grid grid = new Grid
             {
@@ -109,6 +109,13 @@ namespace Client.Views
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
             var homePageView = new HomePage($"Hello, {_usernameEntry.Text}");
+
+            if (string.IsNullOrEmpty(_viewModel.Token))
+            {
+                await DisplayAlert("Warning", _viewModel.LoginMessage, "OK");
+                return;
+            }
+
             await Navigation.PushAsync(homePageView);
         }
         private async void RegisterButton_Clicked(object sender, EventArgs e)
