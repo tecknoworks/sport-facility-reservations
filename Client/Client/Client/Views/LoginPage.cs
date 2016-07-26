@@ -126,7 +126,8 @@ namespace Client.Views
                await Navigation.PushAsync(homePageView);
             }
 
-           // else await Navigation.PushAsync(homePageView);
+            else await DisplayAlert("Warning", _viewModel.Token, "OK");
+            return;
         }
         private async void RegisterButton_Clicked(object sender, EventArgs e)
         {

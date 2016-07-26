@@ -16,8 +16,9 @@ namespace Client.Services
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
             //User user = new User(username, password);
             List<User> userList = UserSeeder.GetData();
-            foreach(User item in userList)
-                if (item.Username.Equals(username)&& item.Password.Equals(password))
+            foreach (User item in userList)
+            {
+                if (item.Username.Equals(username) && item.Password.Equals(password))
                 {
                     if (item.Type)
                         return "ok";
@@ -25,7 +26,8 @@ namespace Client.Services
                         return "not";
                 }
 
-            return Guid.NewGuid().ToString();
+            }
+            return "Non-existent user";
         }
         public string Register(string username, string password, string confirmPassword)// string phone, int type, string sport, string nameSports, string adress, int lungime, int latime, DateTime startTime, DateTime stopTime, int price)
         {
