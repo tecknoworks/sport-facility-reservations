@@ -12,6 +12,14 @@ namespace Client.Views
         public ReservationPage()
         {
             Title = "Reservation Page";
+            Init();
+        }
+
+        public async Task Init()
+        {
+            var reservationList = new ListView();
+            reservationList.ItemsSource = new List<String>() { "R1", "R2", "R3" };
+            Content = reservationList;
         }
     }
 }

@@ -6,30 +6,34 @@ using System.Threading.Tasks;
 
 namespace Client.Models
 {
-    public class Fields
+    public class Field
     {
         public string Name { get; set; }
         public List<DateTime> Availability { get; set; }
         public string City { get; set; }
 
-        public Fields(string Name, List<DateTime> Availability, string City)
+        public Field()
+        {
+
+        }
+        public Field(string Name, List<DateTime> Availability, string City)
         {
             this.Name = Name;
             this.Availability = Availability;
             this.City = City;
         }
 
-        public Fields(string Name)
+        public Field(string Name)
         {
             this.Name = Name;
         }
 
-        public Fields(List<DateTime> Availability)
+        public Field(List<DateTime> Availability)
         {
             this.Availability = Availability;
         }
         
-        public Fields(string Name, string City)
+        public Field(string Name, string City)
         {
             this.Name = Name;
             this.City = City;

@@ -13,7 +13,7 @@ namespace Client.ViewModels
     {
         public string Name { get; set; }
         public string City { get; set; }
-        public List<Fields> Token { get; set; }
+        public List<Field> Token { get; set; }
         IServiceClient _serviceClient;
 
         public SoccerFieldsViewModel(IServiceClient serviceClient)

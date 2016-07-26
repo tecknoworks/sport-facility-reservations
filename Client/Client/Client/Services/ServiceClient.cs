@@ -14,6 +14,16 @@ namespace Client.Services
         {
             if (String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password))
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
+            //User user = new User(username, password);
+            List<User> userList = UserSeeder.GetData();
+            foreach(User item in userList)
+                if (item.Username.Equals(username)&& item.Password.Equals(password))
+                {
+                    if (item.Type)
+                        return "ok";
+                    else
+                        return "not";
+                }
 
             return Guid.NewGuid().ToString();
         }
@@ -22,11 +32,11 @@ namespace Client.Services
             return Guid.NewGuid().ToString();
         }
 
-        public List<Fields> Search(string name, string city)
+        public List<Field> Search(string name, string city)
         {
-            List<Fields> fieldsList = FieldsSeeder.GetData();
-            List<Fields> display = new List<Fields>();
-            foreach (Fields item in fieldsList)
+            List<Field> fieldsList = FieldsSeeder.GetData();
+            List<Field> display = new List<Field>();
+            foreach (Field item in fieldsList)
             {
                 if (item.Name.Equals(name) && item.City.Equals(city))
                     display.Add(item);
@@ -35,11 +45,11 @@ namespace Client.Services
             return display;
         }
 
-        public List<Fields> Search(string filter)
+        public List<Field> Search(string filter)
         {
-            List<Fields> fieldsList = FieldsSeeder.GetData();
-            List<Fields> display = new List<Fields>();
-            foreach(Fields item in fieldsList)
+            List<Field> fieldsList = FieldsSeeder.GetData();
+            List<Field> display = new List<Field>();
+            foreach(Field item in fieldsList)
             {
                 if (item.Name.Equals(filter))
                     display.Add(item);
@@ -47,14 +57,6 @@ namespace Client.Services
 
             return display;
         }
-
         
-
-        //sa spuna da te-am inregistrat
-        //exista deja un cont creat cu aceste date - TBD
-
-
-
-
     }
 }

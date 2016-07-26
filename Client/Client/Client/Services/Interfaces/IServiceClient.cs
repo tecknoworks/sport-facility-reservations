@@ -12,7 +12,7 @@ namespace Client.Services.Interfaces
     {
         string Login(string username, string password);
         string Register(string username, string password, string phone, string type);
-        List<Fields> Search(string filter);
-        List<Fields> Search(string filter1, string filter2);
+        List<Field> Search(string filter);
+        List<Field> Search(string filter1, string filter2);
     }
 }
