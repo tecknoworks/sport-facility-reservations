@@ -17,10 +17,14 @@ namespace Client.Services
 
             return Guid.NewGuid().ToString();
         }
-        public string Register(string username, string password, string confirmPassword)// string phone, int type, string sport, string nameSports, string adress, int lungime, int latime, DateTime startTime, DateTime stopTime, int price)
+        public string Register(string firstName,string lastName ,string username, string password, string confirmPassword, string phone, int type)//, string sport, string nameSports, string adress, int lungime, int latime, DateTime startTime, DateTime stopTime, int price)
         {
-            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password)|| String.IsNullOrWhiteSpace(confirmPassword) ) //|| String.IsNullOrEmpty(phone) || type.Equals(null) || String.IsNullOrEmpty(sport) || String.IsNullOrWhiteSpace(nameSports) || String.IsNullOrEmpty(adress)|| lungime.Equals(null) || latime.Equals(null) || startTime.Equals(null)|| stopTime.Equals(null) || price.Equals(null))
+            if (String.IsNullOrWhiteSpace(firstName) || String.IsNullOrEmpty(lastName) || String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password) || String.IsNullOrEmpty(confirmPassword) || String.IsNullOrEmpty(phone) || type.Equals(null) )//|| String.IsNullOrEmpty(sport) || String.IsNullOrWhiteSpace(nameSports) || String.IsNullOrEmpty(adress)|| lungime.Equals(null) || latime.Equals(null) || startTime.Equals(null)|| stopTime.Equals(null) || price.Equals(null))
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
+            if (confirmPassword.Equals(password))
+                return "Password  match"; 
+            else
+                return "Password doesn't match";
 
             return Guid.NewGuid().ToString();
         }

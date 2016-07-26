@@ -41,16 +41,15 @@ namespace Client.ViewModels
         [OnCommand("RegCommand")]
         public void OnReg()
         {
+            Token = "";
             try
             {
-                Token = _serviceClient.Register(Username, Password, ConfirmPassword); //, Phone, IndexType, Sport,FieldName, Adress, Length, Width, StartTime, StopTime,  Price);
+                Token = _serviceClient.Register(FirstName,LastName,Username, Password, ConfirmPassword, Phone, IndexType);//, Sport,FieldName, Adress, Length, Width, StartTime, StopTime,  Price);
             }
             catch (ArgumentNullException)
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
             }
         }
-
-
     }
 }
