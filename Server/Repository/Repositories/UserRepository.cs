@@ -17,7 +17,7 @@ namespace Repository.Domain
         }
 
 
-        public FacilityContext PlutoContext
+        public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }
         }

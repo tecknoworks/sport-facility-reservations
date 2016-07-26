@@ -57,6 +57,7 @@ namespace Client.ViewModels
         [OnCommand("CheckCommand")]
         public void OnCheck()
         {
+            Token = "";
             try
             {
                 Token = _serviceClient.Login(Username, Password);
