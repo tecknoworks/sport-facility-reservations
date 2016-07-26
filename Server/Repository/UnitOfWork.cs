@@ -17,11 +17,12 @@ namespace Repository
         public UnitOfWork(FacilityContext context) {
             _context = context;
             userRepository=new UserRepository(_context);
+            fieldRepository = new FieldRepository(_context);
         }
         public IUserRepository userRepository { get; private set; }
+        public IFieldRepository fieldRepository { get; private set; }
 
 
-       
         public int Complete()
         {
             return _context.SaveChanges();
