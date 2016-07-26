@@ -49,24 +49,7 @@ namespace Server.Controllers
             return Ok(userr);
         }
      
-      
-
-        //[Route("CreateUser")]
-        //public IHttpActionResult CreateUser(int id, string name, string password, bool status)
-        //{
-        //    User user1 = new User();
-        //    user1.Name = name;
-        //    user1.Password = password;
-        //    user1.Status = status;
-        //    unitOfWork.userRepository.Add(user1);
-        //   // FacilityContext.Users.AddOrUpdate(user1);
-
-        //    if (user1 == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user1);
-        //}
+    
 
         [Route("Update")]
         public IHttpActionResult Update(int id, string name, string password, bool status)
