@@ -117,7 +117,17 @@ namespace Client.Views
                 return;
             }
 
-            await Navigation.PushAsync(homePageView);
+            if (_viewModel.Token.Equals("ok"))
+            {
+                await Navigation.PushAsync(new OwnerHomePage());
+            }
+            else if (_viewModel.Token.Equals("not"))
+            {
+               await Navigation.PushAsync(homePageView);
+            }
+
+            else await DisplayAlert("Warning", _viewModel.Token, "OK");
+            return;
         }
         private async void RegisterButton_Clicked(object sender, EventArgs e)
         {

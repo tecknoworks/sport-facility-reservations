@@ -10,14 +10,14 @@ namespace Client.Services
 {
     public class FieldsSeeder
     {
-        internal static List<Fields> GetData()
+        internal static List<Field> GetData()
         {
-            var items = new List<Fields>
+            var items = new List<Field>
             {
-                new Fields("Enjoy", "Cluj"),
-                new Fields("Field1", "Cluj"),
-                new Fields("Field2", "Brasov"),
-                new Fields("Field3", "Bistrita")
+                new Field() {Name="Field0", City = "Cluj" },
+                new Field() {Name="Field1", City = "Mures" },
+                new Field() {Name="Field2", City = "Bistrita" },
+                new Field() {Name="Field3", City = "Brasov" }
             };
             return items;
         }

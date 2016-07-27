@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
+using Client.Views;
 
 namespace Client.ViewModels
 {
     public class SoccerFieldsView: ContentPage
     {
         SoccerFieldsViewModel _viewModel;
+
         public SoccerFieldsView()
         {
             Title = "Soccer Field";
@@ -45,7 +47,7 @@ namespace Client.ViewModels
             var datePicker = new DatePicker
             {
                 Format = "D",
-                VerticalOptions= LayoutOptions.CenterAndExpand
+                VerticalOptions = LayoutOptions.CenterAndExpand
             };
             grid.Children.Add(datePicker, 1, 0);
 
@@ -74,8 +76,17 @@ namespace Client.ViewModels
                 Text = "Dimension"
             };
             grid.Children.Add(dimensionLabel, 0, 2);
-           
-            
+
+       
+            var dimensionPicker = new Picker
+            {
+                Title = "Dimension",
+                SelectedIndex = 0
+            };
+            dimensionPicker.Items.Add("2x5");
+            dimensionPicker.Items.Add("2x6");
+            dimensionPicker.Items.Add("2x7");
+            grid.Children.Add(dimensionPicker, 1, 2);
 
             var cityLabel = new Label
             {

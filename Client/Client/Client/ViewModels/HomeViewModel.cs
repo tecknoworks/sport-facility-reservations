@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Client.ViewModels
 {
     [ImplementPropertyChanged]
-    class HomeViewModel: BindableBase
+    public class HomeViewModel : BindableBase
     {
         public string GreetingText { get; set; }
 
@@ -20,11 +20,5 @@ namespace Client.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-
-        [OnCommand("SayHelloCommand")]
-        public async void OnSayHello()
-        {
-        }
-
     }
 }
