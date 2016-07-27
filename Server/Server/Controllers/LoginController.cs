@@ -14,7 +14,7 @@ using Repository;
 
 namespace Server.Controllers
 {
-    [RoutePrefix("api/Login")]
+     
     public class LoginController : ApiController
     {
         // public FacilityContext _context = new FacilityContext();
@@ -26,7 +26,6 @@ namespace Server.Controllers
         {
             return _unitOfWork.UserRepository.GetAll();
         }
-
         [Route("GetUserById")]
         public IHttpActionResult GetUserById(int id)
         {
@@ -37,37 +36,39 @@ namespace Server.Controllers
             }
             return Ok(user);
         }
-
-        [Route("GetUserByName")]
-        public IHttpActionResult GetUserByName(string name, string password)
+        [HttpGet]
+        public IHttpActionResult LoginRequest(string name, string password)
         {
-            var userr = GetUsers().FirstOrDefault((q) => q.Name.Equals(name) && q.Password.Equals(password));
+            var userr = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
             if (userr == null)
             {
                 return NotFound();
             }
             return Ok(userr);
         }
-     
-    
+        [HttpDelete]
+        public void DeleteUser(int id)
+        {
+            var user = _unitOfWork.UserRepository.Get(id);
+            _unitOfWork.UserRepository.Remove(user);
+            _unitOfWork.Complete();
+        }
+        [HttpPut]
+        public IHttpActionResult Update(int id, string name, string password, bool status)
+        {
+            var user2 = _unitOfWork.UserRepository.Get(id);
+            user2.Name = name;
+            user2.Password = password;
+            user2.Status = status;
+            _unitOfWork.UserRepository.Add(user2);
 
-        
-        //[HttpPut]
-        //public IHttpActionResult Update(int id, string name, string password, bool status)
-        //{
-        //    User user2 = GetUsers().FirstOrDefault((p) => p.ID == id);
-        //    user2.Name = name;
-        //    user2.Password = password;
-        //    user2.Status = status;
-        //    _unitOfWork.UserRepository.Add(user2);
+            if (user2 == null)
+            {
+                return NotFound();
+            }
+            return Ok(user2);
 
-        //    if (user2 == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user2);
-
-        //}
+        }
 
         [HttpPost]
         [ResponseType(typeof(User))]
