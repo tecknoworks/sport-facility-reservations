@@ -13,8 +13,9 @@ namespace Client.Services
         public string Login(string username, string password)
         {
             if (String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password))
+            {
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
-            //User user = new User(username, password);
+            }
             List<User> userList = UserSeeder.GetData();
             foreach (User item in userList)
             {
@@ -58,18 +59,10 @@ namespace Client.Services
 
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
-
+        
         public List<Field> Search(string name, string city)
         {
-            List<Field> fieldsList = FieldsSeeder.GetData();
-            List<Field> display = new List<Field>();
-            foreach (Field item in fieldsList)
-            {
-                if (item.Name.Equals(name) && item.City.Equals(city))
-                    display.Add(item);
-            }
-
-            return display;
+            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.City.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public List<Field> Search(string filter)

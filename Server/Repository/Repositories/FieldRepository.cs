@@ -12,31 +12,25 @@ namespace Repository.Repositories
 {
     public class FieldRepository : Repository<Field>, IFieldRepository
     {
-        internal DbSet<Field> dbSet;
+        private DbSet<Field> _dbSet;
         public FieldRepository(FacilityContext context) : base(context)
         {
-            this.dbSet = context.Set<Field>();
+            this._dbSet = context.Set<Field>();
         }
-
         public IEnumerable<Field> GetFieldsByColumn(Expression<Func<Field, bool>> filter = null,
                                                     Func<IQueryable<Field>, IOrderedQueryable<Field>> orderBy = null,
                                                     string includeProperties = "")
-        {
-
-
-
-            IQueryable<Field> query = dbSet;
-
+        {            
+            IQueryable<Field> query = _dbSet;
             if (filter != null)
             {
                 query = query.Where(filter);
             }
             foreach (var includeProperty in includeProperties.Split
-               (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
-
             if (orderBy != null)
             {
                 return orderBy(query).ToList();
@@ -45,12 +39,10 @@ namespace Repository.Repositories
             {
                 return query.ToList();
             }
-
         }
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }
         }
-
     }
 }
