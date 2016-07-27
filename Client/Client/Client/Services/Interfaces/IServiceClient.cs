@@ -11,7 +11,7 @@ namespace Client.Services.Interfaces
     public interface IServiceClient
     {
         string Login(string username, string password);
-        string Register(string firstName,string lastName,string username, string password, string confirmPassword, string sport, int type);//, string nameSports, string adress, int lungime, int latime, DateTime startTime, DateTime stopTime, int price);
+        string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, int? price);
         List<Field> Search(string filter);
         List<Field> Search(string filter1, string filter2);
     }
