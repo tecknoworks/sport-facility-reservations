@@ -17,9 +17,9 @@ namespace Server.Controllers
         [HttpGet]
         public IEnumerable<Field> GetFieldsByType(string type)
         {
-            var fields = unitOfWork.fieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
+            var fields = unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
 
-             return fields;
+            return fields;
 
         }
 

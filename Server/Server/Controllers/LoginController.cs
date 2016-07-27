@@ -18,19 +18,19 @@ namespace Server.Controllers
     public class LoginController : ApiController
     {
         // public FacilityContext _context = new FacilityContext();
-        public UnitOfWork unitOfWork = new UnitOfWork(new FacilityContext());
+        private readonly UnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
 
         // GET: api/Login
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
-            return unitOfWork.userRepository.GetAll();
+            return _unitOfWork.UserRepository.GetAll();
         }
 
         [Route("GetUserById")]
         public IHttpActionResult GetUserById(int id)
         {
-            var user = GetUsers().FirstOrDefault((p) => p.ID == id);
+            var user = _unitOfWork.UserRepository.Get(id);
             if (user == null)
             {
                 return NotFound();
@@ -51,22 +51,23 @@ namespace Server.Controllers
      
     
 
-        [Route("Update")]
-        public IHttpActionResult Update(int id, string name, string password, bool status)
-        {
-            User user2 = GetUsers().FirstOrDefault((p) => p.ID == id);
-            user2.Name = name;
-            user2.Password = password;
-            user2.Status = status;
-            unitOfWork.userRepository.Add(user2);
+        
+        //[HttpPut]
+        //public IHttpActionResult Update(int id, string name, string password, bool status)
+        //{
+        //    User user2 = GetUsers().FirstOrDefault((p) => p.ID == id);
+        //    user2.Name = name;
+        //    user2.Password = password;
+        //    user2.Status = status;
+        //    _unitOfWork.UserRepository.Add(user2);
 
-            if (user2 == null)
-            {
-                return NotFound();
-            }
-            return Ok(user2);
+        //    if (user2 == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user2);
 
-        }
+        //}
 
         [HttpPost]
         [ResponseType(typeof(User))]
@@ -87,8 +88,8 @@ namespace Server.Controllers
 
                 }
             }
-                unitOfWork.userRepository.Add(user);
-                unitOfWork.Complete();
+                _unitOfWork.UserRepository.Add(user);
+                _unitOfWork.Complete();
                 return Request.CreateResponse(HttpStatusCode.OK, user);
             
         }
@@ -99,7 +100,7 @@ namespace Server.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
         {
-            User user = unitOfWork.userRepository.Get(id);
+            User user = _unitOfWork.UserRepository.Get(id);
             if (user == null)
             {
                 return NotFound();
@@ -107,72 +108,6 @@ namespace Server.Controllers
 
             return Ok(user);
         }
-
-
-        //    // GET: api/Login/5
-        //    [ResponseType(typeof(User))]
-        //    public IHttpActionResult GetUser(int id)
-        //    {
-        //        User user = db.Users.Find(id);
-        //        if (user == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return Ok(user);
-        //    }
-
-        //    // PUT: api/Login/5
-        //    [ResponseType(typeof(void))]
-        //    public IHttpActionResult PutUser(int id, User user)
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //        if (id != user.ID)
-        //        {
-        //            return BadRequest();
-        //        }
-
-        //        db.Entry(user).State = EntityState.Modified;
-
-        //        try
-        //        {
-        //            db.SaveChanges();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!UserExists(id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-
-        //        return StatusCode(HttpStatusCode.NoContent);
-        //    }
-
-        //    // POST: api/Login
-        //    [ResponseType(typeof(User))]
-        //    public IHttpActionResult PostUser(User user)
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //        db.Users.Add(user);
-        //        db.SaveChanges();
-
-        //        return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
-        //    }
-
-
 
         //    protected override void Dispose(bool disposing)
         //    {

@@ -9,18 +9,15 @@ using Repository.Repositories;
 
 namespace Repository.Domain
 {
-    public class UserRepository : Repository<User>,IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         public UserRepository(FacilityContext context)
            : base(context)
         {
-        }
-
-
+        }       
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }
         }
-
     }
 }
