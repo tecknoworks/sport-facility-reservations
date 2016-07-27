@@ -13,7 +13,7 @@ namespace Client.Views
     {
         private const int PICKER_OWNER_INDEX = 0;
         public RegisterViewModel _viewModel;
-        public  Entry _password;
+        public Entry _password;
         public Entry _confirmPassword;
         public RegisterPage()
         {
@@ -109,7 +109,7 @@ namespace Client.Views
             {
                 Text = "Submit"
             };
-            
+
 
             var labelType = new Label
             {
@@ -117,7 +117,6 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            
 
             var type = new Picker
             {
@@ -276,25 +275,17 @@ namespace Client.Views
             var scrollView = new ScrollView { Content = layout };
             Content = scrollView;
         }
-
         private async void OnAlertClicked(object sender, EventArgs e)
         {
             _viewModel.OnReg();
-            if (string.IsNullOrEmpty(_viewModel.Token))
+            if (!string.IsNullOrEmpty(_viewModel.Token))
             {
-                await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
+                await (DisplayAlert("Message", _viewModel.Token, "OK"));
             }
-
-            else if (_password.Text.Equals(_confirmPassword.Text))
-                await (DisplayAlert("Message", "Password Match", "OK"));
-
             else
-                await (DisplayAlert("Message", "Password deosn't match ", "Cancel"));
-
-
-
-            }
+                await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
         }
     }
+}
 
 
