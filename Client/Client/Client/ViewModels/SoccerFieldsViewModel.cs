@@ -24,7 +24,7 @@ namespace Client.ViewModels
         [OnCommand("SearchCommand")]
         public void OnSearch()
         {
-           Token =  _serviceClient.Search(Name, City);
+            Token = _serviceClient.Search(Name, City);
         }
 
 

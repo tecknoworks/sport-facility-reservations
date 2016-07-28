@@ -11,9 +11,5 @@ namespace Client.Models
         public string Name { get; set; }
         public List<DateTime> Availability { get; set; }
         public string City { get; set; }
-
-        public Field() : base()
-        {
-        }
     }
 }
