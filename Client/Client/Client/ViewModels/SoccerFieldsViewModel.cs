@@ -3,18 +3,25 @@ using Client.Services.Interfaces;
 using Commander;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Client.ViewModels
 {
-    class SoccerFieldsViewModel
+    class SoccerFieldsViewModel:INotifyPropertyChanged
     {
         public string Name { get; set; }
         public string City { get; set; }
-        public List<Field> Token { get; set; }
+        public DateTime Availability { get; set; }
+        private ObservableCollection<Field> field;
+        public ObservableCollection<Field> Fields { get { return field; }
+            set {
+                field = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Fields)));
+            } }
         IServiceClient _serviceClient;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public SoccerFieldsViewModel(IServiceClient serviceClient)
         {
@@ -24,7 +31,8 @@ namespace Client.ViewModels
         [OnCommand("SearchCommand")]
         public void OnSearch()
         {
-           Token =  _serviceClient.Search(Name, City);
+            var fields = _serviceClient.Search(Name);
+            Fields = new ObservableCollection<Field>(fields);
         }
 
 

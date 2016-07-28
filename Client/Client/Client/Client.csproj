@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Api\ApiFields.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Field.cs" />
@@ -46,12 +47,14 @@
     <Compile Include="Services\Repository.cs" />
     <Compile Include="Services\ServiceClient.cs" />
     <Compile Include="Services\UserSeeder.cs" />
+    <Compile Include="ViewModels\FieldsListViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ReservationPageViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SearchPageViewModel.cs" />
     <Compile Include="ViewModels\SoccerFieldsViewModel.cs" />
+    <Compile Include="Views\FieldsListView.cs" />
     <Compile Include="Views\OwnerHomePage.cs" />
     <Compile Include="Views\ReservationPage.cs" />
     <Compile Include="Views\SoccerFieldsView.cs" />
@@ -111,6 +114,9 @@
     <Reference Include="SQLiteNetExtensionsAsync, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SQLiteNetExtensions.Async.1.3.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\SQLiteNetExtensionsAsync.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v1.0\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.1.5.0.6447\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>

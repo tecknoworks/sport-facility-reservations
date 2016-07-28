@@ -67,18 +67,14 @@ namespace Client.Services
             return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.City.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public List<Field> Search(string filter)
+        public List<Field> Search(string name)
         {
-            List<Field> fieldsList = FieldsSeeder.GetData();
-            List<Field> display = new List<Field>();
-            foreach (Field item in fieldsList)
-            {
-                if (item.Name.Equals(filter))
-                    display.Add(item);
-            }
-
-            return display;
+            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
+        public List<Field> Search(DateTime availability)
+        {
+            return FieldsSeeder.GetData().Where(x => x.Availability.Contains(availability)).ToList();
+        }
     }
 }

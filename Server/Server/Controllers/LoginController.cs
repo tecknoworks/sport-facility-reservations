@@ -20,6 +20,12 @@ namespace Server.Controllers
         // public FacilityContext _context = new FacilityContext();
         private readonly UnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
 
+        [HttpGet]
+        public IHttpActionResult GetTest()
+        {
+            return Ok("test works");
+        }
+
         // GET: api/Login
         [HttpGet]
         public IEnumerable<User> GetUsers()
@@ -53,22 +59,23 @@ namespace Server.Controllers
             _unitOfWork.UserRepository.Remove(user);
             _unitOfWork.Complete();
         }
-        [HttpPut]
-        public IHttpActionResult Update(int id, string name, string password, bool status)
-        {
-            var user2 = _unitOfWork.UserRepository.Get(id);
-            user2.Name = name;
-            user2.Password = password;
-            user2.Status = status;
-            _unitOfWork.UserRepository.Add(user2);
+        //[HttpPut]
+        //public void PutUser([FromUri]int id,[FromUri] string name, [FromUri] string password, [FromUri] bool status)
+        //{
+        //    var user2 = _unitOfWork.UserRepository.Get(id);
+        //    user2.Name = name;
+        //    user2.Password = password;
+        //    user2.Status = status;
+        //    _unitOfWork.UserRepository.Update(user2);
+        //    _unitOfWork.Complete();
 
-            if (user2 == null)
-            {
-                return NotFound();
-            }
-            return Ok(user2);
+        //    if (user2 == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user2);
 
-        }
+        //}
 
         [HttpPost]
         [ResponseType(typeof(User))]
