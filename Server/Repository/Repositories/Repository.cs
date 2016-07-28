@@ -36,6 +36,9 @@ namespace Repository.Repositories
         {
             Context.Set<TEntity>().Remove(entity);
         }
-        
+        public void Update(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Modified;
+        }
     }
 }
