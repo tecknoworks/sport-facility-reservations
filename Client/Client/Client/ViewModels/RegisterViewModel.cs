@@ -27,7 +27,7 @@ namespace Client.ViewModels
         public string FieldName { get; set; }
         public string Sport { get; set; }
         public string Adress { get; set; }
-        public int Length { get; set; }
+        public int? Length { get; set; }
         public int Width { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime StopTime { get; set; }
@@ -44,7 +44,7 @@ namespace Client.ViewModels
             Token = "";
             try
             {
-                Token = _serviceClient.Register(FirstName,LastName,Username, Password, ConfirmPassword, Phone, IndexType);//, Sport,FieldName, Adress, Length, Width, StartTime, StopTime,  Price);
+                Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, Length, Width, Price);
             }
             catch (ArgumentNullException)
             {

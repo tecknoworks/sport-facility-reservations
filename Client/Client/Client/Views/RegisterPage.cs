@@ -15,6 +15,8 @@ namespace Client.Views
         public RegisterViewModel _viewModel;
         public Entry _password;
         public Entry _confirmPassword;
+        private TimePicker _startTime;
+        private TimePicker _stopTime;
         public RegisterPage()
         {
             Title = "Register";
@@ -128,7 +130,7 @@ namespace Client.Views
             var labelField = new Label
             {
                 Text = "Register Field",
-                HorizontalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
@@ -143,6 +145,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default
             };
+            fieldNameEntry.SetBinding(Entry.TextProperty, "FieldName");
 
             var fieldDimension = new Label
             {
@@ -151,29 +154,31 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            var labelLungime = new Label
+            var labelLength = new Label
             {
                 Text = "Length",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            var entryLungime = new Entry
+            var entryLength = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Default
             };
+            entryLength.SetBinding(Entry.TextProperty, "Length");
 
-            var labelLatime = new Label
+            var labelWidth = new Label
             {
                 Text = "Width",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            var entryLatime = new Entry
+            var entryWidth = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Default
             };
+            entryWidth.SetBinding(Entry.TextProperty, "Width");
 
             var fieldAvailability = new Label
             {
@@ -182,12 +187,12 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            var startTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
-            var stopTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+            _startTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };         
+            _stopTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
 
             var price = new Label
             {
-                Text = "Price",
+                Text = "Price per Hour",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
@@ -195,6 +200,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default
             };
+            priceEntry.SetBinding(Entry.TextProperty, "Price");
 
             var adress = new Label
             {
@@ -206,6 +212,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default
             };
+            adressEntry.SetBinding(Entry.TextProperty, "Adress");
 
             var sportsLabel = new Label
             {
@@ -251,13 +258,13 @@ namespace Client.Views
             ownerLayout.Children.Add(adress);
             ownerLayout.Children.Add(adressEntry);
             ownerLayout.Children.Add(fieldDimension);
-            ownerLayout.Children.Add(labelLungime);
-            ownerLayout.Children.Add(entryLungime);
-            ownerLayout.Children.Add(labelLatime);
-            ownerLayout.Children.Add(entryLatime);
+            ownerLayout.Children.Add(labelLength);
+            ownerLayout.Children.Add(entryLength);
+            ownerLayout.Children.Add(labelWidth);
+            ownerLayout.Children.Add(entryWidth);
             ownerLayout.Children.Add(fieldAvailability);
-            ownerLayout.Children.Add(startTime);
-            ownerLayout.Children.Add(stopTime);
+            ownerLayout.Children.Add(_startTime);
+            ownerLayout.Children.Add(_stopTime);
             ownerLayout.Children.Add(price);
             ownerLayout.Children.Add(priceEntry);
 

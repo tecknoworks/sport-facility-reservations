@@ -107,10 +107,15 @@ namespace Client.ViewModels
                 FontSize = 10
             };
             grid.Children.Add(searchButton, 1, 4);
-            searchButton.SetBinding(Button.CommandProperty, "SearchCommand");
+            searchButton.Clicked += SearchButton_Clicked;
 
             Content = grid;
 
+        }
+
+        private async void SearchButton_Clicked(object sender, EventArgs e)
+        {
+            _viewModel.OnSearch();
         }
     }
 }

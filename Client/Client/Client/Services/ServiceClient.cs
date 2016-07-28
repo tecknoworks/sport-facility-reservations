@@ -8,7 +8,7 @@ using Client.Models;
 
 namespace Client.Services
 {
-    public class ServiceClient: IServiceClient
+    public class ServiceClient : IServiceClient
     {
         public string Login(string username, string password)
         {
@@ -29,16 +29,35 @@ namespace Client.Services
             }
             return "Non-existent user";
         }
-        public string Register(string firstName,string lastName ,string username, string password, string confirmPassword, string phone, int type)//, string sport, string nameSports, string adress, int lungime, int latime, DateTime startTime, DateTime stopTime, int price)
+        public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, int? price)
         {
-            if (String.IsNullOrWhiteSpace(firstName) || String.IsNullOrEmpty(lastName) || String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password) || String.IsNullOrEmpty(confirmPassword) || String.IsNullOrEmpty(phone) || type.Equals(null) )//|| String.IsNullOrEmpty(sport) || String.IsNullOrWhiteSpace(nameSports) || String.IsNullOrEmpty(adress)|| lungime.Equals(null) || latime.Equals(null) || startTime.Equals(null)|| stopTime.Equals(null) || price.Equals(null))
+            if (String.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
-            if (confirmPassword.Equals(password))
-                return "Password  match"; 
-            else
-                return "Password doesn't match";
+            if (String.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentNullException("Fields must not be null", nameof(username));
+            if (String.IsNullOrWhiteSpace(username))
+                throw new ArgumentNullException("Fields must not be null", nameof(username));
+            if (String.IsNullOrWhiteSpace(password))
+                throw new ArgumentNullException("Fields must not be null", nameof(username));
+            if (String.IsNullOrWhiteSpace(confirmPassword))
+                throw new ArgumentNullException("Fields must not be null", nameof(username));
+            if (String.IsNullOrWhiteSpace(phone))
+                throw new ArgumentNullException("Fields must not be null", nameof(username));
+            if (IsOwner)
+            {
+                if (String.IsNullOrWhiteSpace(fieldName))
+                    throw new ArgumentNullException("Fields must not be null", nameof(username));
+                if (String.IsNullOrWhiteSpace(adress))
+                   throw new ArgumentNullException("Fields must not be null", nameof(username));
+                if (length.HasValue)
+                    throw new ArgumentNullException("Fields must not be null", nameof(username));
+                //if (!width.HasValue)
+                //    throw new ArgumentNullException("Fields must not be null", nameof(username));
+                //if ()
+                //    throw new ArgumentNullException("Fields must not be null", nameof(username));
+            }
 
-            return Guid.NewGuid().ToString();
+            return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
         
         public List<Field> Search(string name, string city)
@@ -46,18 +65,10 @@ namespace Client.Services
             return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.City.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public List<Field> Search(string filter)
+        public List<Field> Search(string name)
         {
-            List<Field> fieldsList = FieldsSeeder.GetData();
-            List<Field> display = new List<Field>();
-            foreach(Field item in fieldsList)
-            {
-                if (item.Name.Equals(filter))
-                    display.Add(item);
-            }
-
-            return display;
+            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
-        
+
     }
 }
