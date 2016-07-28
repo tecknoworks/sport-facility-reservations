@@ -70,5 +70,9 @@ namespace Client.Services
             return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
+        public List<Field> Search(DateTime availability)
+        {
+            return FieldsSeeder.GetData().Where(x => x.Availability.Contains(availability)).ToList();
+        }
     }
 }

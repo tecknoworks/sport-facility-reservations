@@ -14,6 +14,7 @@ namespace Client.Services.Interfaces
         string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, int? price);
         List<Field> Search(string filter);
         List<Field> Search(string filter1, string filter2);
+        List<Field> Search(DateTime availability);
     }
 }
     

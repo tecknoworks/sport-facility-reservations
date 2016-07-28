@@ -12,6 +12,7 @@ namespace Client.ViewModels
     public class SoccerFieldsView: ContentPage
     {
         SoccerFieldsViewModel _viewModel;
+        public List<Models.Field> soccerFields;
 
         public SoccerFieldsView()
         {
@@ -49,6 +50,8 @@ namespace Client.ViewModels
                 Format = "D",
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            datePicker.SetBinding(DatePicker.DateProperty, "Availability");
+
             grid.Children.Add(datePicker, 1, 0);
 
             var timePicker = new TimePicker
@@ -109,13 +112,43 @@ namespace Client.ViewModels
             grid.Children.Add(searchButton, 1, 4);
             searchButton.Clicked += SearchButton_Clicked;
 
+            ListView listView = new ListView
+            {
+                ItemsSource = soccerFields,
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    var name = new Label();
+                    name.SetBinding(Label.TextProperty, "Name");
+                    var city = new Label();
+                    city.SetBinding(Label.TextProperty, "City");
+                    return new ViewCell
+                    {
+                        View = new StackLayout
+                        {
+                            Orientation = StackOrientation.Horizontal,
+                            Children =
+                            {
+                                name,
+                                city
+                            }
+                        }
+                    };
+                }
+                )
+            };
+            listView.SetBinding(ListView.ItemsSourceProperty, "Fields");
+            grid.Children.Add(listView, 0, 5);
             Content = grid;
+
 
         }
 
         private async void SearchButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.OnSearch();
+            foreach(Models.Field item in _viewModel.Fields)
+            {
+            }
         }
     }
 }
