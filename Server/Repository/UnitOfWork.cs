@@ -11,16 +11,17 @@ namespace Repository
 
     public class UnitOfWork : IUnitOfWork
     {
+        public IUserRepository UserRepository { get; private set; }
+        public IFieldRepository FieldRepository { get; private set; } 
+        public FacilityContext _context;
 
-        //private readonly SportFacilityEntities1 context;
-        public  FacilityContext _context;
-        public UnitOfWork(FacilityContext context) {
+        public UnitOfWork(FacilityContext context)
+        {
             _context = context;
-            userRepository=new UserRepository(_context);
-            fieldRepository = new FieldRepository(_context);
+            UserRepository = new UserRepository(_context);
+            FieldRepository = new FieldRepository(_context);
         }
-        public IUserRepository userRepository { get; private set; }
-        public IFieldRepository fieldRepository { get; private set; }
+      
 
 
         public int Complete()

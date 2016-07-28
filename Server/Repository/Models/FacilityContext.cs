@@ -23,10 +23,7 @@ namespace Repository.Domain
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Field> Fields { get; set; }
-
         public virtual DbSet<Reservation> Reservations { get; set; }
-
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             ///!!!!!!

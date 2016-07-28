@@ -11,9 +11,8 @@ namespace Repository
 {
     interface IUnitOfWork : IDisposable
     {
-        IUserRepository userRepository { get; }
-        IFieldRepository fieldRepository { get; }
-
+        IUserRepository UserRepository { get; }
+        IFieldRepository FieldRepository { get; }
         int Complete();
     }
 }

@@ -13,15 +13,11 @@ namespace Server.Controllers
     public class MainPageController : ApiController
     {
         UnitOfWork unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
-
         [HttpGet]
         public IEnumerable<Field> GetFieldsByType(string type)
         {
-            var fields = unitOfWork.fieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
-
-             return fields;
-
+            var fields = unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
+            return fields;
         }
-
     }
 }

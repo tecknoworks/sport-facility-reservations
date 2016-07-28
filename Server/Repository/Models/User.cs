@@ -15,8 +15,6 @@ namespace Repository.Models
         public int PhoneNumber { get; set; }
         public string Password { get; set; }
         public bool Status { get; set; }
-
-
         public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }
