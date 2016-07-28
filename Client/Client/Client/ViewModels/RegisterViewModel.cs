@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Client.ViewModels
 {
     [ImplementPropertyChanged]
-    public class RegisterViewModel: BindableBase
+    public class RegisterViewModel : BindableBase
     {
         private readonly IServiceClient _serviceClient;
         public string Token { get; set; }
@@ -22,17 +22,45 @@ namespace Client.ViewModels
         public string Phone { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public int IndexType{ get; set; }
+        public int IndexType { get; set; }
         public bool IsOwner { get; set; }
         public string FieldName { get; set; }
         public string Sport { get; set; }
         public string Adress { get; set; }
-        public int? Length { get; set; }
-        public int Width { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime StopTime { get; set; }
-        public int Price { get; set; }
+        public string Length { get; set; }
+        public string Width { get; set; }
+        public string Price { get; set; }
         public string RegisterMessage { get; set; }
+        public string DateTimeMessage { get; set; }
+        private DateTime _startTime;
+        public DateTime _endTime;
+
+
+        public DateTime StartTime
+        {
+            get { return _startTime; }
+            set
+            {
+                if (DateTime.Compare(value, _startTime) == 0)
+                {
+                    return;
+                }
+                _startTime = value;
+            }
+        }
+        public DateTime EndTime
+        {
+            get { return _endTime; }
+            set
+            {
+
+                if (DateTime.Compare(value, _endTime) == 0)
+                {
+                    return;
+                }
+                _endTime = value;
+            }
+        }
 
         public RegisterViewModel(IServiceClient serviceClient)
         {
@@ -42,13 +70,39 @@ namespace Client.ViewModels
         public void OnReg()
         {
             Token = "";
+
             try
             {
-                Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, Length, Width, Price);
+                int? length = null;
+                if (!string.IsNullOrWhiteSpace(Length))
+                {
+                    int convertedLength;
+                    if (int.TryParse(Length, out convertedLength))
+                        length = convertedLength;
+                }
+
+                int? width = null;
+                if (!string.IsNullOrWhiteSpace(Width))
+                {
+                    int convertedWidth;
+                    if (int.TryParse(Width, out convertedWidth))
+                        width = convertedWidth;
+                }
+
+                float? price = null;
+                if (!string.IsNullOrWhiteSpace(Price))
+                {
+                    float convertedPrice;
+                    if (float.TryParse(Price, out convertedPrice))
+                        price = convertedPrice;
+                }
+
+                Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, length, width, StartTime, EndTime, price);
             }
             catch (ArgumentNullException)
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
+
             }
         }
     }

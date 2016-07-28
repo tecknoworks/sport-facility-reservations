@@ -29,7 +29,7 @@ namespace Client.Services
             }
             return "Non-existent user";
         }
-        public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, int? price)
+        public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, DateTime startTime, DateTime endTime, float? price)
         {
             if (String.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
@@ -49,12 +49,14 @@ namespace Client.Services
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
                 if (String.IsNullOrWhiteSpace(adress))
                    throw new ArgumentNullException("Fields must not be null", nameof(username));
-                if (length.HasValue)
+                if (!length.HasValue)
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
-                //if (!width.HasValue)
-                //    throw new ArgumentNullException("Fields must not be null", nameof(username));
-                //if ()
-                //    throw new ArgumentNullException("Fields must not be null", nameof(username));
+                if (!width.HasValue)
+                    throw new ArgumentNullException("Fields must not be null", nameof(username));
+                //if (endTime.TimeOfDay <= startTime.TimeOfDay)
+                //    return "End time cannot be earlier than the start time, please try again";
+                if (!price.HasValue)
+                    throw new ArgumentNullException("Fields must not be null", nameof(username));
             }
 
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";

@@ -16,7 +16,7 @@ namespace Client.Views
         public Entry _password;
         public Entry _confirmPassword;
         private TimePicker _startTime;
-        private TimePicker _stopTime;
+        private TimePicker _endTime;
         public RegisterPage()
         {
             Title = "Register";
@@ -163,7 +163,7 @@ namespace Client.Views
 
             var entryLength = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric
             };
             entryLength.SetBinding(Entry.TextProperty, "Length");
 
@@ -187,8 +187,12 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            _startTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };         
-            _stopTime = new TimePicker() { Time = new TimeSpan(0, 0, 0) };
+            _startTime = new TimePicker() { Format = "T"};
+            _startTime.SetBinding(TimePicker.TimeProperty, "StartTime");   
+
+            _endTime = new TimePicker() { Format = "T" };
+            _endTime.SetBinding(TimePicker.TimeProperty,"EndTime");
+
 
             var price = new Label
             {
@@ -264,7 +268,7 @@ namespace Client.Views
             ownerLayout.Children.Add(entryWidth);
             ownerLayout.Children.Add(fieldAvailability);
             ownerLayout.Children.Add(_startTime);
-            ownerLayout.Children.Add(_stopTime);
+            ownerLayout.Children.Add(_endTime);
             ownerLayout.Children.Add(price);
             ownerLayout.Children.Add(priceEntry);
 
@@ -291,6 +295,13 @@ namespace Client.Views
             }
             else
                 await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
+
+            if (_endTime.Time<=_startTime.Time)
+            {
+                await DisplayAlert("Warning", "End time cannot be earlier than the start time, please try again", "OK");
+            }
+
+
         }
     }
 }
