@@ -32,35 +32,9 @@ namespace Client.ViewModels
         public string Price { get; set; }
         public string RegisterMessage { get; set; }
         public string DateTimeMessage { get; set; }
-        private DateTime _startTime;
-        public DateTime _endTime;
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
-
-        public DateTime StartTime
-        {
-            get { return _startTime; }
-            set
-            {
-                if (DateTime.Compare(value, _startTime) == 0)
-                {
-                    return;
-                }
-                _startTime = value;
-            }
-        }
-        public DateTime EndTime
-        {
-            get { return _endTime; }
-            set
-            {
-
-                if (DateTime.Compare(value, _endTime) == 0)
-                {
-                    return;
-                }
-                _endTime = value;
-            }
-        }
 
         public RegisterViewModel(IServiceClient serviceClient)
         {
@@ -70,7 +44,6 @@ namespace Client.ViewModels
         public void OnReg()
         {
             Token = "";
-
             try
             {
                 int? length = null;
@@ -102,7 +75,6 @@ namespace Client.ViewModels
             catch (ArgumentNullException)
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
-
             }
         }
     }
