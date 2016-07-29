@@ -189,6 +189,7 @@ namespace Client.Views
 
             _startTime = new TimePicker() { Format = "T"};
             _startTime.SetBinding(TimePicker.TimeProperty, "StartTime");   
+   
 
             _endTime = new TimePicker() { Format = "T" };
             _endTime.SetBinding(TimePicker.TimeProperty,"EndTime");
@@ -296,12 +297,10 @@ namespace Client.Views
             else
                 await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
 
-            if (_endTime.Time<=_startTime.Time)
-            {
-                await DisplayAlert("Warning", "End time cannot be earlier than the start time, please try again", "OK");
-            }
-
-
+            //if (_viewmodel.token.equals("end time cannot be earlier than the start time, please try again"))
+            //{
+            //    await displayalert("warning", _viewmodel.token, "ok");
+            //}
         }
     }
 }

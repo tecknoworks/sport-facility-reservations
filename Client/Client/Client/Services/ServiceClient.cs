@@ -44,7 +44,7 @@ namespace Client.Services
             }
         }
 
-        public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, DateTime startTime, DateTime endTime, float? price)
+        public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
         {
             if (String.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentNullException("Fields must not be null", nameof(username));
@@ -68,8 +68,8 @@ namespace Client.Services
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
                 if (!width.HasValue)
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
-                //if (endTime.TimeOfDay <= startTime.TimeOfDay)
-                //    return "End time cannot be earlier than the start time, please try again";
+                if (endTime.Ticks<= startTime.Ticks)
+                    return "End time cannot be earlier than the start time, please try again";
                 if (!price.HasValue)
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
             }

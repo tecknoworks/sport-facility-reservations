@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
-    class HomePage: ContentPage
+    public class HomePage: ContentPage
     {
         private HomeViewModel _viewModel;
         private string _greetingText;
