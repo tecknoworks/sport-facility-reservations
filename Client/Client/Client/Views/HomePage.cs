@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
@@ -22,9 +23,7 @@ namespace Client.Views
 
         public async Task Init()
         {
-            // Prism.Mvvm.ViewModelLocator.SetAutowireViewModel(true);
-            //var viewModel = App.Container.Resolve<HomeViewModel>();
-            _viewModel = new HomeViewModel();
+            _viewModel = App.Container.Resolve<HomeViewModel>();
             BindingContext = _viewModel;
 
             var label = new Label
@@ -60,8 +59,9 @@ namespace Client.Views
                 HeightRequest = 50,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
-
             };
+            viewFieldsButton.Clicked += viewFieldsButton_Clicked;
+
             var editAccountButton = new Button
             {
                 Text = "Edit My Account",
@@ -97,6 +97,12 @@ namespace Client.Views
 
             Content = relativeLayout;
         }
+
+        private async void viewFieldsButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FieldsListView());
+        }
+
         private async void Button_Clicked(object sender, EventArgs e)
         {
             var searchPageView = new SearchPage();

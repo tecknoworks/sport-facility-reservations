@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Client.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Client.Services
 {
@@ -29,6 +31,19 @@ namespace Client.Services
             }
             return "Non-existent user";
         }
+
+
+        public async Task<List<Field>> GetFieldsAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/GetFields");
+                //var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/Login/?userName=" + username + "&password=" + password);
+                var fields = JsonConvert.DeserializeObject<List<Field>>(json);
+                return fields;
+            }
+        }
+
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, DateTime startTime, DateTime endTime, float? price)
         {
             if (String.IsNullOrWhiteSpace(firstName))
@@ -48,7 +63,7 @@ namespace Client.Services
                 if (String.IsNullOrWhiteSpace(fieldName))
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
                 if (String.IsNullOrWhiteSpace(adress))
-                   throw new ArgumentNullException("Fields must not be null", nameof(username));
+                    throw new ArgumentNullException("Fields must not be null", nameof(username));
                 if (!length.HasValue)
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
                 if (!width.HasValue)
@@ -61,10 +76,10 @@ namespace Client.Services
 
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
-        
+
         public List<Field> Search(string name, string city)
         {
-            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.City.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
+            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Location.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public List<Field> Search(string name)

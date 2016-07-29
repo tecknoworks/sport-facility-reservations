@@ -1,8 +1,11 @@
-﻿using Commander;
+﻿using Client.Services.Interfaces;
+using Commander;
 using Prism.Mvvm;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +22,13 @@ namespace Client.ViewModels
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+        
+        public IServiceClient _serviceClient;
+
+        public HomeViewModel(IServiceClient serviceClient)
+        {
+            _serviceClient = serviceClient;
         }
     }
 }
