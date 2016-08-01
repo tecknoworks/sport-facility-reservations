@@ -10,6 +10,8 @@ namespace Client.Models
     {
         public string Name { get; set; }
         public List<DateTime> Availability { get; set; }
-        public string City { get; set; }
+        public string Location { get; set; }
+        public string type { get; set; }
+
     }
 }

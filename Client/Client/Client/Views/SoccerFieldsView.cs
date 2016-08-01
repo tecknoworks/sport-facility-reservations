@@ -51,7 +51,6 @@ namespace Client.ViewModels
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             datePicker.SetBinding(DatePicker.DateProperty, "Availability");
-
             grid.Children.Add(datePicker, 1, 0);
 
             var timePicker = new TimePicker

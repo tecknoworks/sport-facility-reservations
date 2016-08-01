@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
@@ -19,7 +20,7 @@ namespace Client.Views
         }
 
         public async Task Init() {
-            _viewModel = new SearchPageViewModel();
+            _viewModel = App.Container.Resolve<SearchPageViewModel>();
             BindingContext = _viewModel;
 
             var soccerLabel = new Label
@@ -28,9 +29,7 @@ namespace Client.Views
             };
             var soccerFields = new Image
             {
-                Source = "football_field.jpg",
-               // WidthRequest = 300,
-               // HeightRequest = 200
+                Source = "football_field.jpg"
             };
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += OnTapGestureRecognizerTapped;
