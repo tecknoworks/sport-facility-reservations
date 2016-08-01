@@ -13,5 +13,6 @@ namespace Client.Models
         public string Location { get; set; }
         public string type { get; set; }
 
+
     }
 }
