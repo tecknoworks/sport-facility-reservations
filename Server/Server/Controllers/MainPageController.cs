@@ -12,16 +12,16 @@ namespace Server.Controllers
 {
     public class MainPageController : ApiController
     {
-        UnitOfWork unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
+        UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
         [HttpGet]
         public IEnumerable<Field> GetFieldsByType(string type)
         {
-            var fields = unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
+            var fields = _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
             return fields;
         }
         public IEnumerable<Field> GetFields()
         {
-            return unitOfWork.FieldRepository.GetAll();
+            return _unitOfWork.FieldRepository.GetAll();
         }
         public IHttpActionResult GetFieldByName(string name)
         {
@@ -45,6 +45,27 @@ namespace Server.Controllers
             //    return NotFound();
             //}
             //return Ok(user);
+        }
+        [HttpPost]
+        public HttpResponseMessage AddField(Field field)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+            IEnumerable<Field> fields = GetFields();
+            foreach (var field1 in fields)
+            {
+                if (field1.Name.Equals(field.Name))
+                {
+                    var message = string.Format("Field  {0} already added", field.Name);
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+                }
+            }
+            _unitOfWork.FieldRepository.Add(field);
+            _unitOfWork.Complete();
+            return Request.CreateResponse(HttpStatusCode.OK, field);
+
         }
 
     }

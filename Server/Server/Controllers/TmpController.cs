@@ -16,6 +16,7 @@ namespace Server.Controllers
         {
             public string FieldName { get; set; }
             public DateTime Hour { get; set; }
+            
         }
 
         List<User> users = new List<User>
@@ -112,5 +113,6 @@ namespace Server.Controllers
             return reservations;
 
         }
+       
     }
 }
