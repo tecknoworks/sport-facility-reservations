@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 
 namespace Server.Controllers
 {
     public class TmpController : ApiController
     {
+
+        public class Reservations
+        {
+            public string FieldName { get; set; }
+            public DateTime Hour { get; set; }
+            
+        }
+
         List<User> users = new List<User>
             {
             new User{ID=1, Name="Carson", Password="clock",UserName="userName1"},
@@ -29,21 +38,30 @@ namespace Server.Controllers
             new Field{ID=3, Name="ClubTransilvania", Location="Cluj",Type="tenis"},
             new Field{ID=4, Name="WinnerSportsClub", Location="Cluj",Type="tenis"},
             };
+        List<Reservations> reservations = new List<Reservations>
+            {
+            new Reservations { FieldName="ClujArena" ,Hour = new DateTime(2016,8,10,12,00,00) },
+            new Reservations { FieldName="Terapia" ,Hour = new DateTime(2016,9,10,12,00,00) },
+            new Reservations { FieldName="Terapia" ,Hour = new DateTime(2016,9,10,13,00,00) },
+            new Reservations { FieldName="Terapia" ,Hour = new DateTime(2016,9,10,14,00,00) },
+
+        };
 
         public List<Field> GetFields()
         {
             return fields;
         }
         [HttpGet]
-        public IHttpActionResult Login(string userName, string password)
+        public User Login(string userName, string password)
         {
 
             var user = users.FirstOrDefault((q) => q.UserName.Equals(userName) && q.Password.Equals(password));
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            return user;
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+            //return Ok(user);
         }
         public IHttpActionResult GetFieldByName(string name)
         {
@@ -86,5 +104,15 @@ namespace Server.Controllers
             users.Add(field);
             return Ok(field);
         }
+        public List<Reservations> GetReservations()
+        {
+            //string yourJson = "{"Name":{0}}";
+            //var response = this.Request.CreateResponse(HttpStatusCode.OK);
+            //response.Content = new StringContent(yourJson, Encoding.UTF8, "application/json");
+            //return response;
+            return reservations;
+
+        }
+       
     }
 }
