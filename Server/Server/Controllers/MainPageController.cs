@@ -19,5 +19,33 @@ namespace Server.Controllers
             var fields = unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
             return fields;
         }
+        public IEnumerable<Field> GetFields()
+        {
+            return unitOfWork.FieldRepository.GetAll();
+        }
+        public IHttpActionResult GetFieldByName(string name)
+        {
+            var field = GetFields().FirstOrDefault((q) => q.Name.Equals(name));
+            if (field == null)
+            {
+                return NotFound();
+            }
+            return Ok(field);
+        }
+        public List<Field> GetFieldByCity(string city)
+        {
+            var fields = GetFields();
+            List<Field> fieldss=new List<Field>();
+            foreach (var field in fields)
+                if (field.Location.Equals(city))
+                    fieldss.Add(field);
+            return fieldss;
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+            //return Ok(user);
+        }
+
     }
 }
