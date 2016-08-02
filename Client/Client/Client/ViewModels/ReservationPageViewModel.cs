@@ -12,9 +12,9 @@ namespace Client.ViewModels
     public class ReservationPageViewModel
     {
         public IServiceClient _serviceClient;
-        public string FieldName { get; set; }
+        public string FieldName { get; set; }        
+        public DateTime Hour { get; set; }
         public List<Models.Reservation> ReservedFields { get; set; }
-        public DateTime Hour;
 
         public ReservationPageViewModel(IServiceClient serviceClient)
         {
