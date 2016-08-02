@@ -12,37 +12,53 @@ namespace Client.Services
 {
     public class ServiceClient : IServiceClient
     {
-        public string Login(string username, string password)
+        public async Task<User> LoginAsync(string username, string password)
         {
             if (String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password))
             {
-                throw new ArgumentNullException("Fields must not be null", nameof(username));
+                throw new ArgumentNullException("Fields must not be null");
             }
-            List<User> userList = UserSeeder.GetData();
-            foreach (User item in userList)
+            else
             {
-                if (item.Username.Equals(username) && item.Password.Equals(password))
+                using (var client = new HttpClient())
                 {
-                    if (item.Type)
-                        return "ok";
+                    const string json = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
+                    var uri = string.Format(json, username, password);
+                    var resultJson = await client.GetAsync(uri);
+                    var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<User>(userObj);
+                    if (result == null)
+                    {
+                        throw new ArgumentNullException("Non-existent user");
+                    }
                     else
-                        return "not";
+                    {
+                        return result;
+                    }
                 }
+
             }
-            return "Non-existent user";
         }
-
-
         public async Task<List<Field>> GetFieldsAsync()
         {
             using (var client = new HttpClient())
             {
-                var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/GetFields");
-                //var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/Login/?userName=" + username + "&password=" + password);
+                var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/GetFields");
                 var fields = JsonConvert.DeserializeObject<List<Field>>(json);
                 return fields;
             }
         }
+        public async Task<List<Reservation>> GetReservedFieldsAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/GetReservations ");
+                var reservedFields = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                return reservedFields;
+            }
+
+        }
+
 
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
         {

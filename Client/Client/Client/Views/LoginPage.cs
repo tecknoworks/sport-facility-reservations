@@ -107,26 +107,26 @@ namespace Client.Views
         }
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
-            _viewModel.OnCheck();
-
-            var homePageView = new HomePage($"Hello, {_usernameEntry.Text}");
-
-            if (string.IsNullOrEmpty(_viewModel.Token))
+            await _viewModel.LoginVMAsync();
+            if (string.IsNullOrEmpty(_viewModel.Username) || string.IsNullOrEmpty(_viewModel.Password))
             {
                 await DisplayAlert("Warning", _viewModel.LoginMessage, "OK");
                 return;
             }
-
-            if (_viewModel.Token.Equals("ok"))
+            if (_viewModel.User == null)
+            {
+                await DisplayAlert("Warning", "Non-existent user", "OK");
+                return;
+            }
+            else if (_viewModel.User.Status == true)
             {
                 await Navigation.PushAsync(new OwnerHomePage());
             }
-            else if (_viewModel.Token.Equals("not"))
+            else if (_viewModel.User.Status == false)
             {
-               await Navigation.PushAsync(homePageView);
+                var homePageView = new HomePage($"Hello, {_viewModel.User.Name}");
+                await Navigation.PushAsync(homePageView);
             }
-
-            else await DisplayAlert("Warning", _viewModel.Token, "OK");
             return;
         }
         private async void RegisterButton_Clicked(object sender, EventArgs e)
