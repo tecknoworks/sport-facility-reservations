@@ -25,7 +25,6 @@ namespace Client
         {
             Client.App.Container = Container;
             Container.RegisterType<IServiceClient, ServiceClient>();
-            Container.RegisterType<ILoginService, LoginService>();
             Container.RegisterTypeForNavigation<HomePage>();
         }
     }

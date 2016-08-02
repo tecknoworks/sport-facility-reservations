@@ -127,7 +127,6 @@ namespace Client.Views
                 var homePageView = new HomePage($"Hello, {_viewModel.User.Name}");
                 await Navigation.PushAsync(homePageView);
             }
-            
             return;
         }
         private async void RegisterButton_Clicked(object sender, EventArgs e)
