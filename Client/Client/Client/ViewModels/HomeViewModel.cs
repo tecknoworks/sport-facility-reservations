@@ -17,18 +17,18 @@ namespace Client.ViewModels
     {
         public string GreetingText { get; set; }
 
-        string _title = "HomePage";
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
+        //string _title = "HomePage";
+        //public string Title
+        //{
+        //    get { return _title; }
+        //    set { SetProperty(ref _title, value); }
+        //}
         
-        public IServiceClient _serviceClient;
+        //public IServiceClient _serviceClient;
 
-        public HomeViewModel(IServiceClient serviceClient)
-        {
-            _serviceClient = serviceClient;
-        }
+        //public HomeViewModel(IServiceClient serviceClient)
+        //{
+        //    _serviceClient = serviceClient;
+        //}
     }
 }
