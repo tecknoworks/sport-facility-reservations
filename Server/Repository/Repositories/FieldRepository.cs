@@ -40,6 +40,10 @@ namespace Repository.Repositories
                 return query.ToList();
             }
         }
+        public IEnumerable<Field> GetFieldsOrderedByPrice()
+        {
+            return FacilityContext.Fields.OrderByDescending(c => c.Price).ToList();
+        }
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }

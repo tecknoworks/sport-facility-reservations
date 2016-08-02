@@ -35,16 +35,16 @@ namespace Server.Controllers
         public List<Field> GetFieldByCity(string city)
         {
             var fields = GetFields();
-            List<Field> fieldss=new List<Field>();
+            List<Field> fieldss = new List<Field>();
             foreach (var field in fields)
                 if (field.Location.Equals(city))
                     fieldss.Add(field);
             return fieldss;
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            //return Ok(user);
+        }
+        [HttpGet]
+        public IEnumerable<Field> OrderBy()
+        {
+            return _unitOfWork.FieldRepository.GetFieldsOrderedByPrice();
         }
         [HttpPost]
         public HttpResponseMessage AddField(Field field)
@@ -54,7 +54,7 @@ namespace Server.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
             IEnumerable<Field> fields = GetFields();
-            foreach (var field1 in fields)
+            foreach (Field field1 in fields)
             {
                 if (field1.Name.Equals(field.Name))
                 {
@@ -65,8 +65,6 @@ namespace Server.Controllers
             _unitOfWork.FieldRepository.Add(field);
             _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, field);
-
         }
-
     }
 }
