@@ -45,12 +45,12 @@ namespace Server.Controllers
         [HttpGet]
         public IHttpActionResult LoginRequest(string name, string password)
         {
-            var userr = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
-            if (userr == null)
+            var user = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
+            if (user == null)
             {
                 return NotFound();
             }
-            return Ok(userr);
+            return Ok(user);
         }
         [HttpDelete]
         public void DeleteUser(int id)
@@ -78,9 +78,8 @@ namespace Server.Controllers
         //}
 
         [HttpPost]
-        [ResponseType(typeof(User))]
-        //[ActionName("Add")]
-        public HttpResponseMessage PostUser(User user)
+        [ResponseType(typeof(User))]       
+        public HttpResponseMessage AddUser(User user)
         {
             if (!ModelState.IsValid)
             {
@@ -116,22 +115,5 @@ namespace Server.Controllers
 
             return Ok(user);
         }
-
-        //    protected override void Dispose(bool disposing)
-        //    {
-        //        if (disposing)
-        //        {
-        //            db.Dispose();
-        //        }
-        //        base.Dispose(disposing);
-        //    }
-
-        //    private bool UserExists(int id)
-        //    {
-        //        return db.Users.Count(e => e.ID == id) > 0;
-        //    }
-        //}
-
-
     }
 }

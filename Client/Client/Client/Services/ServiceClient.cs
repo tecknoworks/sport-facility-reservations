@@ -21,6 +21,17 @@ namespace Client.Services
                 return fields;
             }
         }
+        public async Task<List<Reservation>> GetReservedFieldsAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/GetReservations ");
+                var reservedFields = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                return reservedFields;
+            }
+
+        }
+
 
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
         {
