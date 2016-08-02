@@ -17,7 +17,6 @@ namespace Client
         protected override Xamarin.Forms.Page CreateMainPage()
         {
             var page = Container.Resolve<LoginPage>();
-            //return Container.Resolve<LoginPage>();
             return new Xamarin.Forms.NavigationPage(page);
 
         }
@@ -26,7 +25,7 @@ namespace Client
         {
             Client.App.Container = Container;
             Container.RegisterType<IServiceClient, ServiceClient>();
-          //  Container.RegisterTypeForNavigation<LoginPage>();
+            Container.RegisterType<ILoginService, LoginService>();
             Container.RegisterTypeForNavigation<HomePage>();
         }
     }

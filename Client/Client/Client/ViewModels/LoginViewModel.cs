@@ -1,4 +1,5 @@
-﻿using Client.Services.Interfaces;
+﻿using Client.Models;
+using Client.Services.Interfaces;
 using Client.Views;
 using Commander;
 using Prism.Commands;
@@ -16,30 +17,29 @@ namespace Client.ViewModels
     //[ImplementPropertyChanged] ???
     public class LoginViewModel : BindableBase
     {
-        private readonly IServiceClient _serviceClient;
-
+        private readonly ILoginService _loginService;
         public string Username { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
+        public User User { get; set; }
         public string LoginMessage { get; set; }
 
-        public LoginViewModel(IServiceClient serviceClient)
+        public LoginViewModel(ILoginService loginService)
         {
-            _serviceClient = serviceClient;
+            _loginService = loginService;
         }
-
-        [OnCommand("CheckCommand")]
-        public void OnCheck()
+        public async Task LoginVMAsync()
         {
-            Token = "";
+            User = null;
             try
             {
-                Token = _serviceClient.Login(Username, Password);
+                User = await _loginService.LoginAsync(Username, Password);
             }
             catch (ArgumentNullException)
             {
                 LoginMessage = "Unable to log in. Username or password is empty.";
             }
         }
+
     }
 }

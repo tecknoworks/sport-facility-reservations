@@ -12,33 +12,11 @@ namespace Client.Services
 {
     public class ServiceClient : IServiceClient
     {
-        public string Login(string username, string password)
-        {
-            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrEmpty(password))
-            {
-                throw new ArgumentNullException("Fields must not be null", nameof(username));
-            }
-            List<User> userList = UserSeeder.GetData();
-            foreach (User item in userList)
-            {
-                if (item.Username.Equals(username) && item.Password.Equals(password))
-                {
-                    if (item.Type)
-                        return "ok";
-                    else
-                        return "not";
-                }
-            }
-            return "Non-existent user";
-        }
-
-
         public async Task<List<Field>> GetFieldsAsync()
         {
             using (var client = new HttpClient())
             {
                 var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/GetFields");
-                //var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/Login/?userName=" + username + "&password=" + password);
                 var fields = JsonConvert.DeserializeObject<List<Field>>(json);
                 return fields;
             }
