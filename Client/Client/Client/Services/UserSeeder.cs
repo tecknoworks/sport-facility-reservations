@@ -13,10 +13,10 @@ namespace Client.Services
         {
             var items = new List<User>
             {
-                new User() {Username="Mari", Password = "mar", Type = false },
-                new User() {Username="Tudor", Password = "tud", Type = false},
-                new User() {Username="Vero", Password = "ver", Type = true },
-                new User() {Username="Y", Password = "y" , Type = false}
+                new User() {Username="Mari", Password = "mar", Status = false },
+                new User() {Username="Tudor", Password = "tud", Status = false},
+                new User() {Username="Vero", Password = "ver", Status = true },
+                new User() {Username="Y", Password = "y" , Status = false}
             };
             return items;
         }
