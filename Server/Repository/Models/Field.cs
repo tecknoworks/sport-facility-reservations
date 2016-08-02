@@ -15,7 +15,6 @@ namespace Repository.Models
         public string Type { get; set; }
         public int Price { get; set; }
         public List<DateTime> Availability { get; set; }
-
         public virtual ICollection<Reservation> Reservation { get; set; }
         //public int OwnerId { get; set; }
         //[ForeignKey("OwnerId")]

@@ -14,7 +14,7 @@ using Repository;
 
 namespace Server.Controllers
 {
-     
+
     public class LoginController : ApiController
     {
         // public FacilityContext _context = new FacilityContext();
@@ -43,14 +43,15 @@ namespace Server.Controllers
             return Ok(user);
         }
         [HttpGet]
-        public IHttpActionResult LoginRequest(string name, string password)
+        public User LoginRequest(string name, string password)
         {
             var user = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            return user;
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+            //return Ok(user);
         }
         [HttpDelete]
         public void DeleteUser(int id)
@@ -59,26 +60,8 @@ namespace Server.Controllers
             _unitOfWork.UserRepository.Remove(user);
             _unitOfWork.Complete();
         }
-        //[HttpPut]
-        //public void PutUser([FromUri]int id,[FromUri] string name, [FromUri] string password, [FromUri] bool status)
-        //{
-        //    var user2 = _unitOfWork.UserRepository.Get(id);
-        //    user2.Name = name;
-        //    user2.Password = password;
-        //    user2.Status = status;
-        //    _unitOfWork.UserRepository.Update(user2);
-        //    _unitOfWork.Complete();
-
-        //    if (user2 == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user2);
-
-        //}
-
         [HttpPost]
-        [ResponseType(typeof(User))]       
+        [ResponseType(typeof(User))]
         public HttpResponseMessage AddUser(User user)
         {
             if (!ModelState.IsValid)
@@ -92,13 +75,13 @@ namespace Server.Controllers
                 {
                     var message = string.Format("User Name {0} is taken ", user.UserName);
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
-
                 }
             }
-                _unitOfWork.UserRepository.Add(user);
-                _unitOfWork.Complete();
-                return Request.CreateResponse(HttpStatusCode.OK, user);
-            
+            user.Token = Guid.NewGuid().ToString();  // TODO: Token
+            _unitOfWork.UserRepository.Add(user);
+            _unitOfWork.Complete();
+            return Request.CreateResponse(HttpStatusCode.OK, user);
+
         }
 
         //GET: api/Login/5
@@ -112,7 +95,6 @@ namespace Server.Controllers
             {
                 return NotFound();
             }
-
             return Ok(user);
         }
     }

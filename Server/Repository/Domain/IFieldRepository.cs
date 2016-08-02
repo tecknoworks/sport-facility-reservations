@@ -13,5 +13,6 @@ namespace Repository.Domain
        IEnumerable<Field> GetFieldsByColumn(Expression<Func<Field, bool>> filter = null,
                                             Func<IQueryable<Field>, IOrderedQueryable<Field>> orderBy = null,
                                             string includeProperties = "");
+        IEnumerable<Field> GetFieldsOrderedByPrice();
     }
 }
