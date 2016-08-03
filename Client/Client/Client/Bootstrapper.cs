@@ -16,16 +16,23 @@ namespace Client
     {
         protected override Xamarin.Forms.Page CreateMainPage()
         {
-            var page = Container.Resolve<LoginPage>();
-            return new Xamarin.Forms.NavigationPage(page);
-
+            if (string.IsNullOrEmpty(Settings.Token))
+            {
+                var page = Container.Resolve<LoginPage>();
+                return new Xamarin.Forms.NavigationPage(page);
+            }
+            else
+            {
+                var page = Container.Resolve<HomePage>("");
+                return new Xamarin.Forms.NavigationPage(page);
+            }
         }
 
         protected override void RegisterTypes()
         {
             Client.App.Container = Container;
             Container.RegisterType<IServiceClient, ServiceClient>();
-            Container.RegisterTypeForNavigation<HomePage>();
+            Container.RegisterType<HomePage>(new InjectionConstructor(""));
         }
     }
 }

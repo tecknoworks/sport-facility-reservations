@@ -124,7 +124,7 @@ namespace Client.Views
             }
             else if (_viewModel.User.Status == false)
             {
-                var homePageView = new HomePage($"Hello, {_viewModel.User.Name}");
+                var homePageView = new HomePage($"Hello, {_viewModel.User.LastName}");
                 await Navigation.PushAsync(homePageView);
             }
             return;
