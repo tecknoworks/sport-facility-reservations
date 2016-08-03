@@ -1,4 +1,5 @@
-﻿using Client.Services.Interfaces;
+﻿using Client.Models;
+using Client.Services.Interfaces;
 using Commander;
 using Prism.Mvvm;
 using PropertyChanged;
@@ -34,6 +35,8 @@ namespace Client.ViewModels
         public string DateTimeMessage { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public User AddUser { get; set; }
+        public User User { get; set; }
 
 
         public RegisterViewModel(IServiceClient serviceClient)
