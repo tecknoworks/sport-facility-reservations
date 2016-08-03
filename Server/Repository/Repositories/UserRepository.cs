@@ -14,7 +14,7 @@ namespace Repository.Domain
         public UserRepository(FacilityContext context)
            : base(context)
         {
-        }       
+        }              
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }
