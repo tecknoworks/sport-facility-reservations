@@ -13,6 +13,7 @@ namespace Repository
     {
         IUserRepository UserRepository { get; }
         IFieldRepository FieldRepository { get; }
+        IReservationRepository ReservationRepository { get; }
         int Complete();
     }
 }

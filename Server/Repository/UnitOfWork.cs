@@ -12,22 +12,19 @@ namespace Repository
     public class UnitOfWork : IUnitOfWork
     {
         public IUserRepository UserRepository { get; private set; }
-        public IFieldRepository FieldRepository { get; private set; } 
+        public IFieldRepository FieldRepository { get; private set; }
+        public IReservationRepository ReservationRepository { get; private set; }
         public FacilityContext _context;
-
         public UnitOfWork(FacilityContext context)
         {
             _context = context;
             UserRepository = new UserRepository(_context);
             FieldRepository = new FieldRepository(_context);
+            ReservationRepository = new ReservationRepository(_context);
         }
-      
-
-
         public int Complete()
         {
-            return _context.SaveChanges();
-        }
+            return _context.SaveChanges();        }
 
         public void Dispose()
         {

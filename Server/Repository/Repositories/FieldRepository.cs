@@ -17,10 +17,10 @@ namespace Repository.Repositories
         {
             this._dbSet = context.Set<Field>();
         }
-        public IEnumerable<Field> GetFieldsByColumn(Expression<Func<Field, bool>> filter = null,
+        public List<Field> GetFieldsByColumn(Expression<Func<Field, bool>> filter = null,
                                                     Func<IQueryable<Field>, IOrderedQueryable<Field>> orderBy = null,
                                                     string includeProperties = "")
-        {            
+        {
             IQueryable<Field> query = _dbSet;
             if (filter != null)
             {

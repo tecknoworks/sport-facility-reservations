@@ -53,11 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\IFieldRepository.cs" />
+    <Compile Include="Domain\IReservationRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FacilityContext.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
     <Compile Include="Domain\IUserRepository.cs" />
     <Compile Include="Repositories\FieldRepository.cs" />
+    <Compile Include="Repositories\ReservationRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\Reservation.cs" />
