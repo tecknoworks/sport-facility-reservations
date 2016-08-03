@@ -12,7 +12,5 @@ namespace Client.Models
         public List<DateTime> Availability { get; set; }
         public string Location { get; set; }
         public string type { get; set; }
-
-
     }
 }

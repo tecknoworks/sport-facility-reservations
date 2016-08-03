@@ -144,10 +144,8 @@ namespace Client.ViewModels
 
         private async void SearchButton_Clicked(object sender, EventArgs e)
         {
-            _viewModel.OnSearch();
-            foreach(Models.Field item in _viewModel.Fields)
-            {
-            }
+            await _viewModel.SearchVMAsync();
+            
         }
     }
 }

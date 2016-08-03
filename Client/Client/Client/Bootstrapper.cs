@@ -23,8 +23,16 @@ namespace Client
             }
             else
             {
-                var page = Container.Resolve<HomePage>("");
-                return new Xamarin.Forms.NavigationPage(page);
+                if (Settings.Status == false)
+                {
+                    var page = Container.Resolve<HomePage>("");
+                    return new Xamarin.Forms.NavigationPage(page);
+                }
+                else
+                {
+                    var page = Container.Resolve<OwnerHomePage>();
+                    return new Xamarin.Forms.NavigationPage(page);
+                }
             }
         }
 

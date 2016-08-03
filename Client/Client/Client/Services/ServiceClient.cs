@@ -93,19 +93,56 @@ namespace Client.Services
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
 
-        public List<Field> Search(string name, string city)
+        public async Task<List<Field>> SearchAsync(string token, string name, string city)
         {
-            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Location.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
+            //return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Location.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
+            using (var client = new HttpClient())
+            {
+                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldBy?token={0}&name={1}&location={2}";
+                var uri = string.Format(json, token, name, city);
+                var resultJson = await client.GetAsync(uri);
+                var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<List<Field>>(userObj);
+                if (result == null)
+                {
+                    throw new ArgumentNullException("There is no field according to given filter");
+                }
+                else
+                {
+                    return result;
+                }
+            }
         }
 
-        public List<Field> Search(string name)
+        public async Task<List<Field>> SearchAsync(string token, string city)
         {
-            return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            //return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            using (var client = new HttpClient())
+            {
+                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldByCity?token={0}&city={1}";
+                var uri = string.Format(json, token, city);
+                var resultJson = await client.GetAsync(uri);
+                var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<List<Field>>(userObj);
+                if (result == null)
+                {
+                    throw new ArgumentNullException("There is no field according to given filter");
+                }
+                else
+                {
+                    return result;
+                }
+            }
         }
 
         public List<Field> Search(DateTime availability)
         {
             return FieldsSeeder.GetData().Where(x => x.Availability.Contains(availability)).ToList();
+        }
+
+        public List<Field> Search(string filter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

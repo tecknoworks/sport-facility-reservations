@@ -26,6 +26,12 @@ namespace Client.Views
             _viewModel = App.Container.Resolve<HomeViewModel>();
             BindingContext = _viewModel;
 
+            var signOutButton = new Button
+            {
+                Text = "Log out"
+            };
+            signOutButton.Clicked += SignOutButton_Clicked;
+
             var label = new Label
             {
                 Text = "your name",
@@ -71,6 +77,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            contentLayout.Children.Add(signOutButton);
             contentLayout.Children.Add(label);
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
@@ -96,6 +103,12 @@ namespace Client.Views
             
 
             Content = relativeLayout;
+        }
+
+        private async void SignOutButton_Clicked(object sender, EventArgs e)
+        {
+            _viewModel.SignOut();
+            await Navigation.PushAsync(new LoginPage());
         }
 
         private async void viewFieldsButton_Clicked(object sender, EventArgs e)

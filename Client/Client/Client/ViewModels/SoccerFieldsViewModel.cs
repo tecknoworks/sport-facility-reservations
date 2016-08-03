@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Client.Services;
+using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
@@ -27,11 +29,10 @@ namespace Client.ViewModels
         {
             _serviceClient = serviceClient;
         }
-
-        [OnCommand("SearchCommand")]
-        public void OnSearch()
+        
+        public async Task SearchVMAsync()
         {
-            var fields = _serviceClient.Search(Name);
+            var fields = await _serviceClient.SearchAsync(Settings.Token, Name, City);
             Fields = new ObservableCollection<Field>(fields);
         }
 

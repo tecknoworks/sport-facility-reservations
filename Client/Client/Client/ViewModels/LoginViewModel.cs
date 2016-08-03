@@ -35,6 +35,34 @@ namespace Client.ViewModels
                 OnPropertyChanged();
             }
         }
+        public bool Status
+        {
+            get
+            {
+                return Settings.Status;
+            }
+            set
+            {
+                if (Settings.Status == value)
+                    return;
+                Settings.Status = value;
+                OnPropertyChanged();
+            }
+        }
+        public string FirstName
+        {
+            get
+            {
+                return Settings.FirstName;
+            }
+            set
+            {
+                if (Settings.FirstName == value)
+                    return;
+                Settings.FirstName = value;
+                OnPropertyChanged();
+            }
+        }
         public User User { get; set; }
         public string LoginMessage { get; set; }
 
@@ -49,6 +77,8 @@ namespace Client.ViewModels
             {
                 User = await _serviceClient.LoginAsync(Username, Password);
                 Token = User.Token;
+                Status = User.Status;
+                FirstName = User.FirstName;
             }
             catch (ArgumentNullException)
             {

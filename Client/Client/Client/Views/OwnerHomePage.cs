@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
 using Client.ViewModels;
+using Client.Services;
 
 namespace Client.Views
 {
@@ -14,7 +15,7 @@ namespace Client.Views
         public OwnerHomePage()
         {
             Children.Add(new ReservationPage());
-            Children.Add(new HomePage(""));
+            Children.Add(new HomePage(Settings.FirstName));
         }
 
     }

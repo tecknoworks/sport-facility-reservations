@@ -1,4 +1,5 @@
-﻿using Client.Services.Interfaces;
+﻿using Client.Models;
+using Client.Services.Interfaces;
 using Commander;
 using Prism.Mvvm;
 using PropertyChanged;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Client.Services;
 
 namespace Client.ViewModels
 {
@@ -16,6 +18,26 @@ namespace Client.ViewModels
     public class HomeViewModel : BindableBase
     {
         public string GreetingText { get; set; }
+        public User User { get; set; }
+        public string Token
+        {
+            get
+            {
+                return Settings.Token;
+            }
+            set
+            {
+                if (Settings.Token == value)
+                    return;
+                Settings.Token = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void SignOut()
+        {
+            Token=string.Empty;
+        }
 
         //string _title = "HomePage";
         //public string Title
