@@ -16,7 +16,8 @@ namespace Client.Services.Interfaces
         Task<List<Reservation>> GetReservedFieldsAsync();
         Task AddUserrAsync(User user);
         List<Field> Search(string filter);
-        List<Field> Search(string filter1, string filter2);
+        Task<List<Field>> SearchAsync(string token, string filter1, string filter2);
+        Task<List<Field>> SearchAsync(string token, string filter1);
         List<Field> Search(DateTime availability);
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
+using Client.Services;
 
 namespace Client.Views
 {
@@ -103,8 +104,22 @@ namespace Client.Views
             grid.Children.Add(registerButton, 0, 8);
             registerButton.Clicked += RegisterButton_Clicked;
 
+            var facebookLoginButton = new Button
+            {
+                Text = "Login with Facebook"
+            };
+            grid.Children.Add(facebookLoginButton, 0, 9);
+            facebookLoginButton.Clicked += FacebookLoginButton_Clicked;
+
+
             this.Content = grid;
         }
+
+        private void FacebookLoginButton_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
             await _viewModel.LoginVMAsync();
@@ -124,7 +139,7 @@ namespace Client.Views
             }
             else if (_viewModel.User.Status == false)
             {
-                var homePageView = new HomePage($"Hello, {_viewModel.User.LastName}");
+                var homePageView = new HomePage($"Hello, {Settings.FirstName}");
                 await Navigation.PushAsync(homePageView);
             }
             return;
