@@ -296,11 +296,6 @@ namespace Client.Views
             }
             else
                 await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
-
-            //if (_viewmodel.token.equals("end time cannot be earlier than the start time, please try again"))
-            //{
-            //    await displayalert("warning", _viewmodel.token, "ok");
-            //}
         }
     }
 }

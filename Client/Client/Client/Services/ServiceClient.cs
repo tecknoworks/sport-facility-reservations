@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 using Client.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Client.Services
 {
     public class ServiceClient : IServiceClient
     {
+
         public async Task<List<Field>> GetFieldsAsync()
         {
             using (var client = new HttpClient())
             {
                 var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/GetFields");
+                //var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/Login/?userName=" + username + "&password=" + password);
                 var fields = JsonConvert.DeserializeObject<List<Field>>(json);
                 return fields;
             }
@@ -29,8 +32,26 @@ namespace Client.Services
                 var reservedFields = JsonConvert.DeserializeObject<List<Reservation>>(json);
                 return reservedFields;
             }
+        }
+        public async Task AddUserrAsync(User user)
+        {
+            using (var client = new HttpClient())
+            {
+                //var json = JsonConvert.SerializeObject(user);
+                //HttpContent httpContent = new StringContent(json);
+                //httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                //client.DefaultRequestHeaders.Accept
+                //      .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //var response = await client.PostAsync(new Uri("http://tkw-sfr.azurewebsites.net/api/login/AddUser/"), httpContent);
+
+                var json = JsonConvert.SerializeObject(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
+              
+            }
 
         }
+
 
 
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
