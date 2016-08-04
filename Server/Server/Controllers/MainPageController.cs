@@ -7,6 +7,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Data.Entity;
 
 namespace Server.Controllers
 {
@@ -32,14 +35,39 @@ namespace Server.Controllers
             }
             return Ok(field);
         }
-        public List<Field> GetFieldByCity(string city)
+        public List<Field> GetFieldByCity(string token, string city)
         {
-            var fields = GetFields();
-            List<Field> fieldss = new List<Field>();
-            foreach (var field in fields)
-                if (field.Location.Equals(city))
-                    fieldss.Add(field);
-            return fieldss;
+            var users = _unitOfWork.UserRepository.GetAll();
+            foreach (var user in users)
+                if (user.Token.Equals(token))
+                {
+                    var fields = GetFields();
+                    List<Field> fieldss = new List<Field>();
+                    foreach (var field in fields)
+                        if (field.Location.Equals(city))
+                            fieldss.Add(field);
+                    return fieldss;
+                }
+            return null;
+        }
+        public IEnumerable<Field> GetFieldBy(string token, string name, string location)
+        {
+            var users = _unitOfWork.UserRepository.GetAll();
+            foreach (var user in users)
+                if (user.Token.Equals(token))
+                {
+                    var fields = GetFields();
+                    if (!string.IsNullOrEmpty(location) && string.IsNullOrEmpty(name))
+                        return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase));
+                    else if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(location))
+                        return fields.Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+                    else if (!string.IsNullOrEmpty(location) && !string.IsNullOrEmpty(name))
+                        return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase))
+                                       .Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+                    else
+                        return fields;
+                }
+            return null;
         }
         [HttpGet]
         public IEnumerable<Field> OrderBy()
@@ -53,18 +81,20 @@ namespace Server.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            IEnumerable<Field> fields = GetFields();
-            foreach (Field field1 in fields)
-            {
-                if (field1.Name.Equals(field.Name))
-                {
-                    var message = string.Format("Field  {0} already added", field.Name);
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
-                }
-            }
             _unitOfWork.FieldRepository.Add(field);
             _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, field);
         }
+        //public IQueryable GetReservations(string token)
+        //{
+            
+        //    var reservations = _unitOfWork.ReservationRepository.GetAll().Where(q=>q.FieldID);
+
+        //    var users = _unitOfWork.UserRepository.GetAll();
+        //    var fields = _unitOfWork.FieldRepository.GetAll();
+
+
+        //}
+
     }
 }

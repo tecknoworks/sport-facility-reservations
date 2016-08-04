@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Repository.Domain
 {
-    public interface  IFieldRepository:IRepository<Field>
+    public interface IFieldRepository : IRepository<Field>
     {
-       IEnumerable<Field> GetFieldsByColumn(Expression<Func<Field, bool>> filter = null,
-                                            Func<IQueryable<Field>, IOrderedQueryable<Field>> orderBy = null,
-                                            string includeProperties = "");
+        List<Field> GetFieldsByColumn(Expression<Func<Field, bool>> filter = null,
+                                      Func<IQueryable<Field>, IOrderedQueryable<Field>> orderBy = null,
+                                      string includeProperties = "");
         IEnumerable<Field> GetFieldsOrderedByPrice();
     }
 }

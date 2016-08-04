@@ -57,6 +57,15 @@ namespace Client.Services
                 return reservedFields;
             }
         }
+        public async Task AddUserAsync(User user)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
+            }
+        }
         public async Task AddUserrAsync(User user)
         {
             using (var client = new HttpClient())
