@@ -26,7 +26,7 @@ namespace Client.ViewModels
         public int IndexType { get; set; }
         public bool IsOwner { get; set; }
         public string FieldName { get; set; }
-        public string Sport { get; set; }
+        public int SportIndex { get; set; }
         public string Adress { get; set; }
         public string Length { get; set; }
         public string Width { get; set; }
@@ -35,9 +35,6 @@ namespace Client.ViewModels
         public string DateTimeMessage { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public User AddUser { get; set; }
-        public User User { get; set; }
-
 
         public RegisterViewModel(IServiceClient serviceClient)
         {
@@ -74,9 +71,14 @@ namespace Client.ViewModels
                 }
                 Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, length, width, StartTime, EndTime, price);
                 User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
+                Field field = new Field(SportIndex, FieldName, Adress, length, width, StartTime, EndTime, price);
                 if (ConfirmPassword.Equals(Password))
                 {
                     _serviceClient.AddUserAsync(user);
+                    if(IsOwner==true&&EndTime.Ticks>=StartTime.Ticks)
+                    {
+                        _serviceClient.AddFieldAsync(field);
+                    }
                 }
             }
             catch (ArgumentNullException)
