@@ -23,11 +23,11 @@ namespace Client.Services
             {
                 using (var client = new HttpClient())
                 {
-                    const string json = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
-                    var uri = string.Format(json, username, password);
-                    var resultJson = await client.GetAsync(uri);
-                    var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<User>(userObj);
+                    const string uriTemplate = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
+                    var uri = string.Format(uriTemplate, username, password);
+                    var response = await client.GetAsync(uri);
+                    var serializedUser = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<User>(serializedUser);
                     if (result == null)
                     {
                         throw new ArgumentNullException("Non-existent user");
@@ -37,7 +37,6 @@ namespace Client.Services
                         return result;
                     }
                 }
-
             }
         }
         public async Task<List<Field>> GetFieldsAsync()
