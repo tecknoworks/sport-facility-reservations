@@ -67,20 +67,14 @@ namespace Client.Services
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
             }
         }
-        public async Task AddUserrAsync(User user)
+        public async Task AddFieldAsync(Field field)
         {
             using (var client = new HttpClient())
             {
-                //var json = JsonConvert.SerializeObject(user);
-                //HttpContent httpContent = new StringContent(json);
-                //httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                //client.DefaultRequestHeaders.Accept
-                //      .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //var response = await client.PostAsync(new Uri("http://tkw-sfr.azurewebsites.net/api/login/AddUser/"), httpContent);
 
-                var json = JsonConvert.SerializeObject(user);
+                var json = JsonConvert.SerializeObject(field);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
+                var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/AddField/", content);
               
             }
 
