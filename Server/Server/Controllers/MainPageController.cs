@@ -66,9 +66,6 @@ namespace Server.Controllers
                                        .Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
                     else
                         return fields;
-                    // var field = _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Location == location);
-                    //fields.Concat(field);
-
                 }
             return null;
         }
@@ -84,24 +81,18 @@ namespace Server.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            IEnumerable<Field> fields = GetFields();
-            foreach (Field field1 in fields)
-            {
-                if (field1.Name.Equals(field.Name))
-                {
-                    var message = string.Format("Field  {0} already added", field.Name);
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
-                }
-            }
             _unitOfWork.FieldRepository.Add(field);
             _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, field);
         }
-        //public IQueryable GetReservations(Guid Token)
+        //public IQueryable GetReservations(string token)
         //{
+            
+        //    var reservations = _unitOfWork.ReservationRepository.GetAll().Where(q=>q.FieldID);
+
         //    var users = _unitOfWork.UserRepository.GetAll();
-        //    var reservations = _unitOfWork.ReservationRepository.GetAll();
-        //    var query=from reservation in reservations.
+        //    var fields = _unitOfWork.FieldRepository.GetAll();
+
 
         //}
 
