@@ -14,18 +14,10 @@ using Repository;
 
 namespace Server.Controllers
 {
-
     public class LoginController : ApiController
     {
         // public FacilityContext _context = new FacilityContext();
         private readonly UnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
-
-        [HttpGet]
-        public IHttpActionResult GetTest()
-        {
-            return Ok("test works");
-        }
-
         // GET: api/Login
         [HttpGet]
         public IEnumerable<User> GetUsers()
@@ -43,15 +35,15 @@ namespace Server.Controllers
             return Ok(user);
         }
         [HttpGet]
-        public User LoginRequest(string name, string password)
+        [ResponseType(typeof(User))]
+        public HttpResponseMessage LoginRequest(string name, string password)
         {
             var user = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
-            return user;
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            //return Ok(user);
+            if (user == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
         [HttpDelete]
         public void DeleteUser(int id)
@@ -97,5 +89,13 @@ namespace Server.Controllers
             }
             return Ok(user);
         }
+        //[HttpPut]
+        //public void UpdateUser(string token, string name)
+        //{
+        //    var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == token);
+        //    user.FirstName = name;
+        //    _unitOfWork.UserRepository.Update(user);
+        //    _unitOfWork.Complete();
+        //}
     }
 }
