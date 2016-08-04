@@ -72,8 +72,12 @@ namespace Client.ViewModels
                     if (float.TryParse(Price, out convertedPrice))
                         price = convertedPrice;
                 }
-
                 Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, length, width, StartTime, EndTime, price);
+                User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
+                if (ConfirmPassword.Equals(Password))
+                {
+                    _serviceClient.AddUserAsync(user);
+                }
             }
             catch (ArgumentNullException)
             {
