@@ -15,7 +15,14 @@ namespace Client.Models
         public string PhoneNumber { get; set; }
         public bool Status { get; set; }
         public string Token { get; set; }
-
-
+        public User(string firstName, string lastName, string username, string paswword, string phoneNumber, bool status)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Password = paswword;
+            PhoneNumber = phoneNumber;
+            Status = status;
+        }
     }
 }
