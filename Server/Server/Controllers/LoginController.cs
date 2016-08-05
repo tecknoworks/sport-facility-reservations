@@ -36,14 +36,18 @@ namespace Server.Controllers
         }
         [HttpGet]
         [ResponseType(typeof(User))]
-        public HttpResponseMessage LoginRequest(string name, string password)
+        public User LoginRequest(string name, string password)
         {
             var user = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
-            if (user == null)
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return user;
+            //if (user == null)
+            //    return NotFound();
+            //else return Ok(user);
+            //if (user == null)
+            //{
+            //    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            //}
+            //return new HttpResponseMessage(HttpStatusCode.OK);
         }
         [HttpDelete]
         public void DeleteUser(int id)

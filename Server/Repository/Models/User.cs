@@ -13,10 +13,9 @@ namespace Repository.Models
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [Index(IsUnique = true)]
-        [StringLength(200)]
+        [Required]
         public string UserName { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public bool Status { get; set; }            
         public string Token { get; set; }

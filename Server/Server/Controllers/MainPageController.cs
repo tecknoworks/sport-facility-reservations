@@ -10,6 +10,7 @@ using System.Web.Http.Description;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using System.Web.Http.Results;
 
 namespace Server.Controllers
 {
@@ -17,14 +18,24 @@ namespace Server.Controllers
     {
         UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
         [HttpGet]
-        public IEnumerable<Field> GetFieldsByType(string type)
+        public IEnumerable<Field> GetFieldsByType(int type)
         {
             var fields = _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
             return fields;
         }
         public IEnumerable<Field> GetFields()
         {
-            return _unitOfWork.FieldRepository.GetAll();
+            var fields = _unitOfWork.FieldRepository.GetAll();
+            //if (fields == null)
+            //{
+            //    var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+            //    {
+            //        Content = new StringContent(string.Format("No product fields found")),
+            //        ReasonPhrase = "Fields not found"
+            //    };
+            // throw new HttpResponseException(resp);
+            //}
+            return fields;
         }
         public IHttpActionResult GetFieldByName(string name)
         {
@@ -85,15 +96,15 @@ namespace Server.Controllers
             _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, field);
         }
-        //public IQueryable GetReservations(string token)
+        public IQueryable GetReservations( string userName, string fieldName)
+        {
+
+            return _unitOfWork.ReservationRepository.GetView(userName,fieldName);
+
+        }
+        //public JsonResult GetReservations()
         //{
-            
-        //    var reservations = _unitOfWork.ReservationRepository.GetAll().Where(q=>q.FieldID);
-
-        //    var users = _unitOfWork.UserRepository.GetAll();
-        //    var fields = _unitOfWork.FieldRepository.GetAll();
-
-
+        //    return Json(new {Name })
         //}
 
     }
