@@ -231,7 +231,7 @@ namespace Client.Views
             };
             sports.Items.Add("Football");
             sports.Items.Add("Tennis");
-
+            sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex ");
 
             var layout = new StackLayout
             {

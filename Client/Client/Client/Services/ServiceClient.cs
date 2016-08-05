@@ -23,11 +23,11 @@ namespace Client.Services
             {
                 using (var client = new HttpClient())
                 {
-                    const string json = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
-                    var uri = string.Format(json, username, password);
-                    var resultJson = await client.GetAsync(uri);
-                    var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<User>(userObj);
+                    const string uriTemplate = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
+                    var uri = string.Format(uriTemplate, username, password);
+                    var response = await client.GetAsync(uri);
+                    var serializedUser = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<User>(serializedUser);
                     if (result == null)
                     {
                         throw new ArgumentNullException("Non-existent user");
@@ -37,7 +37,6 @@ namespace Client.Services
                         return result;
                     }
                 }
-
             }
         }
         public async Task<List<Field>> GetFieldsAsync()
@@ -67,20 +66,14 @@ namespace Client.Services
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
             }
         }
-        public async Task AddUserrAsync(User user)
+        public async Task AddFieldAsync(Field field)
         {
             using (var client = new HttpClient())
             {
-                //var json = JsonConvert.SerializeObject(user);
-                //HttpContent httpContent = new StringContent(json);
-                //httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                //client.DefaultRequestHeaders.Accept
-                //      .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //var response = await client.PostAsync(new Uri("http://tkw-sfr.azurewebsites.net/api/login/AddUser/"), httpContent);
 
-                var json = JsonConvert.SerializeObject(user);
+                var json = JsonConvert.SerializeObject(field);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
+                var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/AddField/", content);
               
             }
 
