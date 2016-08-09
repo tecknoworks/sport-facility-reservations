@@ -25,16 +25,7 @@ namespace Server.Controllers
         }
         public IEnumerable<Field> GetFields()
         {
-            var fields = _unitOfWork.FieldRepository.GetAll();
-            //if (fields == null)
-            //{
-            //    var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-            //    {
-            //        Content = new StringContent(string.Format("No product fields found")),
-            //        ReasonPhrase = "Fields not found"
-            //    };
-            // throw new HttpResponseException(resp);
-            //}
+            var fields = _unitOfWork.FieldRepository.GetAll();         
             return fields;
         }
         public IHttpActionResult GetFieldByName(string name)
@@ -96,16 +87,35 @@ namespace Server.Controllers
             _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, field);
         }
+        [HttpDelete]
+        [ResponseType(typeof(Field))]
+        public IHttpActionResult DeleteField(string name)
+        {
+            Field field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(p=>p.Name==name);
+            if (field == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.FieldRepository.Remove(field);
+            _unitOfWork.Complete();
+            return Ok(field);
+        }
         public IQueryable GetReservations( string userName, string fieldName)
         {
-
             return _unitOfWork.ReservationRepository.GetView(userName,fieldName);
-
-        }
-        //public JsonResult GetReservations()
+        }    
+        //[HttpPost]
+        //public HttpResponseMessage UpdateUser(string token,User user)
         //{
-        //    return Json(new {Name })
-        //}
-
+        //    if (token != user.Token)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.BadRequest, "User not found");
+        //    }
+        //   // _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == token);
+        //    _unitOfWork.UserRepository.Update(user);
+        //    _unitOfWork.Complete();
+        //    return Request.CreateResponse(HttpStatusCode.BadRequest, "User details updated");
+        //}    
     }
+
 }
