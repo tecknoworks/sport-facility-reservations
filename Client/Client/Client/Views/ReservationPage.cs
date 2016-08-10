@@ -11,6 +11,7 @@ namespace Client.Views
 {
     class ReservationPage : ContentPage
     {
+        Button acceptBtn;
         public ReservationPageViewModel _viewModel;
         public ReservationPage()
         {
@@ -28,27 +29,27 @@ namespace Client.Views
                 ItemTemplate = new DataTemplate(() =>
                 {
                     var nameField = new Label();
-                    nameField.SetBinding(Label.TextProperty, "FieldName");
+                    nameField.SetBinding(Label.TextProperty, "Field");
 
-                    var hour = new Label();           
-                    hour.SetBinding(Label.TextProperty, "Hour");
+                    var hour = new Label();
+                    hour.SetBinding(Label.TextProperty, "StartHour");
 
-                    var acceptBtn = new Button
+                    acceptBtn = new Button
                     {
                         Text = "Accept",
-                        BackgroundColor = Color.Green,
+                        HorizontalOptions = LayoutOptions.EndAndExpand,
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
-
                     };
+
                     var rejectBtn = new Button
                     {
                         Text = "Reject",
                         BackgroundColor = Color.Red,
+                        HorizontalOptions = LayoutOptions.EndAndExpand,
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
-
                     };
 
-
+                    acceptBtn.Clicked += Accept_Clicked;
                     return new ViewCell
                     {
                         View = new StackLayout
@@ -66,9 +67,14 @@ namespace Client.Views
                 }
                 )
             };
+
             listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
             await _viewModel.LoadReservedFieldsAsync();
             Content = listView;
+        }
+        private void Accept_Clicked(object sender, EventArgs e)
+        {
+            acceptBtn.BackgroundColor = Color.Green;
         }
     }
 }

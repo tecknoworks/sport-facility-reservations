@@ -20,7 +20,6 @@ namespace Client.Views
             _greetingText = greetingText;
             Init();
         }
-
         public async Task Init()
         {
             _viewModel = App.Container.Resolve<HomeViewModel>();
@@ -77,12 +76,14 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            contentLayout.Children.Add(signOutButton);
+            editAccountButton.Clicked += EditMyAccount_Clicked;
+
+            
             contentLayout.Children.Add(label);
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
             contentLayout.Children.Add(editAccountButton);
-
+            contentLayout.Children.Add(signOutButton);
 
             var myImage = new Image
             {
@@ -99,12 +100,14 @@ namespace Client.Views
                 Constraint.Constant(0),
                 Constraint.Constant(0),
                 Constraint.RelativeToParent((parent) => { return parent.Width ; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height / 2; }));
+                Constraint.RelativeToParent((parent) => { return parent.Height / 2+ 60; }));
             
-
             Content = relativeLayout;
         }
-
+        public async void EditMyAccount_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EditMyAccountPage());
+        }
         private async void SignOutButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.SignOut();
@@ -120,7 +123,6 @@ namespace Client.Views
         {
             var searchPageView = new SearchPage();
             await Navigation.PushAsync(searchPageView);
-
         }
     }
 }

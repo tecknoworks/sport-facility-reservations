@@ -9,7 +9,7 @@ using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
-    class RegisterPage : ContentPage
+    public class RegisterPage : ContentPage
     {
         private const int PICKER_OWNER_INDEX = 0;
         public RegisterViewModel _viewModel;
@@ -75,7 +75,7 @@ namespace Client.Views
 
             var phone = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
 
@@ -111,7 +111,6 @@ namespace Client.Views
             {
                 Text = "Submit"
             };
-
 
             var labelType = new Label
             {
@@ -176,7 +175,7 @@ namespace Client.Views
 
             var entryWidth = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric
             };
             entryWidth.SetBinding(Entry.TextProperty, "Width");
 
@@ -187,13 +186,11 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            _startTime = new TimePicker() { Format = "T"};
-            _startTime.SetBinding(TimePicker.TimeProperty, "StartTime");   
-   
+            _startTime = new TimePicker() { Format = "T" };
+            _startTime.SetBinding(TimePicker.TimeProperty, "StartTime");
 
             _endTime = new TimePicker() { Format = "T" };
-            _endTime.SetBinding(TimePicker.TimeProperty,"EndTime");
-
+            _endTime.SetBinding(TimePicker.TimeProperty, "EndTime");
 
             var price = new Label
             {
@@ -203,7 +200,7 @@ namespace Client.Views
             };
             var priceEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric
             };
             priceEntry.SetBinding(Entry.TextProperty, "Price");
 
@@ -296,6 +293,10 @@ namespace Client.Views
             }
             else
                 await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
+            if(_viewModel.Token== "Password match")
+            {
+                await Navigation.PushAsync(new LoginPage());
+            }
         }
     }
 }

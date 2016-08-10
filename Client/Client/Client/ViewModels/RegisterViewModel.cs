@@ -32,7 +32,7 @@ namespace Client.ViewModels
         public string Width { get; set; }
         public string Price { get; set; }
         public string RegisterMessage { get; set; }
-        public string DateTimeMessage { get; set; }
+        public string UnableAddUser { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
 
@@ -61,7 +61,7 @@ namespace Client.ViewModels
                     if (int.TryParse(Width, out convertedWidth))
                         width = convertedWidth;
                 }
-
+                
                 float? price = null;
                 if (!string.IsNullOrWhiteSpace(Price))
                 {
@@ -69,6 +69,7 @@ namespace Client.ViewModels
                     if (float.TryParse(Price, out convertedPrice))
                         price = convertedPrice;
                 }
+
                 Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, length, width, StartTime, EndTime, price);
                 User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
                 Field field = new Field(SportIndex, FieldName, Adress, length, width, StartTime, EndTime, price);

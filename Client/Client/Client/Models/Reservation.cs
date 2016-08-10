@@ -8,8 +8,7 @@ namespace Client.Models
 {
    public class Reservation
     {
-        public string FieldName { get; set; }
-        public DateTime Hour{ get; set; }
-
+        public string Field { get; set; }
+        public DateTime StartHour{ get; set; }
     }
 }

@@ -37,7 +37,6 @@ namespace Client.Services
                         return result;
                     }
                 }
-
             }
         }
         public async Task<List<Field>> GetFieldsAsync()
@@ -49,13 +48,20 @@ namespace Client.Services
                 return fields;
             }
         }
-        public async Task<List<Reservation>> GetReservedFieldsAsync()
+        public async Task<List<Reservation>> GetReservedFieldsAsync(string token)
         {
             using (var client = new HttpClient())
             {
-                var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/tmp/GetReservations ");
-                var reservedFields = JsonConvert.DeserializeObject<List<Reservation>>(json);
-                return reservedFields;
+                //var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservations ");
+                //var reservedFields = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                //return reservedFields;
+
+                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservations/?token={0}";
+                var uri = string.Format(json, token);
+                var resultJson = await client.GetAsync(uri);
+                var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<List <Reservation >> (userObj);
+                return result;
             }
         }
         public async Task AddUserAsync(User user)
@@ -65,22 +71,31 @@ namespace Client.Services
                 var json = JsonConvert.SerializeObject(user);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
+                if (result.StatusCode==System.Net.HttpStatusCode.OK)
+                {
+                }
+                else
+                {
+                    throw new Exception(result.ReasonPhrase);
+                }
             }
         }
         public async Task AddFieldAsync(Field field)
         {
             using (var client = new HttpClient())
             {
-
                 var json = JsonConvert.SerializeObject(field);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/AddField/", content);
-              
+                if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                }
+                else
+                {
+                    throw new Exception(result.ReasonPhrase);
+                }
             }
-
         }
-
-
 
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
         {
@@ -106,7 +121,7 @@ namespace Client.Services
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
                 if (!width.HasValue)
                     throw new ArgumentNullException("Fields must not be null", nameof(username));
-                if (endTime.Ticks<= startTime.Ticks)
+                if (endTime.Ticks <= startTime.Ticks)
                     return "End time cannot be earlier than the start time, please try again";
                 if (!price.HasValue)
                     throw new ArgumentNullException("Fields must not be null", nameof(username));

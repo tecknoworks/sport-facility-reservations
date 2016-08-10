@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Client.Services;
+using Commander;
 
 namespace Client.ViewModels
 {
@@ -12,8 +14,8 @@ namespace Client.ViewModels
     public class ReservationPageViewModel
     {
         public IServiceClient _serviceClient;
-        public string FieldName { get; set; }        
-        public DateTime Hour { get; set; }
+        public string Field { get; set; }        
+        public DateTime StartHour { get; set; }
         public List<Models.Reservation> ReservedFields { get; set; }
 
         public ReservationPageViewModel(IServiceClient serviceClient)
@@ -22,7 +24,7 @@ namespace Client.ViewModels
         }
         public async Task LoadReservedFieldsAsync()
         {
-            ReservedFields = await _serviceClient.GetReservedFieldsAsync();
+            ReservedFields = await _serviceClient.GetReservedFieldsAsync(Settings.Token);
         }
     }
 }

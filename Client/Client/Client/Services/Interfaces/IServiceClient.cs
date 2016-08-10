@@ -13,7 +13,7 @@ namespace Client.Services.Interfaces
         Task<User> LoginAsync(string username, string password);
         Task<List<Field>> GetFieldsAsync();
         string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price);
-        Task<List<Reservation>> GetReservedFieldsAsync();
+        Task<List<Reservation>> GetReservedFieldsAsync(string token);
         Task AddUserAsync(User user);
         Task AddFieldAsync(Field field);
         List<Field> Search(string filter);
