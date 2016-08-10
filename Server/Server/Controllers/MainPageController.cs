@@ -10,6 +10,7 @@ using System.Web.Http.Description;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using System.Web.Http.Results;
 
 namespace Server.Controllers
 {
@@ -17,14 +18,15 @@ namespace Server.Controllers
     {
         UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
         [HttpGet]
-        public IEnumerable<Field> GetFieldsByType(string type)
+        public IEnumerable<Field> GetFieldsByType(int type)
         {
             var fields = _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
             return fields;
         }
         public IEnumerable<Field> GetFields()
         {
-            return _unitOfWork.FieldRepository.GetAll();
+            var fields = _unitOfWork.FieldRepository.GetAll();
+            return fields;
         }
         public IHttpActionResult GetFieldByName(string name)
         {
@@ -85,16 +87,35 @@ namespace Server.Controllers
             _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, field);
         }
-        //public IQueryable GetReservations(string token)
+        [HttpDelete]
+        [ResponseType(typeof(Field))]
+        public IHttpActionResult DeleteField(string name)
+        {
+            Field field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(p => p.Name == name);
+            if (field == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.FieldRepository.Remove(field);
+            _unitOfWork.Complete();
+            return Ok(field);
+        }
+        public IQueryable GetReservations(string token)
+        {
+            return _unitOfWork.ReservationRepository.GetView(token);
+        }
+        //[HttpPost]
+        //public HttpResponseMessage UpdateUser(string token,User user)
         //{
-            
-        //    var reservations = _unitOfWork.ReservationRepository.GetAll().Where(q=>q.FieldID);
-
-        //    var users = _unitOfWork.UserRepository.GetAll();
-        //    var fields = _unitOfWork.FieldRepository.GetAll();
-
-
-        //}
-
+        //    if (token != user.Token)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.BadRequest, "User not found");
+        //    }
+        //   // _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == token);
+        //    _unitOfWork.UserRepository.Update(user);
+        //    _unitOfWork.Complete();
+        //    return Request.CreateResponse(HttpStatusCode.BadRequest, "User details updated");
+        //}    
     }
+
 }

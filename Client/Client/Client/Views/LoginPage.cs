@@ -115,9 +115,9 @@ namespace Client.Views
             this.Content = grid;
         }
 
-        private void FacebookLoginButton_Clicked(object sender, EventArgs e)
+        private async void FacebookLoginButton_Clicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new Login());
         }
 
         private async void LoginButton_Clicked(object sender, EventArgs e)

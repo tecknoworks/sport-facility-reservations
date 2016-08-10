@@ -18,7 +18,6 @@ namespace Client.Views
             Title = "Reservation Page";
             Init();
         }
-
         public async Task Init()
         {
             _viewModel = App.Container.Resolve<ReservationPageViewModel>();
@@ -40,6 +39,8 @@ namespace Client.Views
                         HorizontalOptions = LayoutOptions.EndAndExpand,
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
                     };
+                    //  acceptBtn.SetBinding(Button.CommandProperty, "BlaCommand");
+                    acceptBtn.Clicked += Button_Clicked;
 
                     var rejectBtn = new Button
                     {
@@ -49,7 +50,6 @@ namespace Client.Views
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
                     };
 
-                    acceptBtn.Clicked += Accept_Clicked;
                     return new ViewCell
                     {
                         View = new StackLayout
@@ -67,14 +67,14 @@ namespace Client.Views
                 }
                 )
             };
-
             listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
             await _viewModel.LoadReservedFieldsAsync();
             Content = listView;
         }
-        private void Accept_Clicked(object sender, EventArgs e)
+
+        private void Button_Clicked(object sender, EventArgs e)
         {
-            acceptBtn.BackgroundColor = Color.Green;
+            _viewModel.OnBla();
         }
     }
 }

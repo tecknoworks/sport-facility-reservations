@@ -8,6 +8,7 @@ namespace Client.Models
 {
     public class Field
     {
+        public int id { get; set; }
         public string Name { get; set; }
         public List<DateTime> Availability { get; set; }
         public string Location { get; set; }

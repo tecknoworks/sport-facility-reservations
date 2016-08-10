@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Client
@@ -13,6 +13,17 @@ namespace Client
     {
         public static IUnityContainer Container { get; internal set; }
 
+        public static Action HideLoginView
+        {
+            get
+            {
+                return new Action(() => App.Current.MainPage.Navigation.PopModalAsync());
+            }
+        }
+        public static async Task NavigateToProfile(string message)
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new HomePage(message));
+        }
         public App()
         {
             Bootstrapper bs = new Bootstrapper();

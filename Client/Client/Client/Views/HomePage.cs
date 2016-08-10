@@ -54,7 +54,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            searchButton.Clicked += Button_Clicked;
+            searchButton.Clicked += NavigationButton_Clicked;
 
             var viewFieldsButton = new Button
             {
@@ -76,9 +76,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            editAccountButton.Clicked += EditMyAccount_Clicked;
-
-            
+            editAccountButton.Clicked += editAccountButton_Clicked;
             contentLayout.Children.Add(label);
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
@@ -104,10 +102,15 @@ namespace Client.Views
             
             Content = relativeLayout;
         }
-        public async void EditMyAccount_Clicked(object sender, EventArgs e)
+        //public async void EditMyAccount_Clicked(object sender, EventArgs e)
+        //{
+        //    await Navigation.PushAsync(new EditMyAccountPage());
+        //}
+        private async void editAccountButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EditMyAccountPage());
+            await Navigation.PushAsync(new SearchPage());
         }
+
         private async void SignOutButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.SignOut();
@@ -119,7 +122,7 @@ namespace Client.Views
             await Navigation.PushAsync(new FieldsListView());
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void NavigationButton_Clicked(object sender, EventArgs e)
         {
             var searchPageView = new SearchPage();
             await Navigation.PushAsync(searchPageView);

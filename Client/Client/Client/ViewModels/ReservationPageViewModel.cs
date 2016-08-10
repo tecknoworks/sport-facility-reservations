@@ -26,5 +26,12 @@ namespace Client.ViewModels
         {
             ReservedFields = await _serviceClient.GetReservedFieldsAsync(Settings.Token);
         }
+
+        [OnCommand("BlaCommand")]
+        public void OnBla()
+        {
+            Field = "hello"
+;        }
+
     }
 }

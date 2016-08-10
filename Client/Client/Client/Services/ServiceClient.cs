@@ -23,11 +23,11 @@ namespace Client.Services
             {
                 using (var client = new HttpClient())
                 {
-                    const string json = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
-                    var uri = string.Format(json, username, password);
-                    var resultJson = await client.GetAsync(uri);
-                    var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                    var result = JsonConvert.DeserializeObject<User>(userObj);
+                    const string uriTemplate = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
+                    var uri = string.Format(uriTemplate, username, password);
+                    var response = await client.GetAsync(uri);
+                    var serializedUser = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<User>(serializedUser);
                     if (result == null)
                     {
                         throw new ArgumentNullException("Non-existent user");
@@ -96,6 +96,22 @@ namespace Client.Services
                 }
             }
         }
+        public async Task AddReservationAsync(Reservation reservation)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    var json = JsonConvert.SerializeObject(reservation);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/Temp/AddReservations/", content);
+                }catch(Exception ex)
+                {
+
+                }
+
+            }
+        }
 
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
         {
@@ -130,7 +146,7 @@ namespace Client.Services
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
 
-        public async Task<List<Field>> SearchAsync(string token, string name, string city)
+        public async Task<IEnumerable<Field>> SearchAsync(string token, string name, string city)
         {
             //return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Location.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
             using (var client = new HttpClient())
@@ -171,6 +187,7 @@ namespace Client.Services
                 }
             }
         }
+
 
         public List<Field> Search(DateTime availability)
         {
