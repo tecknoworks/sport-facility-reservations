@@ -36,14 +36,18 @@ namespace Server.Controllers
         }
         [HttpGet]
         [ResponseType(typeof(User))]
-        public HttpResponseMessage LoginRequest(string name, string password)
+        public User LoginRequest(string name, string password)
         {
             var user = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
-            if (user == null)
-            {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            }
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return user;
+            //if (user == null)
+            //    return NotFound();
+            //else return Ok(user);
+            //if (user == null)
+            //{
+            //    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            //}
+            //return new HttpResponseMessage(HttpStatusCode.OK);
         }
         [HttpDelete]
         public void DeleteUser(int id)
@@ -66,14 +70,14 @@ namespace Server.Controllers
                 if (user1.UserName.Equals(user.UserName))
                 {
                     var message = string.Format("User Name {0} is taken ", user.UserName);
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, message);
                 }
             }
             user.Token = Guid.NewGuid().ToString();  // TODO: Token
             _unitOfWork.UserRepository.Add(user);
             _unitOfWork.Complete();
-            return Request.CreateResponse(HttpStatusCode.OK, user);
 
+            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         //GET: api/Login/5
@@ -87,6 +91,7 @@ namespace Server.Controllers
             {
                 return NotFound();
             }
+
             return Ok(user);
         }
         //[HttpPut]

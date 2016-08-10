@@ -20,7 +20,7 @@ namespace Repository.Repositories
         {
             return Context.Set<TEntity>().Find(id);
         }
-        public IEnumerable<TEntity> GetAll()
+        public List<TEntity> GetAll()
         {
             return Context.Set<TEntity>().ToList();
         }
