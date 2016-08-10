@@ -74,11 +74,24 @@ namespace Client.Services
                 var json = JsonConvert.SerializeObject(field);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/AddField/", content);
-              
             }
-
         }
+        public async Task AddReservationAsync(Reservation reservation)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    var json = JsonConvert.SerializeObject(reservation);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/Temp/AddReservations/", content);
+                }catch(Exception ex)
+                {
 
+                }
+
+            }
+        }
 
 
         public string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price)
@@ -114,7 +127,7 @@ namespace Client.Services
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
 
-        public async Task<List<Field>> SearchAsync(string token, string name, string city)
+        public async Task<IEnumerable<Field>> SearchAsync(string token, string name, string city)
         {
             //return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Location.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
             using (var client = new HttpClient())
@@ -155,6 +168,7 @@ namespace Client.Services
                 }
             }
         }
+
 
         public List<Field> Search(DateTime availability)
         {

@@ -17,9 +17,10 @@ namespace Client.Services.Interfaces
         Task AddUserAsync(User user);
         Task AddFieldAsync(Field field);
         List<Field> Search(string filter);
-        Task<List<Field>> SearchAsync(string token, string filter1, string filter2);
+        Task<IEnumerable<Field>> SearchAsync(string token, string filter1, string filter2);
         Task<List<Field>> SearchAsync(string token, string filter1);
         List<Field> Search(DateTime availability);
+        Task AddReservationAsync( Reservation reservation);
     }
 }
     

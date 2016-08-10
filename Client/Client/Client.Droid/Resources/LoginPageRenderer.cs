@@ -38,6 +38,7 @@ namespace Client.Droid
                     var obj = JObject.Parse(response.GetResponseText());
                     var id = obj["id"].ToString().Replace("\"", ""); // Id has extraneous quotation marks
                     var name = obj["name"].ToString().Replace("\"", "");
+                    var token = obj["token"].ToString().Replace("\"", "");
                     await App.NavigateToProfile(string.Format("Hello {0}", name));
                 }
                 else
