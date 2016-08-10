@@ -13,35 +13,40 @@ namespace Server.Controllers
     {
         UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
         [HttpGet]
-        public IQueryable GetReservations(string userName, string fieldName)
+        public IQueryable GetReservations(string token)
         {
 
-            return _unitOfWork.ReservationRepository.GetView(userName, fieldName);
+            return _unitOfWork.ReservationRepository.GetView(token);
 
         }
         [HttpPost]
         public HttpResponseMessage AddReservations(ReservationDTO reservation)
         {
-            var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
-            if (user == null)
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "User not found");
-            var field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(p => p.Name == reservation.FieldName);
-            if (field == null)
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Field not found");
-            _unitOfWork.ReservationRepository.Add(new Reservation
+            try
             {
-                FieldID = field.ID,
-                UserID = user.ID,
-                StartHour = reservation.StartHour
-            });
-            _unitOfWork.Complete();
-            return new HttpResponseMessage(HttpStatusCode.OK);
+                var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
+                if (user == null)
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "User not found");
+
+                _unitOfWork.ReservationRepository.Add(new Reservation
+                {
+                    FieldID = reservation.FieldId,
+                    UserID = user.ID,
+                    StartHour = new DateTime(2016,8,10,reservation.Hour,0,0)
+                });
+                _unitOfWork.Complete();
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError) { ReasonPhrase = ex.Message };
+            }
         }
         public class ReservationDTO
         {
-            public string FieldName;
+            public int FieldId;
             public string Token;
-            public DateTime StartHour;
+            public int Hour;
         }
     }
 }

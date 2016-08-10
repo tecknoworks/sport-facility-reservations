@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +20,9 @@ namespace Repository.Models
         public string Password { get; set; }
         public bool Status { get; set; }            
         public string Token { get; set; }
+        [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservations { get; set; }
+        [IgnoreDataMember]
         public virtual ICollection<Field> Fields { get; set; }
     }
 }

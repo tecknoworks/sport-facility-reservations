@@ -25,7 +25,7 @@ namespace Server.Controllers
         }
         public IEnumerable<Field> GetFields()
         {
-            var fields = _unitOfWork.FieldRepository.GetAll();         
+            var fields = _unitOfWork.FieldRepository.GetAll();
             return fields;
         }
         public IHttpActionResult GetFieldByName(string name)
@@ -91,7 +91,7 @@ namespace Server.Controllers
         [ResponseType(typeof(Field))]
         public IHttpActionResult DeleteField(string name)
         {
-            Field field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(p=>p.Name==name);
+            Field field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(p => p.Name == name);
             if (field == null)
             {
                 return NotFound();
@@ -100,10 +100,10 @@ namespace Server.Controllers
             _unitOfWork.Complete();
             return Ok(field);
         }
-        public IQueryable GetReservations( string userName, string fieldName)
+        public IQueryable GetReservations(string token)
         {
-            return _unitOfWork.ReservationRepository.GetView(userName,fieldName);
-        }    
+            return _unitOfWork.ReservationRepository.GetView(token);
+        }
         //[HttpPost]
         //public HttpResponseMessage UpdateUser(string token,User user)
         //{

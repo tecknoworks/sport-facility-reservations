@@ -14,16 +14,17 @@ namespace Repository.Repositories
            : base(context)
         {
         }
-        public IQueryable  GetView(string userName, string fieldName)
+        public IQueryable  GetView(string token)
         {
             var query = (from r in FacilityContext.Reservations
                          join u in FacilityContext.Users on r.UserID equals u.ID
                          join f in FacilityContext.Fields on r.FieldID equals f.ID
-                         where u.UserName == userName || f.Name == fieldName
+                         where u.Token == token  
                          select new
                          {
                              Name = u.UserName,
                              Field = f.Name,
+                             StartHour=r.StartHour,
                          });
             return query;
         }

@@ -9,6 +9,6 @@ namespace Repository.Domain
 {
     public interface IReservationRepository:IRepository<Reservation>
     {
-        IQueryable GetView(string userName, string fieldName);
+        IQueryable GetView(string token);
     }
 }

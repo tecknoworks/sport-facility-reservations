@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,7 @@ namespace Repository.Models
         public TimeSpan Startime { get; set; }
         public TimeSpan Endtime { get; set; }
         public List<DateTime> Availability { get; set; }
+        [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservation { get; set; }
         //public int OwnerId { get; set; }
         //[ForeignKey("OwnerId")]

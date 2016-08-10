@@ -70,14 +70,14 @@ namespace Server.Controllers
                 if (user1.UserName.Equals(user.UserName))
                 {
                     var message = string.Format("User Name {0} is taken ", user.UserName);
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, message);
                 }
             }
             user.Token = Guid.NewGuid().ToString();  // TODO: Token
             _unitOfWork.UserRepository.Add(user);
             _unitOfWork.Complete();
-            return Request.CreateResponse(HttpStatusCode.OK, user);
 
+            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         //GET: api/Login/5
@@ -91,6 +91,7 @@ namespace Server.Controllers
             {
                 return NotFound();
             }
+
             return Ok(user);
         }
         //[HttpPut]
