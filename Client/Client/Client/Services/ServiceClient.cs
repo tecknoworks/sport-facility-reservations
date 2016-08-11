@@ -48,14 +48,24 @@ namespace Client.Services
                 return fields;
             }
         }
+
+        public async Task<List<User>> GetUserByIdAsync(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                const string json = "http://tkw-sfr.azurewebsites.net/api/Login/GetUserById/?token={0}";
+                var uri = string.Format(json, token);
+                var resultJson = await client.GetAsync(uri);
+                var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<List<User>>(userObj);
+                return result;
+            }
+        }
+
         public async Task<List<Reservation>> GetReservedFieldsAsync(string token)
         {
             using (var client = new HttpClient())
             {
-                //var json = await client.GetStringAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservations ");
-                //var reservedFields = JsonConvert.DeserializeObject<List<Reservation>>(json);
-                //return reservedFields;
-
                 const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservations/?token={0}";
                 var uri = string.Format(json, token);
                 var resultJson = await client.GetAsync(uri);
@@ -109,7 +119,6 @@ namespace Client.Services
                 {
 
                 }
-
             }
         }
 

@@ -102,13 +102,10 @@ namespace Client.Views
             
             Content = relativeLayout;
         }
-        //public async void EditMyAccount_Clicked(object sender, EventArgs e)
-        //{
-        //    await Navigation.PushAsync(new EditMyAccountPage());
-        //}
+       
         private async void editAccountButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SearchPage());
+            await Navigation.PushAsync(new EditMyAccountPage());
         }
 
         private async void SignOutButton_Clicked(object sender, EventArgs e)

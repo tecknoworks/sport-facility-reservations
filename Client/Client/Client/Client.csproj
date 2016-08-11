@@ -50,6 +50,7 @@
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\UserSeeder.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\EditMyAccountViewModel.cs" />
     <Compile Include="ViewModels\FieldsListViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="ViewModels\SearchPageViewModel.cs" />
     <Compile Include="ViewModels\SoccerFieldsViewModel.cs" />
     <Compile Include="Views\DetailsView.cs" />
+    <Compile Include="Views\EditMyAccountPage.cs" />
     <Compile Include="Views\FieldsListView.cs" />
     <Compile Include="Views\Login.cs" />
     <Compile Include="Views\OwnerHomePage.cs" />

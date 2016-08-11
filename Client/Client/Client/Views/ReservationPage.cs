@@ -39,8 +39,10 @@ namespace Client.Views
                         HorizontalOptions = LayoutOptions.EndAndExpand,
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
                     };
-                    //  acceptBtn.SetBinding(Button.CommandProperty, "BlaCommand");
-                    acceptBtn.Clicked += Button_Clicked;
+                    acceptBtn.Clicked += (sender, e) =>
+                    {
+                        acceptBtn.BackgroundColor = Color.Red;
+                    };
 
                     var rejectBtn = new Button
                     {
@@ -70,11 +72,6 @@ namespace Client.Views
             listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
             await _viewModel.LoadReservedFieldsAsync();
             Content = listView;
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            _viewModel.OnBla();
         }
     }
 }
