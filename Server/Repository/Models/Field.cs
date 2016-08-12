@@ -23,8 +23,8 @@ namespace Repository.Models
         public int Price { get; set; }
         public int Width { get; set; }
         public int Length { get; set; }
-        public TimeSpan Startime { get; set; }
-        public TimeSpan Endtime { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         public List<DateTime> Availability { get; set; }
         [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservation { get; set; }
