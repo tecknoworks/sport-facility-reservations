@@ -49,7 +49,7 @@ namespace Client.Services
             }
         }
 
-        public async Task<List<User>> GetUserByIdAsync(string token)
+        public async Task< User> GetUserByIdAsync(string token)
         {
             using (var client = new HttpClient())
             {
@@ -57,10 +57,24 @@ namespace Client.Services
                 var uri = string.Format(json, token);
                 var resultJson = await client.GetAsync(uri);
                 var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<List<User>>(userObj);
+                var result = JsonConvert.DeserializeObject<User>(userObj);
                 return result;
             }
         }
+
+        public async Task<Field> GetFieldAsync(string token)
+        {
+            using (var client = new HttpClient())
+            {
+                const string json = "http://tkw-sfr.azurewebsites.net/api/Login/GetUserById/?token={0}";
+                var uri = string.Format(json, token);
+                var resultJson = await client.GetAsync(uri);
+                var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<Field>(userObj);
+                return result;
+            }
+        }
+
 
         public async Task<List<Reservation>> GetReservedFieldsAsync(string token)
         {

@@ -26,7 +26,6 @@ namespace Client.Views
         {
             _viewModel = App.Container.Resolve<RegisterViewModel>();
             BindingContext = _viewModel;
-           // await _viewModel.LoadGetUserByIdAsync();
 
             var labelFirstName = new Label
             {
@@ -229,7 +228,7 @@ namespace Client.Views
             };
             sports.Items.Add("Football");
             sports.Items.Add("Tennis");
-            sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex ");
+            sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex");
 
             var layout = new StackLayout
             {

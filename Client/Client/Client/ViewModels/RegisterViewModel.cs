@@ -35,7 +35,8 @@ namespace Client.ViewModels
         public string RegisterMessage { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public List<Models.User> Users { get; set; }
+        public User User { get; set; }
+        public Field Field { get; set; }
 
         public RegisterViewModel(IServiceClient serviceClient)
         {
@@ -87,10 +88,12 @@ namespace Client.ViewModels
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
             }
+
         }
         public async Task LoadGetUserByIdAsync()
         {
-            Users = await _serviceClient.GetUserByIdAsync(Settings.Token);
+            User = await _serviceClient.GetUserByIdAsync(Settings.Token);
+            Field = await _serviceClient.GetFieldAsync(Settings.Token);
         }
     }
 }
