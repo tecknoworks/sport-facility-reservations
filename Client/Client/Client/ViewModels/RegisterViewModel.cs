@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Client.Services;
 
 namespace Client.ViewModels
 {
@@ -32,9 +33,9 @@ namespace Client.ViewModels
         public string Width { get; set; }
         public string Price { get; set; }
         public string RegisterMessage { get; set; }
-        public string UnableAddUser { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public List<Models.User> Users { get; set; }
 
         public RegisterViewModel(IServiceClient serviceClient)
         {
@@ -86,6 +87,10 @@ namespace Client.ViewModels
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
             }
+        }
+        public async Task LoadGetUserByIdAsync()
+        {
+            Users = await _serviceClient.GetUserByIdAsync(Settings.Token);
         }
     }
 }

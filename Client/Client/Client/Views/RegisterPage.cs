@@ -26,6 +26,7 @@ namespace Client.Views
         {
             _viewModel = App.Container.Resolve<RegisterViewModel>();
             BindingContext = _viewModel;
+           // await _viewModel.LoadGetUserByIdAsync();
 
             var labelFirstName = new Label
             {
@@ -249,7 +250,7 @@ namespace Client.Views
             layout.Children.Add(phone);
             layout.Children.Add(labelType);
             layout.Children.Add(type);
-
+            
             var ownerLayout = new StackLayout() { Orientation = StackOrientation.Vertical, IsVisible = false };
 
             ownerLayout.Children.Add(labelField);

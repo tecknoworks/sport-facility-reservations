@@ -11,6 +11,7 @@ namespace Client.Services.Interfaces
     public interface IServiceClient
     {
         Task<User> LoginAsync(string username, string password);
+        Task<List<User>> GetUserByIdAsync(string token);
         Task<List<Field>> GetFieldsAsync();
         string Register(string firstName, string lastName, string username, string password, string confirmPassword, bool IsOwner, string phone, string fieldName, string adress, int? length, int? width, TimeSpan startTime, TimeSpan endTime, float? price);
         Task<List<Reservation>> GetReservedFieldsAsync(string token);
