@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Client.Services;
 
 namespace Client.ViewModels
 {
@@ -32,9 +33,10 @@ namespace Client.ViewModels
         public string Width { get; set; }
         public string Price { get; set; }
         public string RegisterMessage { get; set; }
-        public string DateTimeMessage { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public User User { get; set; }
+        public Field Field { get; set; }
 
         public RegisterViewModel(IServiceClient serviceClient)
         {
@@ -61,7 +63,7 @@ namespace Client.ViewModels
                     if (int.TryParse(Width, out convertedWidth))
                         width = convertedWidth;
                 }
-
+                
                 float? price = null;
                 if (!string.IsNullOrWhiteSpace(Price))
                 {
@@ -69,6 +71,7 @@ namespace Client.ViewModels
                     if (float.TryParse(Price, out convertedPrice))
                         price = convertedPrice;
                 }
+
                 Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, length, width, StartTime, EndTime, price);
                 User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
                 Field field = new Field(SportIndex, FieldName, Adress, length, width, StartTime, EndTime, price);
@@ -85,6 +88,12 @@ namespace Client.ViewModels
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
             }
+
+        }
+        public async Task LoadGetUserByIdAsync()
+        {
+            User = await _serviceClient.GetUserByIdAsync(Settings.Token);
+            Field = await _serviceClient.GetFieldAsync(Settings.Token);
         }
     }
 }

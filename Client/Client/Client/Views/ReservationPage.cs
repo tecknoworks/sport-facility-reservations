@@ -11,13 +11,13 @@ namespace Client.Views
 {
     class ReservationPage : ContentPage
     {
+        Button acceptBtn;
         public ReservationPageViewModel _viewModel;
         public ReservationPage()
         {
             Title = "Reservation Page";
             Init();
         }
-
         public async Task Init()
         {
             _viewModel = App.Container.Resolve<ReservationPageViewModel>();
@@ -28,26 +28,29 @@ namespace Client.Views
                 ItemTemplate = new DataTemplate(() =>
                 {
                     var nameField = new Label();
-                    nameField.SetBinding(Label.TextProperty, "FieldName");
+                    nameField.SetBinding(Label.TextProperty, "Field");
 
-                    var hour = new Label();           
-                    hour.SetBinding(Label.TextProperty, "Hour");
+                    var hour = new Label();
+                    hour.SetBinding(Label.TextProperty, "StartHour");
 
-                    var acceptBtn = new Button
+                    acceptBtn = new Button
                     {
                         Text = "Accept",
-                        BackgroundColor = Color.Green,
+                        HorizontalOptions = LayoutOptions.EndAndExpand,
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
-
                     };
+                    acceptBtn.Clicked += (sender, e) =>
+                    {
+                        acceptBtn.BackgroundColor = Color.Red;
+                    };
+
                     var rejectBtn = new Button
                     {
                         Text = "Reject",
                         BackgroundColor = Color.Red,
+                        HorizontalOptions = LayoutOptions.EndAndExpand,
                         Font = Font.SystemFontOfSize(NamedSize.Micro)
-
                     };
-
 
                     return new ViewCell
                     {

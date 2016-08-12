@@ -1,31 +1,34 @@
-﻿using Client.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
+using Client.ViewModels;
+using Client.Services;
 
 namespace Client.Views
 {
-    public class RegisterPage : ContentPage
+    public class EditMyAccountPage : ContentPage
     {
         private const int PICKER_OWNER_INDEX = 0;
-        public RegisterViewModel _viewModel;
+        public EditMyAccountViewModel _viewModel;
         public Entry _password;
         public Entry _confirmPassword;
         private TimePicker _startTime;
         private TimePicker _endTime;
-        public RegisterPage()
+        public EditMyAccountPage()
         {
-            Title = "Register";
+            Title = "Edit My Account Page";
             Init();
         }
         public async Task Init()
         {
-            _viewModel = App.Container.Resolve<RegisterViewModel>();
+            _viewModel = App.Container.Resolve<EditMyAccountViewModel>();
             BindingContext = _viewModel;
+
+            await _viewModel.LoadGetUserByIdAsync();
 
             var labelFirstName = new Label
             {
@@ -107,9 +110,9 @@ namespace Client.Views
             };
             _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
 
-            var buttonRegister = new Button
+            var saveBtn = new Button
             {
-                Text = "Submit"
+                Text = "Save"
             };
 
             var labelType = new Label
@@ -124,7 +127,7 @@ namespace Client.Views
             };
             type.Items.Add("Owner");  // 0 = PICKER_OWNER_INDEX
             type.Items.Add("Player");
-            type.SetBinding(Picker.SelectedIndexProperty, "IndexType");
+            type.SetBinding(Picker.SelectedIndexProperty, "Status");
 
             var labelField = new Label
             {
@@ -247,9 +250,8 @@ namespace Client.Views
             layout.Children.Add(_confirmPassword);
             layout.Children.Add(labelPhone);
             layout.Children.Add(phone);
-            layout.Children.Add(labelType);
             layout.Children.Add(type);
-            
+
             var ownerLayout = new StackLayout() { Orientation = StackOrientation.Vertical, IsVisible = false };
 
             ownerLayout.Children.Add(labelField);
@@ -278,27 +280,14 @@ namespace Client.Views
             };
 
             layout.Children.Add(ownerLayout);
-            layout.Children.Add(buttonRegister);
-            buttonRegister.Clicked += OnAlertClicked;
+            layout.Children.Add(saveBtn);
+            saveBtn.Clicked += OnAlertClicked;
 
             var scrollView = new ScrollView { Content = layout };
             Content = scrollView;
         }
         private async void OnAlertClicked(object sender, EventArgs e)
         {
-            _viewModel.OnReg();
-            if (!string.IsNullOrEmpty(_viewModel.Token))
-            {
-                await (DisplayAlert("Message", _viewModel.Token, "OK"));
-            }
-            else
-                await DisplayAlert("Warning", _viewModel.RegisterMessage, "OK");
-            if(_viewModel.Token== "Password match")
-            {
-                await Navigation.PushAsync(new LoginPage());
-            }
         }
     }
 }
-
-

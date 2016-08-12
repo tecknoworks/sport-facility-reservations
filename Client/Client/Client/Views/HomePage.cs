@@ -20,7 +20,6 @@ namespace Client.Views
             _greetingText = greetingText;
             Init();
         }
-
         public async Task Init()
         {
             _viewModel = App.Container.Resolve<HomeViewModel>();
@@ -55,7 +54,7 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            searchButton.Clicked += Button_Clicked;
+            searchButton.Clicked += NavigationButton_Clicked;
 
             var viewFieldsButton = new Button
             {
@@ -77,12 +76,12 @@ namespace Client.Views
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
-            contentLayout.Children.Add(signOutButton);
+            editAccountButton.Clicked += editAccountButton_Clicked;
             contentLayout.Children.Add(label);
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
             contentLayout.Children.Add(editAccountButton);
-
+            contentLayout.Children.Add(signOutButton);
 
             var myImage = new Image
             {
@@ -99,10 +98,14 @@ namespace Client.Views
                 Constraint.Constant(0),
                 Constraint.Constant(0),
                 Constraint.RelativeToParent((parent) => { return parent.Width ; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height / 2; }));
+                Constraint.RelativeToParent((parent) => { return parent.Height / 2+ 60; }));
             
-
             Content = relativeLayout;
+        }
+       
+        private async void editAccountButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EditMyAccountPage());
         }
 
         private async void SignOutButton_Clicked(object sender, EventArgs e)
@@ -116,11 +119,10 @@ namespace Client.Views
             await Navigation.PushAsync(new FieldsListView());
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void NavigationButton_Clicked(object sender, EventArgs e)
         {
             var searchPageView = new SearchPage();
             await Navigation.PushAsync(searchPageView);
-
         }
     }
 }

@@ -10,17 +10,21 @@ using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
-    class SoccerFieldsViewModel:INotifyPropertyChanged
+    public class SoccerFieldsViewModel : INotifyPropertyChanged
     {
         public string Name { get; set; }
         public string City { get; set; }
         public DateTime Availability { get; set; }
         private ObservableCollection<Field> field;
-        public ObservableCollection<Field> Fields { get { return field; }
-            set {
+        public ObservableCollection<Field> Fields
+        {
+            get { return field; }
+            set
+            {
                 field = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Fields)));
-            } }
+            }
+        }
         IServiceClient _serviceClient;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,7 +33,7 @@ namespace Client.ViewModels
         {
             _serviceClient = serviceClient;
         }
-        
+
         public async Task SearchVMAsync()
         {
             var fields = await _serviceClient.SearchAsync(Settings.Token, Name, City);
