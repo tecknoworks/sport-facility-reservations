@@ -86,5 +86,10 @@ namespace Client.ViewModels
             }
         }
 
+        public async void GetUser(User user)
+        {
+            await _serviceClient.AddUserAsync(user);
+            Token = user.Token;
+        }
     }
 }

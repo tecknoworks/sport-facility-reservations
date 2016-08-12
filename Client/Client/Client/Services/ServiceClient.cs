@@ -39,6 +39,13 @@ namespace Client.Services
                 }
             }
         }
+
+        public static User LoginFBAsync(User user)
+        {
+            return user;
+        }
+
+
         public async Task<List<Field>> GetFieldsAsync()
         {
             using (var client = new HttpClient())
@@ -104,6 +111,8 @@ namespace Client.Services
                 }
             }
         }
+
+
         public async Task AddFieldAsync(Field field)
         {
             using (var client = new HttpClient())
