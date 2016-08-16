@@ -26,18 +26,18 @@ namespace Server.Controllers
             {
                 var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
                 if (user == null)
-                    return Request.CreateResponse(HttpStatusCode.BadRequest, "User not found");
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "User does not exist "};
 
                 _unitOfWork.ReservationRepository.Add(new Reservation
                 {
                     FieldID = reservation.FieldId,
                     UserID = user.ID,
-                    StartHour = new DateTime(2016,8,10,reservation.Hour,0,0)
+                    StartHour = new DateTime(reservation.Year,reservation.Month,reservation.Day,reservation.Hour,0,0)
                 });
                 _unitOfWork.Complete();
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError) { ReasonPhrase = ex.Message };
             }
@@ -46,7 +46,11 @@ namespace Server.Controllers
         {
             public int FieldId;
             public string Token;
+            public int Year;
+            public int Month;
+            public int Day;
             public int Hour;
+
         }
     }
 }

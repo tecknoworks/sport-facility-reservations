@@ -11,15 +11,21 @@ namespace Client.Models
     {
         public int FieldId { get; set; }
         public int Hour{ get; set; }
+        public int Day { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
         public string Token { get; set; }
         public string Field { get; set; }
         public DateTime StartHour { get; set; }
 
-        public Reservation(string token, int idField, int hour )
+        public Reservation(string token, int idField, int hour, int day, int month, int year)
         {
             this.Token = token;
             this.FieldId = idField;
-           Hour = hour;
+            Hour = hour;
+            Day = day;
+            Month = month;
+            Year = year;
         }
     }
 }

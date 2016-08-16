@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Entity;
 using System.Web.Http.Results;
@@ -16,7 +15,12 @@ namespace Server.Controllers
 {
     public class MainPageController : ApiController
     {
-        UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
+        //UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
+        IUnitOfWork _unitOfWork;
+        public MainPageController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         [HttpGet]
         public IEnumerable<Field> GetFieldsByType(int type)
         {
@@ -28,6 +32,11 @@ namespace Server.Controllers
             var fields = _unitOfWork.FieldRepository.GetAll();
             return fields;
         }
+        // public IQueryable GetFieldOfOwner(string token)
+        //{
+
+        //    return _unitOfWork.ReservationRepository.GetFieldsOfOwner(token);
+        //}
         public IHttpActionResult GetFieldByName(string name)
         {
             var field = GetFields().FirstOrDefault((q) => q.Name.Equals(name));
@@ -104,18 +113,7 @@ namespace Server.Controllers
         {
             return _unitOfWork.ReservationRepository.GetView(token);
         }
-        //[HttpPost]
-        //public HttpResponseMessage UpdateUser(string token,User user)
-        //{
-        //    if (token != user.Token)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest, "User not found");
-        //    }
-        //   // _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == token);
-        //    _unitOfWork.UserRepository.Update(user);
-        //    _unitOfWork.Complete();
-        //    return Request.CreateResponse(HttpStatusCode.BadRequest, "User details updated");
-        //}    
+     
     }
 
 }

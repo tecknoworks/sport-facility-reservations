@@ -17,17 +17,22 @@ namespace Server.Controllers
     public class LoginController : ApiController
     {
         // public FacilityContext _context = new FacilityContext();
-        private readonly UnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
+        //private readonly IUnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
+        private readonly IUnitOfWork _unitOfWork;
         // GET: api/Login
+        public LoginController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
             return _unitOfWork.UserRepository.GetAll();
         }
-        [Route("GetUserById")]
-        public IHttpActionResult GetUserById(int id)
+         
+        public IHttpActionResult GetUserById(string token)
         {
-            var user = _unitOfWork.UserRepository.Get(id);
+            var user = _unitOfWork.UserRepository.GetAll().First(p=>p.Token==token);
             if (user == null)
             {
                 return NotFound();
@@ -36,18 +41,18 @@ namespace Server.Controllers
         }
         [HttpGet]
         [ResponseType(typeof(User))]
-        public User LoginRequest(string name, string password)
+        public IHttpActionResult LoginRequest(string name, string password)
         {
+            if (name == null || password == null)
+                return BadRequest();
             var user = GetUsers().FirstOrDefault((q) => q.UserName.Equals(name) && q.Password.Equals(password));
-            return user;
-            //if (user == null)
-            //    return NotFound();
-            //else return Ok(user);
-            //if (user == null)
-            //{
-            //    return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            //}
-            //return new HttpResponseMessage(HttpStatusCode.OK);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+
+
         }
         [HttpDelete]
         public void DeleteUser(int id)
@@ -73,7 +78,8 @@ namespace Server.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.Conflict, message);
                 }
             }
-            user.Token = Guid.NewGuid().ToString();  // TODO: Token
+            if(user.Token == null)
+                user.Token = Guid.NewGuid().ToString();  // TODO: Token
             _unitOfWork.UserRepository.Add(user);
             _unitOfWork.Complete();
 
@@ -94,13 +100,21 @@ namespace Server.Controllers
 
             return Ok(user);
         }
-        //[HttpPut]
-        //public void UpdateUser(string token, string name)
-        //{
-        //    var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == token);
-        //    user.FirstName = name;
-        //    _unitOfWork.UserRepository.Update(user);
-        //    _unitOfWork.Complete();
-        //}
+        [HttpPut]
+        public HttpResponseMessage UpdateUser(User user)
+        {
+            var dbUser = _unitOfWork.UserRepository.GetAll().First(p => p.Token == user.Token);
+            dbUser.UserName=user.UserName;
+            dbUser.FirstName = user.FirstName;
+            dbUser.LastName = user.LastName;
+            dbUser.Password = user.Password;
+            dbUser.PhoneNumber = user.PhoneNumber;
+            dbUser.Status = user.Status;
+            dbUser.Token = user.Token;
+            _unitOfWork.UserRepository.Update(dbUser);
+            _unitOfWork.Complete();         
+            return Request.CreateResponse(HttpStatusCode.OK, "User details updated");
+          
+        }
     }
 }

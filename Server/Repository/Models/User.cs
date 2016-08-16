@@ -22,7 +22,6 @@ namespace Repository.Models
         public string Token { get; set; }
         [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservations { get; set; }
-        [IgnoreDataMember]
-        public virtual ICollection<Field> Fields { get; set; }
+        //public virtual ICollection<Field> Fields { get; set; }
     }
 }
