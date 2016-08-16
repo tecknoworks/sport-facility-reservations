@@ -27,7 +27,7 @@ namespace Client.ViewModels
        // [OnCommand("ResCommand")]
         public async Task ReserveAsync()
         {
-           Reservation reservation = new Reservation(Settings.Token, FieldId, Time.Hours);
+           Reservation reservation = new Reservation(Settings.Token, FieldId, Time.Hours, Date.Day, Date.Month, Date.Year);
            await _serviceClient.AddReservationAsync(reservation);
         }
     }
