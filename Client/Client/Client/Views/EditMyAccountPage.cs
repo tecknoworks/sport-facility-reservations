@@ -12,9 +12,12 @@ namespace Client.Views
 {
     public class EditMyAccountPage : ContentPage
     {
+        private const int PICKER_OWNER_INDEX = 0;
         public EditMyAccountViewModel _viewModel;
         public Entry _password;
         public Entry _confirmPassword;
+        private TimePicker _startTime;
+        private TimePicker _endTime;
         public EditMyAccountPage()
         {
             Title = "Edit My Account Page";
@@ -107,10 +110,129 @@ namespace Client.Views
             };
             _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
 
-            var buttonRegister = new Button
+            var saveBtn = new Button
             {
                 Text = "Save"
             };
+
+            var labelType = new Label
+            {
+                Text = "Type",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var type = new Picker
+            {
+            };
+            type.Items.Add("Owner");  // 0 = PICKER_OWNER_INDEX
+            type.Items.Add("Player");
+            type.SetBinding(Picker.SelectedIndexProperty, "Status");
+
+            var labelField = new Label
+            {
+                Text = "Register Field",
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var fieldName = new Label
+            {
+                Text = "Field Name",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var fieldNameEntry = new Entry
+            {
+                Keyboard = Keyboard.Default
+            };
+            fieldNameEntry.SetBinding(Entry.TextProperty, "FieldName");
+
+            var fieldDimension = new Label
+            {
+                Text = "Dimension",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+
+            var labelLength = new Label
+            {
+                Text = "Length",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var entryLength = new Entry
+            {
+                Keyboard = Keyboard.Numeric
+            };
+            entryLength.SetBinding(Entry.TextProperty, "Length");
+
+            var labelWidth = new Label
+            {
+                Text = "Width",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            var entryWidth = new Entry
+            {
+                Keyboard = Keyboard.Numeric
+            };
+            entryWidth.SetBinding(Entry.TextProperty, "Width");
+
+            var fieldAvailability = new Label
+            {
+                Text = "Availabity",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+
+            _startTime = new TimePicker() { Format = "T" };
+            _startTime.SetBinding(TimePicker.TimeProperty, "StartTime");
+
+            _endTime = new TimePicker() { Format = "T" };
+            _endTime.SetBinding(TimePicker.TimeProperty, "EndTime");
+
+            var price = new Label
+            {
+                Text = "Price per Hour",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+            var priceEntry = new Entry
+            {
+                Keyboard = Keyboard.Numeric
+            };
+            priceEntry.SetBinding(Entry.TextProperty, "Price");
+
+            var adress = new Label
+            {
+                Text = "Adress",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+            var adressEntry = new Entry
+            {
+                Keyboard = Keyboard.Default
+            };
+            adressEntry.SetBinding(Entry.TextProperty, "Adress");
+
+            var sportsLabel = new Label
+            {
+                Text = "Sports",
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+
+            var sports = new Picker
+            {
+            };
+            sports.Items.Add("Football");
+            sports.Items.Add("Tennis");
+            sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex");
+
             var layout = new StackLayout
             {
                 Orientation = StackOrientation.Vertical,
@@ -128,22 +250,44 @@ namespace Client.Views
             layout.Children.Add(_confirmPassword);
             layout.Children.Add(labelPhone);
             layout.Children.Add(phone);
-            
-            ListView listView = new ListView();
-            listView.ItemsSource = _viewModel.Users;
-            var cell = new DataTemplate(typeof(TextCell));
-            cell.SetBinding(TextCell.TextProperty, "FirstName");
-            cell.SetBinding(TextCell.DetailProperty, "FirsttName");
-            cell.SetBinding(TextCell.TextProperty, "LastName");
-            cell.SetBinding(TextCell.DetailProperty, "Password");
-            cell.SetBinding(TextCell.TextProperty, "ConfirmPassword");
-            cell.SetBinding(TextCell.DetailProperty, "Location");
-            listView.ItemTemplate = cell;
+            layout.Children.Add(type);
 
-            listView.SetBinding(ListView.ItemsSourceProperty, "Users");
-            layout.Children.Add(listView);
-            Content = layout;
+            var ownerLayout = new StackLayout() { Orientation = StackOrientation.Vertical, IsVisible = false };
 
+            ownerLayout.Children.Add(labelField);
+            ownerLayout.Children.Add(sportsLabel);
+            ownerLayout.Children.Add(sports);
+            ownerLayout.Children.Add(fieldName);
+            ownerLayout.Children.Add(fieldNameEntry);
+            ownerLayout.Children.Add(adress);
+            ownerLayout.Children.Add(adressEntry);
+            ownerLayout.Children.Add(fieldDimension);
+            ownerLayout.Children.Add(labelLength);
+            ownerLayout.Children.Add(entryLength);
+            ownerLayout.Children.Add(labelWidth);
+            ownerLayout.Children.Add(entryWidth);
+            ownerLayout.Children.Add(fieldAvailability);
+            ownerLayout.Children.Add(_startTime);
+            ownerLayout.Children.Add(_endTime);
+            ownerLayout.Children.Add(price);
+            ownerLayout.Children.Add(priceEntry);
+
+            ownerLayout.SetBinding(StackLayout.IsVisibleProperty, "IsOwner");
+
+            type.SelectedIndexChanged += (sender, args) =>
+            {
+                _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
+            };
+
+            layout.Children.Add(ownerLayout);
+            layout.Children.Add(saveBtn);
+            saveBtn.Clicked += OnAlertClicked;
+
+            var scrollView = new ScrollView { Content = layout };
+            Content = scrollView;
+        }
+        private async void OnAlertClicked(object sender, EventArgs e)
+        {
         }
     }
 }

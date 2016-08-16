@@ -10,5 +10,6 @@ namespace Repository.Domain
     public interface IReservationRepository:IRepository<Reservation>
     {
         IQueryable GetView(string token);
+        //IQueryable GetFieldsOfOwner(string token);
     }
 }

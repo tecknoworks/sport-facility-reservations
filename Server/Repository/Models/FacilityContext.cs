@@ -16,7 +16,7 @@ namespace Repository.Domain
         public FacilityContext()
             : base("FacilityContext")
         {
-            //this.Configuration.LazyLoadingEnabled = false;
+           Configuration.LazyLoadingEnabled = false;
            // Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacilityContext, Repository.Migrations.Configuration>("FacilityContext"));
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<FacilityContext, Configuration>("FacilityContext"));
         }
@@ -27,7 +27,8 @@ namespace Repository.Domain
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             ///!!!!!!
-           // modelBuilder.Configurations.Add(new UserConfiguration());
+            // modelBuilder.Configurations.Add(new UserConfiguration());
+          
             base.OnModelCreating(modelBuilder);
         }
     }
