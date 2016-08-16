@@ -28,7 +28,7 @@ namespace Repository.Models
         public List<DateTime> Availability { get; set; }
         [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        //public int OwnerId { get; set; }
+        public string OwnerName { get; set; }
         //[ForeignKey("OwnerId")]
         //public virtual User User { get; set; }
     }

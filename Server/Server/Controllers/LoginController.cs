@@ -17,8 +17,13 @@ namespace Server.Controllers
     public class LoginController : ApiController
     {
         // public FacilityContext _context = new FacilityContext();
-        private readonly UnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
+        //private readonly IUnitOfWork _unitOfWork = new UnitOfWork(new FacilityContext());
+        private readonly IUnitOfWork _unitOfWork;
         // GET: api/Login
+        public LoginController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
@@ -98,12 +103,18 @@ namespace Server.Controllers
         [HttpPut]
         public HttpResponseMessage UpdateUser(User user)
         {
-            var dbUser = _unitOfWork.UserRepository.GetAll().First( p => p.UserName == user.UserName);
-            user.ID=dbUser.ID;
-            DeleteUser(user.ID);
-            _unitOfWork.UserRepository.Add(user);
-            _unitOfWork.Complete();
-            return Request.CreateResponse(HttpStatusCode.BadRequest, "User details updated");
+            var dbUser = _unitOfWork.UserRepository.GetAll().First(p => p.Token == user.Token);
+            dbUser.UserName=user.UserName;
+            dbUser.FirstName = user.FirstName;
+            dbUser.LastName = user.LastName;
+            dbUser.Password = user.Password;
+            dbUser.PhoneNumber = user.PhoneNumber;
+            dbUser.Status = user.Status;
+            dbUser.Token = user.Token;
+            _unitOfWork.UserRepository.Update(dbUser);
+            _unitOfWork.Complete();         
+            return Request.CreateResponse(HttpStatusCode.OK, "User details updated");
+          
         }
     }
 }

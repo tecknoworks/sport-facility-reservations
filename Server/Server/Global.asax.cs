@@ -15,13 +15,12 @@ namespace Server
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            // Database.SetInitializer(new FacilityInitializer() );
-            //Database.SetInitializer<FacilityContext>(new CreateDatabaseIfNotExists<FacilityContext>());
-            //Database.SetInitializer<FacilityContext>(new DropCreateDatabaseIfModelChanges<FacilityContext>());
-            //Database.Migrate();
+            //Initialize bootstrapper
+            UnityConfig.RegisterComponents();
             Database.SetInitializer<FacilityContext>(null);
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+            
         }
     }
 }

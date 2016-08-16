@@ -9,7 +9,7 @@ using Repository.Repositories;
 
 namespace Repository
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IUserRepository UserRepository { get; }
         IFieldRepository FieldRepository { get; }
