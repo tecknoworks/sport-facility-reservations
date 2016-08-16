@@ -88,12 +88,6 @@ namespace Client.ViewModels
             {
                 RegisterMessage = "Unable to register. There are empty fields.";
             }
-
-        }
-        public async Task LoadGetUserByIdAsync()
-        {
-            User = await _serviceClient.GetUserByIdAsync(Settings.Token);
-            Field = await _serviceClient.GetFieldAsync(Settings.Token);
         }
     }
 }

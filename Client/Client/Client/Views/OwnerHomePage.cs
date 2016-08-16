@@ -15,8 +15,7 @@ namespace Client.Views
         public OwnerHomePage()
         {
             Children.Add(new ReservationPage());
-            Children.Add(new HomePage(Settings.FirstName));
+            Children.Add(new HomePage($"Hello, {Settings.FirstName}"));
         }
-
     }
 }

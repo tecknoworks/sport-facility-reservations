@@ -51,7 +51,5 @@ namespace Client.Views
             stack.Children.Add(listView);
             Content = stack;
         }
-
-
     }
 }

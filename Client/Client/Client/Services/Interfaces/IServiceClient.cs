@@ -18,6 +18,7 @@ namespace Client.Services.Interfaces
         Task<List<Reservation>> GetReservedFieldsAsync(string token);
         Task AddUserAsync(User user);
         Task AddFieldAsync(Field field);
+        Task UpdateUserAsync(User user);
         List<Field> Search(string filter);
         Task<IEnumerable<Field>> SearchAsync(string token, string filter1, string filter2);
         Task<List<Field>> SearchAsync(string token, string filter1);

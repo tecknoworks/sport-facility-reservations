@@ -12,7 +12,7 @@ using Client.Services;
 namespace Client.ViewModels
 {
     [ImplementPropertyChanged]
-    public class EditMyAccountViewModel: BindableBase
+    public class EditMyAccountViewModel : BindableBase
     {
         private readonly IServiceClient _serviceClient;
         public string Token { get; set; }
@@ -22,7 +22,7 @@ namespace Client.ViewModels
         public string Phone { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public int Status{ get; set; }
+        public int Status { get; set; }
         public bool IsOwner { get; set; }
 
         public string FieldName { get; set; }
@@ -62,6 +62,21 @@ namespace Client.ViewModels
             StartTime = Field.StartTime;
             EndTime = Field.EndTime;
             Price = Field.Price;
+        }
+        public async Task UpdateUser()
+        {
+            User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
+            User.FirstName = FirstName;
+            User.LastName = LastName;
+            User.Username = Username;
+            User.Password = Password;
+            User.PhoneNumber = Phone;
+            User.Status = IsOwner;
+            if (User.Status)
+                Status = 0;
+            else
+                Status = 1;
+            await _serviceClient.UpdateUserAsync(User);
         }
     }
 }
