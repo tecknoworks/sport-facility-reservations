@@ -32,7 +32,7 @@ namespace Server.Controllers
                 {
                     FieldID = reservation.FieldId,
                     UserID = user.ID,
-                    StartHour = new DateTime(2016, 8, 10, reservation.Hour, 0, 0)
+                    StartHour = new DateTime(reservation.Year,reservation.Month,reservation.Day,reservation.Hour,0,0)
                 });
                 _unitOfWork.Complete();
                 return new HttpResponseMessage(HttpStatusCode.OK);
@@ -46,7 +46,11 @@ namespace Server.Controllers
         {
             public int FieldId;
             public string Token;
+            public int Year;
+            public int Month;
+            public int Day;
             public int Hour;
+
         }
     }
 }

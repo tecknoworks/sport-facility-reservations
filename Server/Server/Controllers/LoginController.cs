@@ -95,13 +95,15 @@ namespace Server.Controllers
 
             return Ok(user);
         }
-        //[HttpPut]
-        //public HttpResponseMessage UpdateUser(User user)
-        //{
-        //    var = _unitOfWork.UserRepository.Find(predicate: p=>p.Token == user.Token);
-        //    _unitOfWork.UserRepository.Update(user);
-        //    _unitOfWork.Complete();
-        //    return Request.CreateResponse(HttpStatusCode.BadRequest, "User details updated");
-        //}
+        [HttpPut]
+        public HttpResponseMessage UpdateUser(User user)
+        {
+            var dbUser = _unitOfWork.UserRepository.GetAll().First( p => p.UserName == user.UserName);
+            user.ID=dbUser.ID;
+            DeleteUser(user.ID);
+            _unitOfWork.UserRepository.Add(user);
+            _unitOfWork.Complete();
+            return Request.CreateResponse(HttpStatusCode.BadRequest, "User details updated");
+        }
     }
 }
