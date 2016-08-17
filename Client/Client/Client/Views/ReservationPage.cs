@@ -10,7 +10,7 @@ using Client.Models;
 
 namespace Client.Views
 {
-    class ReservationPage : ContentPage
+    public class ReservationPage : ContentPage
     {
         public ReservationPageViewModel _viewModel;
         public ReservationPage()
@@ -42,7 +42,7 @@ namespace Client.Views
             listView.ItemTapped += (sender, args) => {
                 if (listView.SelectedItem == null)
                     return;
-                this.Navigation.PushAsync(new DetailsReservationPage(listView.SelectedItem as User));
+                this.Navigation.PushAsync(new DetailsReservationPage());
                 listView.SelectedItem = null;
             };
 
