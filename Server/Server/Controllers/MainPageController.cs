@@ -15,7 +15,12 @@ namespace Server.Controllers
 {
     public class MainPageController : ApiController
     {
-        UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
+        //UnitOfWork _unitOfWork = new UnitOfWork(new Repository.Domain.FacilityContext());
+        IUnitOfWork _unitOfWork;
+        public MainPageController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         [HttpGet]
         public IEnumerable<Field> GetFieldsByType(int type)
         {

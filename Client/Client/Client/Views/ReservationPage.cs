@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
+using Client.Models;
 
 namespace Client.Views
 {
     class ReservationPage : ContentPage
     {
-        Button acceptBtn;
         public ReservationPageViewModel _viewModel;
         public ReservationPage()
         {
@@ -22,56 +22,33 @@ namespace Client.Views
         {
             _viewModel = App.Container.Resolve<ReservationPageViewModel>();
             BindingContext = _viewModel;
-            ListView listView = new ListView
-            {
-                ItemsSource = _viewModel.ReservedFields,
-                ItemTemplate = new DataTemplate(() =>
-                {
-                    var nameField = new Label();
-                    nameField.SetBinding(Label.TextProperty, "Field");
 
-                    var hour = new Label();
-                    hour.SetBinding(Label.TextProperty, "StartHour");
-
-                    acceptBtn = new Button
-                    {
-                        Text = "Accept",
-                        HorizontalOptions = LayoutOptions.EndAndExpand,
-                        Font = Font.SystemFontOfSize(NamedSize.Micro)
-                    };
-                    acceptBtn.Clicked += (sender, e) =>
-                    {
-                        acceptBtn.BackgroundColor = Color.Red;
-                    };
-
-                    var rejectBtn = new Button
-                    {
-                        Text = "Reject",
-                        BackgroundColor = Color.Red,
-                        HorizontalOptions = LayoutOptions.EndAndExpand,
-                        Font = Font.SystemFontOfSize(NamedSize.Micro)
-                    };
-
-                    return new ViewCell
-                    {
-                        View = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal,
-                            Children =
-                                {
-                                nameField,
-                                hour,
-                                acceptBtn,
-                                rejectBtn
-                                }
-                        }
-                    };
-                }
-                )
-            };
-            listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
             await _viewModel.LoadReservedFieldsAsync();
-            Content = listView;
+
+            var stack = new StackLayout
+            {
+                Orientation = StackOrientation.Vertical,
+                Padding = new Thickness(0, 8, 0, 8)
+            };
+
+            ListView listView = new ListView();
+            listView.ItemsSource = _viewModel.ReservedFields;
+            var cell = new DataTemplate(typeof(TextCell));
+            cell.SetBinding(TextCell.TextProperty, "Field");
+            cell.SetBinding(TextCell.DetailProperty, "StartHour");
+            listView.ItemTemplate = cell;
+
+
+            listView.ItemTapped += (sender, args) => {
+                if (listView.SelectedItem == null)
+                    return;
+                this.Navigation.PushAsync(new DetailsReservationPage(listView.SelectedItem as User));
+                listView.SelectedItem = null;
+            };
+
+            listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
+            stack.Children.Add(listView);
+            Content = stack;
         }
     }
 }

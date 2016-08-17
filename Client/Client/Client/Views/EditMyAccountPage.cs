@@ -20,7 +20,7 @@ namespace Client.Views
         private TimePicker _endTime;
         public EditMyAccountPage()
         {
-            Title = "Edit My Account Page";
+            Title = "Edit My Account";
             Init();
         }
         public async Task Init()
@@ -114,6 +114,7 @@ namespace Client.Views
             {
                 Text = "Save"
             };
+            saveBtn.Clicked += OnAlertClicked;
 
             var labelType = new Label
             {
@@ -288,6 +289,13 @@ namespace Client.Views
         }
         private async void OnAlertClicked(object sender, EventArgs e)
         {
+            await _viewModel.UpdateUser();
+            if(_viewModel.IsOwner)
+            {
+                await Navigation.PushAsync(new OwnerHomePage());
+            }
+            else
+                await Navigation.PushAsync(new HomePage($"Hello, {Settings.FirstName}"));
         }
     }
 }
