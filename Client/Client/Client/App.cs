@@ -20,6 +20,12 @@ namespace Client
                 return new Action(() => App.Current.MainPage.Navigation.PopModalAsync());
             }
         }
+
+        public static async Task NavigateOnCancel()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
+        }
+
         public static async Task NavigateToProfile(string message)
         {
             await App.Current.MainPage.Navigation.PushAsync(new HomePage(message));

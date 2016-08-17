@@ -34,6 +34,5 @@ namespace Client.ViewModels
         {
             Fields = await _serviceClient.GetFieldsAsync();
         }
-
     }
 }

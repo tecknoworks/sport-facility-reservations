@@ -10,7 +10,7 @@ using Microsoft.Practices.Unity;
 
 namespace Client.Views
 {
-    public class HomePage: ContentPage
+    public class HomePage : ContentPage
     {
         private HomeViewModel _viewModel;
         private string _greetingText;
@@ -42,7 +42,7 @@ namespace Client.Views
             label.SetBinding(Label.TextProperty, "GreetingText");
 
             _viewModel.GreetingText = _greetingText;
-            
+
             var contentLayout = new StackLayout { Padding = 50, VerticalOptions = LayoutOptions.End };
 
             var searchButton = new Button
@@ -93,16 +93,16 @@ namespace Client.Views
                 Constraint.Constant(0),
                 Constraint.RelativeToParent((parent) => { return parent.Width; }),
                 Constraint.RelativeToParent((parent) => { return parent.Height; }));
-           
+
             relativeLayout.Children.Add(contentLayout,
                 Constraint.Constant(0),
                 Constraint.Constant(0),
-                Constraint.RelativeToParent((parent) => { return parent.Width ; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height / 2+ 60; }));
-            
+                Constraint.RelativeToParent((parent) => { return parent.Width; }),
+                Constraint.RelativeToParent((parent) => { return parent.Height / 2 + 60; }));
+
             Content = relativeLayout;
         }
-       
+
         private async void editAccountButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new EditMyAccountPage());
