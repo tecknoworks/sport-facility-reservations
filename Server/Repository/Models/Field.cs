@@ -20,15 +20,16 @@ namespace Repository.Models
         public string Location { get; set; }
         [Required]
         public int Type { get; set; }
-        public int Price { get; set; }
+        public float Price { get; set; }
         public int Width { get; set; }
         public int Length { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public string OwnerName { get; set; }
         public List<DateTime> Availability { get; set; }
         [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        public string OwnerName { get; set; }
+        
         //[ForeignKey("OwnerId")]
         //public virtual User User { get; set; }
     }

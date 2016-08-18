@@ -32,11 +32,11 @@ namespace Server.Controllers
             var fields = _unitOfWork.FieldRepository.GetAll();
             return fields;
         }
-        // public IQueryable GetFieldOfOwner(string token)
-        //{
-
-        //    return _unitOfWork.ReservationRepository.GetFieldsOfOwner(token);
-        //}
+        public IEnumerable<Field> GetFieldOfOwner(string token)
+        {
+            var user = _unitOfWork.UserRepository.GetAll().First(p => p.Token == token);
+            return _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.OwnerName == user.UserName);
+        }
         public IHttpActionResult GetFieldByName(string name)
         {
             var field = GetFields().FirstOrDefault((q) => q.Name.Equals(name));
@@ -113,7 +113,7 @@ namespace Server.Controllers
         {
             return _unitOfWork.ReservationRepository.GetView(token);
         }
-     
+
     }
 
 }
