@@ -45,27 +45,10 @@ namespace Client.Views
                 },
             };
 
-
-            var usernameLabel = new Label
-            {
-                Text = "Username",
-                HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-            grid.Children.Add(usernameLabel, 0, 2);
-
-            var passwordLabel = new Label
-            {
-                Text = "Password",
-                HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-            grid.Children.Add(passwordLabel, 0, 4);
-
             _usernameEntry = new Entry
             {
-
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+                Placeholder = "E-mail"
             };
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
             grid.Children.Add(_usernameEntry, 0, 3);
@@ -73,6 +56,7 @@ namespace Client.Views
             var passwordEntry = new Entry
             {
                 Keyboard = Keyboard.Default,
+                Placeholder = "Password",
                 IsPassword = true
             };
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
@@ -80,26 +64,15 @@ namespace Client.Views
 
             var loginButton = new Button
             {
-                Text = "Login",
-                FontSize = 10,
+                Text = "Login"
             };
             grid.Children.Add(loginButton, 0, 6);
             loginButton.Clicked += LoginButton_Clicked;
 
-            var registerLabel = new Label
-            {
-                Text = "Don't have an account?",
-                FontSize = 10,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-            grid.Children.Add(registerLabel, 0, 7);
-
-
             var registerButton = new Button
             {
-                Text = "Register",
-                FontSize = 10,
+                Text = "Don't have an account?"
+
             };
             grid.Children.Add(registerButton, 0, 8);
             registerButton.Clicked += RegisterButton_Clicked;
@@ -111,6 +84,7 @@ namespace Client.Views
             grid.Children.Add(facebookLoginButton, 0, 9);
             facebookLoginButton.Clicked += FacebookLoginButton_Clicked;
 
+            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
             this.Content = grid;
         }

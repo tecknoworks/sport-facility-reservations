@@ -20,13 +20,34 @@ namespace Client.Views
         private TimePicker _endTime;
         public EditMyAccountPage()
         {
-            Title = "Edit My Account";
+            Title = "My Account";
             Init();
         }
         public async Task Init()
         {
             _viewModel = App.Container.Resolve<EditMyAccountViewModel>();
             BindingContext = _viewModel;
+
+
+            ToolbarItems.Add(new ToolbarItem
+            {
+                Name = "Save",
+                Order = ToolbarItemOrder.Primary,
+                Command = new Command(async () => {
+                    await _viewModel.UpdateUser();
+                    if (_viewModel.IsOwner)
+                    {
+                        //await Navigation.PopAsync();
+                        await Navigation.PushAsync(new OwnerHomePage());
+                    }
+                    else
+                    {
+                        //await Navigation.PopAsync();
+                        await Navigation.PushAsync(new HomePage($"Hello, {Settings.FirstName}"));
+                    }
+                } )
+            });
+
 
             await _viewModel.LoadGetUserByIdAsync();
 
@@ -109,12 +130,6 @@ namespace Client.Views
                 IsPassword = true
             };
             _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
-
-            var saveBtn = new Button
-            {
-                Text = "Save"
-            };
-            saveBtn.Clicked += OnAlertClicked;
 
             var labelType = new Label
             {
@@ -227,9 +242,7 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            var sports = new Picker
-            {
-            };
+            var sports = new Picker();
             sports.Items.Add("Football");
             sports.Items.Add("Tennis");
             sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex");
@@ -281,21 +294,9 @@ namespace Client.Views
             };
 
             layout.Children.Add(ownerLayout);
-            layout.Children.Add(saveBtn);
-            saveBtn.Clicked += OnAlertClicked;
 
             var scrollView = new ScrollView { Content = layout };
             Content = scrollView;
-        }
-        private async void OnAlertClicked(object sender, EventArgs e)
-        {
-            await _viewModel.UpdateUser();
-            if(_viewModel.IsOwner)
-            {
-                await Navigation.PushAsync(new OwnerHomePage());
-            }
-            else
-                await Navigation.PushAsync(new HomePage($"Hello, {Settings.FirstName}"));
         }
     }
 }

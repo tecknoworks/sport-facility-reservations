@@ -22,7 +22,6 @@ namespace Client.ViewModels
 
         public async Task Init()
         {
-
             _viewModel = App.Container.Resolve<SoccerFieldsViewModel>();
             BindingContext = _viewModel;
 
@@ -48,6 +47,7 @@ namespace Client.ViewModels
             var datePicker = new DatePicker
             {
                 Format = "D",
+                MinimumDate = DateTime.Now,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             datePicker.SetBinding(DatePicker.DateProperty, "Availability");
@@ -55,29 +55,31 @@ namespace Client.ViewModels
 
             var timePicker = new TimePicker
             {
-                Format = "T"
+                Format = "T",
+                Time = new TimeSpan(DateTime.Now.Hour, 0, 0),
+                
             };
-            grid.Children.Add(timePicker, 2, 0);
+            grid.Children.Add(timePicker, 1, 1);
 
             var nameLabel = new Label
             {
                 Text = "Name"
             };
-            grid.Children.Add(nameLabel, 0, 1);
+            grid.Children.Add(nameLabel, 0, 2);
 
             var nameEntry = new Entry
             {
                 Keyboard = Keyboard.Default,
 
             };
-            grid.Children.Add(nameEntry, 1, 1);
+            grid.Children.Add(nameEntry, 1, 2);
             nameEntry.SetBinding(Entry.TextProperty, "Name");
 
             var dimensionLabel = new Label
             {
                 Text = "Dimension"
             };
-            grid.Children.Add(dimensionLabel, 0, 2);
+            grid.Children.Add(dimensionLabel, 0, 3);
 
        
             var dimensionPicker = new Picker
@@ -88,27 +90,27 @@ namespace Client.ViewModels
             dimensionPicker.Items.Add("2x5");
             dimensionPicker.Items.Add("2x6");
             dimensionPicker.Items.Add("2x7");
-            grid.Children.Add(dimensionPicker, 1, 2);
+            grid.Children.Add(dimensionPicker, 1, 3);
 
             var cityLabel = new Label
             {
                 Text = "City"
             };
-            grid.Children.Add(cityLabel, 0, 3);
+            grid.Children.Add(cityLabel, 0, 4);
 
             var cityEntry = new Entry
             {
                 Keyboard = Keyboard.Default
             };
-            grid.Children.Add(cityEntry, 1, 3);
+            grid.Children.Add(cityEntry, 1, 4);
             cityEntry.SetBinding(Entry.TextProperty, "City");
 
             var searchButton = new Button
             {
                 Text = "Search",
-                FontSize = 10
+                HeightRequest = 2
             };
-            grid.Children.Add(searchButton, 1, 4);
+            grid.Children.Add(searchButton, 1, 5);
             searchButton.Clicked += SearchButton_Clicked;
 
             ListView listView = new ListView
@@ -136,7 +138,7 @@ namespace Client.ViewModels
                 )
             };
             listView.SetBinding(ListView.ItemsSourceProperty, "Fields");
-            grid.Children.Add(listView, 0, 5);
+            grid.Children.Add(listView, 0, 6);
             Content = grid;
 
 

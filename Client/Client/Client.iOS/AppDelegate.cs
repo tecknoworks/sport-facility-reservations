@@ -26,6 +26,8 @@ namespace Client.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+            //UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
+            //return true;
         }
     }
 }

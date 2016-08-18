@@ -14,7 +14,7 @@ using Microsoft.Practices.Unity;
 [assembly: ExportRenderer(typeof(Login), typeof(LoginPageRenderer))]
 namespace Client.iOS
 {
-    public class LoginPageRenderer: PageRenderer
+    public class LoginPageRenderer : PageRenderer
     {
         public static string id;
         LoginViewModel vm;
@@ -31,8 +31,9 @@ namespace Client.iOS
                 authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
                 redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"));
 
-            auth.Completed += async (sender, eventArgs) => {
-                DismissViewController(true, null);          
+            auth.Completed += async (sender, eventArgs) =>
+            {
+                DismissViewController(true, null);
 
                 if (eventArgs.IsAuthenticated)
                 {
@@ -43,7 +44,7 @@ namespace Client.iOS
                     var request = new OAuth2Request("GET", new Uri("https://graph.facebook.com/me?fields=id,first_name,email"), null, eventArgs.Account);
                     var response = await request.GetResponseAsync();
                     var obj = JObject.Parse(response.GetResponseText());
-                    id = obj["id"].ToString().Replace("\"", ""); 
+                    id = obj["id"].ToString().Replace("\"", "");
                     var name = obj["first_name"];
                     var username = obj["email"].ToString();
                     User user = new User(id, username);
