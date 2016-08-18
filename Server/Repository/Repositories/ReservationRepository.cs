@@ -22,6 +22,7 @@ namespace Repository.Repositories
                          where u.Token == token
                          select new
                          {
+                             Id=r.Id,
                              Name = u.UserName,
                              FirstName = u.FirstName,
                              LastName = u.LastName,
