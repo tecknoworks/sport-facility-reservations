@@ -26,13 +26,13 @@ namespace Server.Controllers
             {
                 var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
                 if (user == null)
-                    return new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "User does not exist "};
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = "User does not exist " };
 
                 _unitOfWork.ReservationRepository.Add(new Reservation
                 {
                     FieldID = reservation.FieldId,
                     UserID = user.ID,
-                    StartHour = new DateTime(reservation.Year,reservation.Month,reservation.Day,reservation.Hour,0,0)
+                    StartHour = new DateTime(reservation.Year, reservation.Month, reservation.Day, reservation.Hour, 0, 0)
                 });
                 _unitOfWork.Complete();
                 return new HttpResponseMessage(HttpStatusCode.OK);

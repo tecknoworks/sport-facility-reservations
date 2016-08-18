@@ -17,8 +17,12 @@ namespace Client.Models
         public string Token { get; set; }
         public string Field { get; set; }
         public DateTime StartHour { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public int ReservationId { get; set; }
 
-        public Reservation(string token, int idField, int hour, int day, int month, int year)
+        public Reservation(string token, int idField, int hour, int day, int month, int year,string firstName,string lastName,string phoneNumber)
         {
             this.Token = token;
             this.FieldId = idField;
@@ -26,6 +30,9 @@ namespace Client.Models
             Day = day;
             Month = month;
             Year = year;
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
         }
     }
 }

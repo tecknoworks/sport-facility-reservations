@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Repository.Domain;
 using Repository.Models;
 using Repository;
 
@@ -29,10 +25,10 @@ namespace Server.Controllers
         {
             return _unitOfWork.UserRepository.GetAll();
         }
-         
+
         public IHttpActionResult GetUserById(string token)
         {
-            var user = _unitOfWork.UserRepository.GetAll().First(p=>p.Token==token);
+            var user = _unitOfWork.UserRepository.GetAll().First(p => p.Token == token);
             if (user == null)
             {
                 return NotFound();
@@ -51,7 +47,6 @@ namespace Server.Controllers
                 return NotFound();
             }
             return Ok(user);
-
 
         }
         [HttpDelete]
@@ -78,7 +73,7 @@ namespace Server.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.Conflict, message);
                 }
             }
-            if(user.Token == null)
+            if (user.Token == null)
                 user.Token = Guid.NewGuid().ToString();  // TODO: Token
             _unitOfWork.UserRepository.Add(user);
             _unitOfWork.Complete();
@@ -104,7 +99,7 @@ namespace Server.Controllers
         public HttpResponseMessage UpdateUser(User user)
         {
             var dbUser = _unitOfWork.UserRepository.GetAll().First(p => p.Token == user.Token);
-            dbUser.UserName=user.UserName;
+            dbUser.UserName = user.UserName;
             dbUser.FirstName = user.FirstName;
             dbUser.LastName = user.LastName;
             dbUser.Password = user.Password;
@@ -112,9 +107,9 @@ namespace Server.Controllers
             dbUser.Status = user.Status;
             dbUser.Token = user.Token;
             _unitOfWork.UserRepository.Update(dbUser);
-            _unitOfWork.Complete();         
+            _unitOfWork.Complete();
             return Request.CreateResponse(HttpStatusCode.OK, "User details updated");
-          
+
         }
     }
 }

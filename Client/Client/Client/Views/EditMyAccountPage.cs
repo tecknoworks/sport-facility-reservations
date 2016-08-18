@@ -29,7 +29,6 @@ namespace Client.Views
             BindingContext = _viewModel;
 
             await _viewModel.LoadGetUserByIdAsync();
-            await _viewModel.LoadGetFieldAsync();
 
 
             var labelFirstName = new Label
@@ -80,7 +79,7 @@ namespace Client.Views
 
             var phone = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Default
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
 
@@ -168,7 +167,7 @@ namespace Client.Views
 
             var entryLength = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Default
             };
             entryLength.SetBinding(Entry.TextProperty, "Length");
 
@@ -181,7 +180,7 @@ namespace Client.Views
 
             var entryWidth = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Default
             };
             entryWidth.SetBinding(Entry.TextProperty, "Width");
 
@@ -206,7 +205,7 @@ namespace Client.Views
             };
             var priceEntry = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Default
             };
             priceEntry.SetBinding(Entry.TextProperty, "Price");
 
@@ -281,6 +280,10 @@ namespace Client.Views
             {
                 _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
             };
+            //if(_viewModel.IsOwner)
+            //{
+            //    await _viewModel.LoadGetFieldAsync();
+            //}
 
             layout.Children.Add(ownerLayout);
             layout.Children.Add(saveBtn);

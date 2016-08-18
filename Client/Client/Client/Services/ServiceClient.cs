@@ -87,7 +87,7 @@ namespace Client.Services
         {
             using (var client = new HttpClient())
             {
-                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservations/?token={0}";
+                const string json = "http://tkw-sfr.azurewebsites.net/api/Reservations/GetReservations/?token={0}";
                 var uri = string.Format(json, token);
                 var resultJson = await client.GetAsync(uri);
                 var userObj = resultJson.Content.ReadAsStringAsync().Result;
@@ -95,6 +95,18 @@ namespace Client.Services
                 return result;
             }
         }
+        //public async Task<Reservation> GetNameOfPlayerAsync(int id)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        const string json = "http://tkw-sfr.azurewebsites.net/api/Reservations/GetNameOfPlayer/?token={0}";
+        //        var uri = string.Format(json, id);
+        //        var resultJson = await client.GetAsync(uri);
+        //        var userObj = resultJson.Content.ReadAsStringAsync().Result;
+        //        var result = JsonConvert.DeserializeObject<Reservation>(userObj);
+        //        return result;
+        //    }
+        //}
         public async Task AddUserAsync(User user)
         {
             using (var client = new HttpClient())
