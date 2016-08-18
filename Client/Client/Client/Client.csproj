@@ -47,6 +47,7 @@
     <Compile Include="Services\ServiceClient.cs" />
     <Compile Include="Services\Settings.cs" />
     <Compile Include="Services\UserSeeder.cs" />
+    <Compile Include="ViewModels\DetailsReservationViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EditMyAccountViewModel.cs" />
     <Compile Include="ViewModels\FieldsListViewModel.cs" />

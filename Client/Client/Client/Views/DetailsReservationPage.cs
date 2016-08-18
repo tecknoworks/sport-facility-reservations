@@ -13,8 +13,13 @@ namespace Client.Views
 {
     public class DetailsReservationPage:ContentPage
     {
+        private DetailsReservationViewModel _viewModel;
         public DetailsReservationPage(Reservation reservation)
         {
+            _viewModel = App.Container.Resolve<DetailsReservationViewModel>();
+            BindingContext = _viewModel;
+
+            _viewModel.Id = reservation.Id;
 
             Grid grid = new Grid
             {
@@ -62,6 +67,7 @@ namespace Client.Views
                 Font = Font.SystemFontOfSize(NamedSize.Micro)
             };
             grid.Children.Add(acceptBtn, 0, 2);
+            acceptBtn.Clicked += AcceptButton_Clicked;
 
             var rejectBtn = new Button
             {
@@ -72,6 +78,16 @@ namespace Client.Views
             grid.Children.Add(rejectBtn, 1, 2);
 
             Content = grid;
+
+    }
+        private async void AcceptButton_Clicked(object sender, EventArgs e)
+        {
+            _viewModel.AcceptedAsync();
+        }
+        private async void RejectButton_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
+

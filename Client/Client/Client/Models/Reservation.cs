@@ -20,7 +20,7 @@ namespace Client.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public int ReservationId { get; set; }
+        public int Id { get; set; }
 
         public Reservation(string token, int idField, int hour, int day, int month, int year,string firstName,string lastName,string phoneNumber)
         {
