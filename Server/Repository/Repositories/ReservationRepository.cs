@@ -22,6 +22,7 @@ namespace Repository.Repositories
                          where u.Token == token
                          select new
                          {
+                             Id=r.Id,
                              Name = u.UserName,
                              FirstName = u.FirstName,
                              LastName = u.LastName,
@@ -31,16 +32,6 @@ namespace Repository.Repositories
                          });
             return query;
         }
-        //public IQueryable GetFieldsOfOwner(string token)
-        //{
-        //    var query = (from r in FacilityContext.Reservations
-        //                 join u in FacilityContext.Users on r.UserID equals u.ID
-        //                 join f in FacilityContext.Fields on r.FieldID equals f.ID
-        //                 where u.Token == token
-        //                 select new Field()
-        //                 );
-        //    return query;
-        //}
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }

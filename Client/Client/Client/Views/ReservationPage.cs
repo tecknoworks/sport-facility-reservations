@@ -15,7 +15,7 @@ namespace Client.Views
         public ReservationPageViewModel _viewModel;
         public ReservationPage()
         {
-            Title = "Reservation Page";
+            Title = "Reservations";
             Init();
         }
         public async Task Init()

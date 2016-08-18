@@ -15,7 +15,7 @@ namespace Client.Views
         private SearchPageViewModel _viewModel;
         public SearchPage()
         {
-            Title = "Search page";
+            Title = "Fields";
             Init();   
         }
 
@@ -30,6 +30,7 @@ namespace Client.Views
             var soccerFields = new Image
             {
                 Source = "football_field.jpg"
+               
             };
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += OnTapGestureRecognizerTapped;

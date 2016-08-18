@@ -12,6 +12,7 @@ namespace Client.Views
 {
     public class EditMyAccountPage : ContentPage
     {
+		
         private const int PICKER_OWNER_INDEX = 0;
         public EditMyAccountViewModel _viewModel;
         public Entry _password;
@@ -20,13 +21,34 @@ namespace Client.Views
         private TimePicker _endTime;
         public EditMyAccountPage()
         {
-            Title = "Edit My Account";
+            Title = "My Account";
             Init();
         }
         public async Task Init()
         {
             _viewModel = App.Container.Resolve<EditMyAccountViewModel>();
             BindingContext = _viewModel;
+
+
+            ToolbarItems.Add(new ToolbarItem
+            {
+                Name = "Save",
+                Order = ToolbarItemOrder.Primary,
+                Command = new Command(async () => {
+                    await _viewModel.UpdateUser();
+                    if (_viewModel.IsOwner)
+                    {
+                        //await Navigation.PopAsync();
+                        await Navigation.PushAsync(new OwnerHomePage());
+                    }
+                    else
+                    {
+                        //await Navigation.PopAsync();
+                        await Navigation.PushAsync(new HomePage($"Hello, {Settings.FirstName}"));
+                    }
+                } )
+            });
+
 
             await _viewModel.LoadGetUserByIdAsync();
 
@@ -40,7 +62,8 @@ namespace Client.Views
 
             var firstName = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             firstName.SetBinding(Entry.TextProperty, "FirstName");
 
@@ -54,6 +77,7 @@ namespace Client.Views
             var lastName = new Entry
             {
                 Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             lastName.SetBinding(Entry.TextProperty, "LastName");
 
@@ -66,7 +90,8 @@ namespace Client.Views
 
             var username = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             username.SetBinding(Entry.TextProperty, "Username");
 
@@ -79,7 +104,8 @@ namespace Client.Views
 
             var phone = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
 
@@ -94,6 +120,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default,
                 IsPassword = true,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             _password.SetBinding(Entry.TextProperty, "Password");
 
@@ -107,15 +134,10 @@ namespace Client.Views
             _confirmPassword = new Entry
             {
                 Keyboard = Keyboard.Default,
-                IsPassword = true
+                IsPassword = true,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
-
-            var saveBtn = new Button
-            {
-                Text = "Save"
-            };
-            saveBtn.Clicked += OnAlertClicked;
 
             var labelType = new Label
             {
@@ -126,6 +148,7 @@ namespace Client.Views
 
             var type = new Picker
             {
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             type.Items.Add("Owner");  // 0 = PICKER_OWNER_INDEX
             type.Items.Add("Player");
@@ -147,7 +170,8 @@ namespace Client.Views
 
             var fieldNameEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             fieldNameEntry.SetBinding(Entry.TextProperty, "FieldName");
 
@@ -167,7 +191,8 @@ namespace Client.Views
 
             var entryLength = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric,
+				HeightRequest = Constants.ENTRY_HEIGHT 
             };
             entryLength.SetBinding(Entry.TextProperty, "Length");
 
@@ -180,7 +205,8 @@ namespace Client.Views
 
             var entryWidth = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric,
+
             };
             entryWidth.SetBinding(Entry.TextProperty, "Width");
 
@@ -205,19 +231,21 @@ namespace Client.Views
             };
             var priceEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Numeric,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             priceEntry.SetBinding(Entry.TextProperty, "Price");
 
             var adress = new Label
             {
-                Text = "Adress",
+                Text = "Address",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
             var adressEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             adressEntry.SetBinding(Entry.TextProperty, "Adress");
 
@@ -228,9 +256,10 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            var sports = new Picker
-            {
-            };
+			var sports = new Picker
+			{
+				HeightRequest = Constants.ENTRY_HEIGHT
+			};
             sports.Items.Add("Football");
             sports.Items.Add("Tennis");
             sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex");
@@ -286,21 +315,9 @@ namespace Client.Views
             //}
 
             layout.Children.Add(ownerLayout);
-            layout.Children.Add(saveBtn);
-            saveBtn.Clicked += OnAlertClicked;
 
             var scrollView = new ScrollView { Content = layout };
             Content = scrollView;
-        }
-        private async void OnAlertClicked(object sender, EventArgs e)
-        {
-            await _viewModel.UpdateUser();
-            if(_viewModel.IsOwner)
-            {
-                await Navigation.PushAsync(new OwnerHomePage());
-            }
-            else
-                await Navigation.PushAsync(new HomePage($"Hello, {Settings.FirstName}"));
         }
     }
 }

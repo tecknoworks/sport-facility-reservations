@@ -22,93 +22,63 @@ namespace Client.ViewModels
 
         public async Task Init()
         {
-
             _viewModel = App.Container.Resolve<SoccerFieldsViewModel>();
             BindingContext = _viewModel;
+			var stackLayout = new StackLayout();
+			this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
-            Grid grid = new Grid
-            {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                RowDefinitions =
-                {
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto }
-                }
-            };
-
-            var availabilityLabel = new Label
-            {
-                Text = "Availability"
-            };
-            grid.Children.Add(availabilityLabel, 0, 0);
-
-            var datePicker = new DatePicker
-            {
-                Format = "D",
+			var datePicker = new DatePicker
+			{
+				Format = "D",
+				HeightRequest = Constants.ENTRY_HEIGHT,
+                MinimumDate = DateTime.Now,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
             datePicker.SetBinding(DatePicker.DateProperty, "Availability");
-            grid.Children.Add(datePicker, 1, 0);
+			stackLayout.Children.Add(datePicker);
 
             var timePicker = new TimePicker
             {
-                Format = "T"
+                Format = "HH:mm",
+				HeightRequest = Constants.ENTRY_HEIGHT,
+				Time = new TimeSpan(DateTime.Now.Hour + 1, 0, 0)
             };
-            grid.Children.Add(timePicker, 2, 0);
-
-            var nameLabel = new Label
-            {
-                Text = "Name"
-            };
-            grid.Children.Add(nameLabel, 0, 1);
+			stackLayout.Children.Add(timePicker);
 
             var nameEntry = new Entry
             {
                 Keyboard = Keyboard.Default,
-
+				HeightRequest = Constants.ENTRY_HEIGHT,
+				Placeholder = "Name"
             };
-            grid.Children.Add(nameEntry, 1, 1);
+			stackLayout.Children.Add(nameEntry);
             nameEntry.SetBinding(Entry.TextProperty, "Name");
-
-            var dimensionLabel = new Label
-            {
-                Text = "Dimension"
-            };
-            grid.Children.Add(dimensionLabel, 0, 2);
-
        
             var dimensionPicker = new Picker
             {
                 Title = "Dimension",
-                SelectedIndex = 0
+				HeightRequest = Constants.ENTRY_HEIGHT,
+				SelectedIndex = 0
             };
             dimensionPicker.Items.Add("2x5");
             dimensionPicker.Items.Add("2x6");
             dimensionPicker.Items.Add("2x7");
-            grid.Children.Add(dimensionPicker, 1, 2);
-
-            var cityLabel = new Label
-            {
-                Text = "City"
-            };
-            grid.Children.Add(cityLabel, 0, 3);
+			stackLayout.Children.Add(dimensionPicker);
 
             var cityEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT,
+				Placeholder = "City"
             };
-            grid.Children.Add(cityEntry, 1, 3);
+			stackLayout.Children.Add(cityEntry);
             cityEntry.SetBinding(Entry.TextProperty, "City");
 
             var searchButton = new Button
             {
-                Text = "Search",
-                FontSize = 10
+                Text = "Search"
             };
-            grid.Children.Add(searchButton, 1, 4);
+			stackLayout.Children.Add(searchButton);
             searchButton.Clicked += SearchButton_Clicked;
 
             ListView listView = new ListView
@@ -136,8 +106,8 @@ namespace Client.ViewModels
                 )
             };
             listView.SetBinding(ListView.ItemsSourceProperty, "Fields");
-            grid.Children.Add(listView, 0, 5);
-            Content = grid;
+			stackLayout.Children.Add(listView);
+			Content = stackLayout;
 
 
         }

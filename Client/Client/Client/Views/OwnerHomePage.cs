@@ -14,8 +14,14 @@ namespace Client.Views
     {
         public OwnerHomePage()
         {
-            Children.Add(new ReservationPage());
-            Children.Add(new HomePage($"Hello, {Settings.FirstName}"));
+			var reservationPage = new ReservationPage();
+			reservationPage.Title = "Reservations";
+			reservationPage.Icon = "list-16.png";
+			Children.Add(reservationPage);
+			var homePage = new HomePage($"Hello, {Settings.FirstName}");
+			homePage.Icon = "home-16.png";
+            Children.Add(homePage);
+            //Children.Add(new HomePagee());
         }
     }
 }

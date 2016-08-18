@@ -12,11 +12,12 @@ namespace Client.Views
 {
     public class HomePage : ContentPage
     {
+        private const int BORDER = 1;
         private HomeViewModel _viewModel;
         private string _greetingText;
         public HomePage(string greetingText)
         {
-            Title = "Home Page";
+            Title = "Home";
             _greetingText = greetingText;
             Init();
         }
@@ -43,14 +44,14 @@ namespace Client.Views
 
             _viewModel.GreetingText = _greetingText;
 
-            var contentLayout = new StackLayout { Padding = 50, VerticalOptions = LayoutOptions.End };
+            var contentLayout = new StackLayout { Padding = 50, VerticalOptions = LayoutOptions.Center };
 
             var searchButton = new Button
             {
                 Text = "Search",
                 WidthRequest = 200,
                 HeightRequest = 50,
-                BorderWidth = 5,
+                BorderWidth = BORDER,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
@@ -59,7 +60,7 @@ namespace Client.Views
             var viewFieldsButton = new Button
             {
                 Text = "View fields",
-                BorderWidth = 5,
+                BorderWidth = BORDER,
                 WidthRequest = 200,
                 HeightRequest = 50,
                 HorizontalOptions = LayoutOptions.Center,
@@ -69,10 +70,10 @@ namespace Client.Views
 
             var editAccountButton = new Button
             {
-                Text = "Edit My Account",
+                Text = "My Account",
                 WidthRequest = 200,
                 HeightRequest = 50,
-                BorderWidth = 5,
+                BorderWidth = BORDER,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
@@ -83,24 +84,7 @@ namespace Client.Views
             contentLayout.Children.Add(editAccountButton);
             contentLayout.Children.Add(signOutButton);
 
-            var myImage = new Image
-            {
-                Source = ImageSource.FromFile("image4.jpg")
-            };
-            var relativeLayout = new RelativeLayout();
-            relativeLayout.Children.Add(myImage,
-                Constraint.Constant(0),
-                Constraint.Constant(0),
-                Constraint.RelativeToParent((parent) => { return parent.Width; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height; }));
-
-            relativeLayout.Children.Add(contentLayout,
-                Constraint.Constant(0),
-                Constraint.Constant(0),
-                Constraint.RelativeToParent((parent) => { return parent.Width; }),
-                Constraint.RelativeToParent((parent) => { return parent.Height / 2 + 60; }));
-
-            Content = relativeLayout;
+            Content = contentLayout;
         }
 
         private async void editAccountButton_Clicked(object sender, EventArgs e)
@@ -111,6 +95,8 @@ namespace Client.Views
         private async void SignOutButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.SignOut();
+            await Navigation.PopAsync();
+            NavigationPage.SetHasBackButton(this, false);
             await Navigation.PushAsync(new LoginPage());
         }
 

@@ -168,7 +168,7 @@ namespace Client.Services
                 {
                     var json = JsonConvert.SerializeObject(reservation);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/Temp/AddReservations/", content);
+                    var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/Reservations/AddReservations/", content);
                 }catch(Exception ex)
                 {
 
