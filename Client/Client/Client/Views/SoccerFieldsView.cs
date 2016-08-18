@@ -95,7 +95,6 @@ namespace Client.ViewModels
                         View = new StackLayout
                         {
                             Orientation = StackOrientation.Horizontal,
-							VerticalOptions = LayoutOptions.Center,
                             Children =
                             {
                                 name,
