@@ -47,7 +47,8 @@ namespace Client.Views
 
             _usernameEntry = new Entry
             {
-                Keyboard = Keyboard.Default,
+                Keyboard = Keyboard.Email,
+                Text = "tudor",
                 Placeholder = "E-mail"
             };
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
