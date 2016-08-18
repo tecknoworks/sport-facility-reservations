@@ -108,12 +108,7 @@ namespace Server.Controllers
             _unitOfWork.FieldRepository.Remove(field);
             _unitOfWork.Complete();
             return Ok(field);
-        }
-        public IQueryable GetReservations(string token)
-        {
-            return _unitOfWork.ReservationRepository.GetView(token);
-        }
-
+        } 
     }
 
 }
