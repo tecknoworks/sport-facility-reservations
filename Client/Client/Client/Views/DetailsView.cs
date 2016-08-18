@@ -21,15 +21,22 @@ namespace Client.Views
 
             _viewModel.FieldId = item.id;
 
+			var fieldName = new Entry
+			{
+				Text = item.Name
+			};
+
             var date = new DatePicker
             {
-                Format = "D"
+                Format = "D",
+                MinimumDate = DateTime.Now
             };
             date.SetBinding(DatePicker.DateProperty, "Date");
 
             var time = new TimePicker
             {
-                Format = "T"
+                Format = "T",
+                Time = new TimeSpan(DateTime.Now.Hour, 0, 0)
             };
             time.SetBinding(TimePicker.TimeProperty, "Time");
             
@@ -41,6 +48,7 @@ namespace Client.Views
 
             Content = new StackLayout
             {
+                Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5),
                 Children =
                 {
                     date,

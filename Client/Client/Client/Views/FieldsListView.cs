@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
-using Android.App;
 using Client.Models;
 
 namespace Client.Views
