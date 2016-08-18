@@ -13,6 +13,7 @@ namespace Client
     {
         public static IUnityContainer Container { get; internal set; }
 
+
         public static Action HideLoginView
         {
             get

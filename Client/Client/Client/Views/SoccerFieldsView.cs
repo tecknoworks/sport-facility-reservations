@@ -56,8 +56,7 @@ namespace Client.ViewModels
             var timePicker = new TimePicker
             {
                 Format = "T",
-                Time = new TimeSpan(DateTime.Now.Hour, 0, 0),
-                
+                Time = new TimeSpan(DateTime.Now.Hour, 0, 0)
             };
             grid.Children.Add(timePicker, 1, 1);
 

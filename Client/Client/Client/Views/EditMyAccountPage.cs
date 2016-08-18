@@ -12,6 +12,7 @@ namespace Client.Views
 {
     public class EditMyAccountPage : ContentPage
     {
+		
         private const int PICKER_OWNER_INDEX = 0;
         public EditMyAccountViewModel _viewModel;
         public Entry _password;
@@ -60,7 +61,8 @@ namespace Client.Views
 
             var firstName = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             firstName.SetBinding(Entry.TextProperty, "FirstName");
 
@@ -74,6 +76,7 @@ namespace Client.Views
             var lastName = new Entry
             {
                 Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             lastName.SetBinding(Entry.TextProperty, "LastName");
 
@@ -86,7 +89,8 @@ namespace Client.Views
 
             var username = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             username.SetBinding(Entry.TextProperty, "Username");
 
@@ -99,7 +103,8 @@ namespace Client.Views
 
             var phone = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Numeric,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             phone.SetBinding(Entry.TextProperty, "Phone");
 
@@ -114,6 +119,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default,
                 IsPassword = true,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             _password.SetBinding(Entry.TextProperty, "Password");
 
@@ -127,7 +133,8 @@ namespace Client.Views
             _confirmPassword = new Entry
             {
                 Keyboard = Keyboard.Default,
-                IsPassword = true
+                IsPassword = true,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             _confirmPassword.SetBinding(Entry.TextProperty, "ConfirmPassword");
 
@@ -140,6 +147,7 @@ namespace Client.Views
 
             var type = new Picker
             {
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             type.Items.Add("Owner");  // 0 = PICKER_OWNER_INDEX
             type.Items.Add("Player");
@@ -161,7 +169,8 @@ namespace Client.Views
 
             var fieldNameEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             fieldNameEntry.SetBinding(Entry.TextProperty, "FieldName");
 
@@ -181,7 +190,8 @@ namespace Client.Views
 
             var entryLength = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Numeric,
+				HeightRequest = Constants.ENTRY_HEIGHT 
             };
             entryLength.SetBinding(Entry.TextProperty, "Length");
 
@@ -194,7 +204,8 @@ namespace Client.Views
 
             var entryWidth = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Numeric,
+
             };
             entryWidth.SetBinding(Entry.TextProperty, "Width");
 
@@ -219,19 +230,21 @@ namespace Client.Views
             };
             var priceEntry = new Entry
             {
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Numeric,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             priceEntry.SetBinding(Entry.TextProperty, "Price");
 
             var adress = new Label
             {
-                Text = "Adress",
+                Text = "Address",
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
             var adressEntry = new Entry
             {
-                Keyboard = Keyboard.Default
+                Keyboard = Keyboard.Default,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             adressEntry.SetBinding(Entry.TextProperty, "Adress");
 
@@ -242,7 +255,10 @@ namespace Client.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            var sports = new Picker();
+			var sports = new Picker
+			{
+				HeightRequest = Constants.ENTRY_HEIGHT
+			};
             sports.Items.Add("Football");
             sports.Items.Add("Tennis");
             sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex");

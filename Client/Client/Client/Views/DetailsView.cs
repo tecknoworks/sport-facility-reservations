@@ -21,6 +21,11 @@ namespace Client.Views
 
             _viewModel.FieldId = item.id;
 
+			var fieldName = new Entry
+			{
+				Text = item.Name
+			};
+
             var date = new DatePicker
             {
                 Format = "D",

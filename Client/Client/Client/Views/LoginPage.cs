@@ -49,7 +49,7 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default,
                 Placeholder = "E-mail",
-				HeightRequest = 44
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
             grid.Children.Add(_usernameEntry, 0, 3);
@@ -59,7 +59,7 @@ namespace Client.Views
                 Keyboard = Keyboard.Default,
                 Placeholder = "Password",
                 IsPassword = true,
-				HeightRequest = 44
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
             grid.Children.Add(passwordEntry, 0, 5);
