@@ -42,7 +42,7 @@ namespace Client.Views
             listView.ItemTapped += (sender, args) => {
                 if (listView.SelectedItem == null)
                     return;
-                this.Navigation.PushAsync(new DetailsReservationPage(listView.SelectedItem as User));
+                this.Navigation.PushAsync(new DetailsReservationPage());
                 listView.SelectedItem = null;
             };
 

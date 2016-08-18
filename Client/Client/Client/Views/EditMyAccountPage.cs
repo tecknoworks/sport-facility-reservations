@@ -29,6 +29,8 @@ namespace Client.Views
             BindingContext = _viewModel;
 
             await _viewModel.LoadGetUserByIdAsync();
+            await _viewModel.LoadGetFieldAsync();
+
 
             var labelFirstName = new Label
             {

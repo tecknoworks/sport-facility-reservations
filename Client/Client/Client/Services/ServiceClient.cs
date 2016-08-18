@@ -56,7 +56,7 @@ namespace Client.Services
             }
         }
 
-        public async Task< User> GetUserByIdAsync(string token)
+        public async Task<User> GetUserByIdAsync(string token)
         {
             using (var client = new HttpClient())
             {
@@ -73,12 +73,12 @@ namespace Client.Services
         {
             using (var client = new HttpClient())
             {
-                const string json = "http://tkw-sfr.azurewebsites.net/api/Login/GetUserById/?token={0}";
+                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldOfOwner/?token={0}";
                 var uri = string.Format(json, token);
                 var resultJson = await client.GetAsync(uri);
-                var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<Field>(userObj);
-                return result;
+                var fieldObj = resultJson.Content.ReadAsStringAsync().Result;
+                var resultField = JsonConvert.DeserializeObject<Field>(fieldObj);
+                return resultField;
             }
         }
 

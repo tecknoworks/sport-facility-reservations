@@ -74,7 +74,7 @@ namespace Client.ViewModels
 
                 Token = _serviceClient.Register(FirstName, LastName, Username, Password, ConfirmPassword, IsOwner, Phone, FieldName, Adress, length, width, StartTime, EndTime, price);
                 User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
-                Field field = new Field(SportIndex, FieldName, Adress, length, width, StartTime, EndTime, price);
+                Field field = new Field(SportIndex, FieldName, Adress, length, width, StartTime, EndTime, price,Username);
                 if (ConfirmPassword.Equals(Password))
                 {
                     _serviceClient.AddUserAsync(user);

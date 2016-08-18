@@ -33,6 +33,7 @@ namespace Client.ViewModels
         public string Price { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public string OwnerName { get; set; }
 
         public User User { get; set; }
         public Field Field { get; set; }
@@ -54,14 +55,19 @@ namespace Client.ViewModels
                 Status = 0;
             else
                 Status = 1;
+        }
+        public async Task LoadGetFieldAsync()
+        { 
             Field = await _serviceClient.GetFieldAsync(Settings.Token);
             FieldName = Field.Name;
+            SportIndex = Field.Type;
             Adress = Field.Location;
-            Length = Field.Length;
-            Width = Field.Width;
+            Length = Field.Length.ToString();
+            Width = Field.Width.ToString();
             StartTime = Field.StartTime;
             EndTime = Field.EndTime;
-            Price = Field.Price;
+            Price = Field.Price.ToString();
+            OwnerName = Field.OwnerName;
         }
         public async Task UpdateUser()
         {
