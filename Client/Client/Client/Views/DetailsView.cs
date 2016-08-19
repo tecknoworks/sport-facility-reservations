@@ -21,22 +21,54 @@ namespace Client.Views
 
             _viewModel.FieldId = item.id;
 
-			var fieldName = new Entry
+			var fieldName = new Label
 			{
-				Text = item.Name
+				Text = "Name:  " + item.Name,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				HorizontalOptions = LayoutOptions.StartAndExpand
+			};
+
+			var fieldLocation = new Label
+			{
+				Text = "Location:  " + item.Location,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				HorizontalOptions = LayoutOptions.StartAndExpand
+			};
+
+			var fieldType = new Label
+			{
+				Text = "Type:  " + item.Type,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				HorizontalOptions = LayoutOptions.StartAndExpand
+			};
+
+			var fieldProgram = new Label
+			{
+				Text = "Open:  " + item.StartTime + " - " + item.EndTime,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				HorizontalOptions = LayoutOptions.StartAndExpand
+			};
+
+			var fieldPrice = new Label
+			{
+				Text = "Price per hour:  " + item.Price,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				HorizontalOptions = LayoutOptions.StartAndExpand
 			};
 
             var date = new DatePicker
             {
                 Format = "D",
-                MinimumDate = DateTime.Now
+                MinimumDate = DateTime.Now,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             date.SetBinding(DatePicker.DateProperty, "Date");
 
             var time = new TimePicker
             {
-                Format = "T",
-                Time = new TimeSpan(DateTime.Now.Hour, 0, 0)
+                Format = "HH:mm",
+                Time = new TimeSpan(DateTime.Now.Hour, 0, 0),
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             time.SetBinding(TimePicker.TimeProperty, "Time");
             
@@ -51,6 +83,11 @@ namespace Client.Views
                 Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5),
                 Children =
                 {
+					fieldName,
+					fieldLocation,
+					fieldType,
+					fieldProgram,
+					fieldPrice,
                     date,
                     time,
                     button

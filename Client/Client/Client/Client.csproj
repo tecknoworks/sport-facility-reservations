@@ -71,6 +71,8 @@
     <Compile Include="Views\RegisterPage.cs" />
     <Compile Include="Views\SearchPage.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Views\MyReservationsPage.cs" />
+    <Compile Include="ViewModels\MyReservationsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Commander, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

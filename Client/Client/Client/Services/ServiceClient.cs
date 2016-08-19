@@ -82,6 +82,19 @@ namespace Client.Services
             }
         }
 
+		public async Task<List<Reservation>> GetReservationsAsync(string token)
+		{
+			using (var client = new HttpClient())
+			{
+				const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservationOfPlayer/?token={0}";
+				var uri = string.Format(json, token);
+				var resultJson = await client.GetAsync(uri);
+				var userObj = resultJson.Content.ReadAsStringAsync().Result;
+				var result = JsonConvert.DeserializeObject<List<Reservation>>(userObj);
+				return result;
+			}
+		}
+
 
         public async Task<List<Reservation>> GetReservedFieldsAsync(string token)
         {
@@ -234,7 +247,6 @@ namespace Client.Services
                 }
             }
         }
-
 
         public List<Field> Search(DateTime availability)
         {

@@ -24,6 +24,7 @@ namespace Client.Services.Interfaces
         Task<List<Field>> SearchAsync(string token, string filter1);
         List<Field> Search(DateTime availability);
         Task AddReservationAsync( Reservation reservation);
+		Task<List<Reservation>> GetReservationsAsync(string token);
     }
 }
     
