@@ -18,6 +18,9 @@ namespace Client.ViewModels
         public int FieldId { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; }
+        public string Phone { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public DetailsViewModel(ServiceClient serviceClient)
         {
@@ -27,7 +30,7 @@ namespace Client.ViewModels
        // [OnCommand("ResCommand")]
         public async Task ReserveAsync()
         {
-           Reservation reservation = new Reservation(Settings.Token, FieldId, Time.Hours, Date.Day, Date.Month, Date.Year);
+           Reservation reservation = new Reservation(Settings.Token, FieldId, Time.Hours, Date.Day, Date.Month, Date.Year,FirstName,LastName,Phone);
            await _serviceClient.AddReservationAsync(reservation);
         }
     }

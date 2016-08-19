@@ -211,6 +211,7 @@ Global
 		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
 		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Debug|x86.Build.0 = Debug|Any CPU
 		{2B5AA331-4F3F-4B18-AA81-EBFD7F709325}.Release|Any CPU.ActiveCfg = Release|Any CPU
