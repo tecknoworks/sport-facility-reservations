@@ -23,17 +23,13 @@ namespace Client.ViewModels
 
         public async void AcceptedAsync()
         {
-            Status = "Accept";
-            await _serviceClient.AcceptRequest(Id);        
+            await _serviceClient.AcceptReservation(Id);        
         }
 
-        //public async void RejectedAsync(int id)
-        //{
-        //    Id = id;
-        //    Status = "Reject";
-        //}
-
-
+        public async void RejectedAsync()
+        {
+            await _serviceClient.RejectReservation(Id);
+        }
     }
 
 }

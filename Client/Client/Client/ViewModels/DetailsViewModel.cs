@@ -22,7 +22,6 @@ namespace Client.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-
         public DetailsViewModel(ServiceClient serviceClient)
         {
             _serviceClient = serviceClient;

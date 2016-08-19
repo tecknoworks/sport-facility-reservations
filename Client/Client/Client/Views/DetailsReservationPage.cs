@@ -11,9 +11,11 @@ using Client.ViewModels;
 
 namespace Client.Views
 {
-    public class DetailsReservationPage:ContentPage
+    public class DetailsReservationPage : ContentPage
     {
         private DetailsReservationViewModel _viewModel;
+        Button rejectBtn;
+        Button acceptBtn;
         public DetailsReservationPage(Reservation reservation)
         {
             _viewModel = App.Container.Resolve<DetailsReservationViewModel>();
@@ -23,8 +25,8 @@ namespace Client.Views
 
             Grid grid = new Grid
             {
-               HorizontalOptions = LayoutOptions.CenterAndExpand,
-               VerticalOptions=LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Start,
                 RowDefinitions =
                 {
                     new RowDefinition { Height = GridLength.Auto },
@@ -32,7 +34,7 @@ namespace Client.Views
                     new RowDefinition { Height = GridLength.Auto },
 
                 },
-                ColumnDefinitions=
+                ColumnDefinitions =
                 {
                     new ColumnDefinition {Width=GridLength.Auto },
                     new ColumnDefinition {Width=GridLength.Auto }
@@ -60,7 +62,7 @@ namespace Client.Views
             };
             grid.Children.Add(phone, 0, 1);
 
-            var acceptBtn = new Button
+            acceptBtn = new Button
             {
                 Text = "Accept",
                 HorizontalOptions = LayoutOptions.EndAndExpand,
@@ -69,24 +71,30 @@ namespace Client.Views
             grid.Children.Add(acceptBtn, 0, 2);
             acceptBtn.Clicked += AcceptButton_Clicked;
 
-            var rejectBtn = new Button
+            rejectBtn = new Button
             {
                 Text = "Reject",
                 HorizontalOptions = LayoutOptions.EndAndExpand,
                 Font = Font.SystemFontOfSize(NamedSize.Micro)
             };
             grid.Children.Add(rejectBtn, 1, 2);
+            rejectBtn.Clicked += RejectButton_Clicked;
 
             Content = grid;
 
-    }
+        }
         private async void AcceptButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.AcceptedAsync();
+            acceptBtn.BackgroundColor = Color.Green;
+            rejectBtn.IsEnabled = false;
+            
         }
         private async void RejectButton_Clicked(object sender, EventArgs e)
         {
-
+            _viewModel.RejectedAsync();
+            rejectBtn.BackgroundColor = Color.Red;
+            acceptBtn.IsEnabled = false;
         }
     }
 }

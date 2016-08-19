@@ -309,10 +309,10 @@ namespace Client.Views
             {
                 _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
             };
-            //if(_viewModel.IsOwner)
-            //{
-            //    await _viewModel.LoadGetFieldAsync();
-            //}
+            if (_viewModel.IsOwner)
+            {
+                await _viewModel.LoadGetFieldAsync();
+            }
 
             layout.Children.Add(ownerLayout);
 

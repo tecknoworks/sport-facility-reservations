@@ -10,6 +10,8 @@ namespace Client.Services.Interfaces
 {
     public interface IServiceClient
     {
+        Task AcceptReservation(int id);
+        Task RejectReservation(int id);
         Task<User> LoginAsync(string username, string password);
         Task<User> GetUserByIdAsync(string token);
         Task<Field> GetFieldAsync(string token);
