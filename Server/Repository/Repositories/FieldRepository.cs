@@ -44,6 +44,7 @@ namespace Repository.Repositories
         {
             return FacilityContext.Fields.OrderByDescending(c => c.Price).ToList();
         }
+
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }

@@ -1,4 +1,5 @@
 ﻿using Repository.Domain;
+using Repository.DTOs;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Repository.Repositories
                          where u.Token == token
                          select new
                          {
-                             Id=r.Id,
+                             Id = r.Id,
                              Name = u.UserName,
                              FirstName = u.FirstName,
                              LastName = u.LastName,
@@ -32,6 +33,27 @@ namespace Repository.Repositories
                          });
             return query;
         }
+        public IQueryable GetReservationOfPlayer(string token)
+        {
+            var query = (from r in FacilityContext.Reservations
+                         join u in FacilityContext.Users on r.UserID equals u.ID
+                         join f in FacilityContext.Fields on r.FieldID equals f.ID
+                         where u.Token == token
+                         select new ReservationDTO
+                         {
+                             ID = r.Id,
+                             FieldId = f.ID,
+                             Hour = r.StartHour.Hour,
+                             Day = r.StartHour.Day,
+                             Month = r.StartHour.Month,
+                             Year = r.StartHour.Year,
+                             Status = r.Status,
+                             Field=f.Name,
+                             Token=token, 
+                         });
+            return query;
+        }
+
         public FacilityContext FacilityContext
         {
             get { return Context as FacilityContext; }

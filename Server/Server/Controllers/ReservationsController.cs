@@ -1,4 +1,5 @@
 ﻿using Repository;
+using Repository.DTOs;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,25 @@ namespace Server.Controllers
         [HttpGet]
         public IQueryable GetReservations(string token)
         {
-
+            
             return _unitOfWork.ReservationRepository.GetView(token);
 
+        }
+        [HttpGet]
+        public ReservationDTO GetOneReservation(string token)
+        {
+            var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == token);
+            var reservation = _unitOfWork.ReservationRepository.GetAll().FirstOrDefault(p => p.UserID == user.ID);
+            return new ReservationDTO
+            {
+                ID = reservation.Id,
+                Status = reservation.Status,
+                Token = token,
+                Hour = reservation.StartHour.Hour,
+                Day = reservation.StartHour.Day,
+                Month = reservation.StartHour.Month,
+                Year = reservation.StartHour.Year
+            };
         }
         public UserDTO GetNameOfPlayer(int ReservationId)
         {
@@ -27,12 +44,14 @@ namespace Server.Controllers
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+
+
             };
             return userDTO;
         }
         [HttpPost]
-        public HttpResponseMessage AddReservations(ReservationDTO reservation)
+        public HttpResponseMessage AddReservations([FromBody] ReservationDTO reservation)
         {
             try
             {
@@ -55,19 +74,8 @@ namespace Server.Controllers
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError) { ReasonPhrase = ex.Message };
             }
         }
-        public class ReservationDTO
-        {
-            public int ID;
-            public int FieldId;
-            public string Token;
-            public string Status;
-            public int Year;
-            public int Month;
-            public int Day;
-            public int Hour;
 
-        }
-
+     
         public class UserDTO
         {
             public string FirstName;
@@ -75,22 +83,42 @@ namespace Server.Controllers
             public string PhoneNumber;
         }
         [HttpPut]
-        public HttpResponseMessage UpdateReservation([FromUri]int id)
+        public HttpResponseMessage UpdateReservation([FromUri] string id)
         {
-                //var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
-                var dbReservation = _unitOfWork.ReservationRepository.GetAll().FirstOrDefault(p => p.Id == id);
-                if (dbReservation == null)
-                    return new HttpResponseMessage(HttpStatusCode.NotFound) { ReasonPhrase = "Reservation does not exist" };
+            int Id = Int32.Parse(id);
+            //var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
+            var dbReservation = _unitOfWork.ReservationRepository.GetAll().FirstOrDefault(p => p.Id == Id);
+            if (dbReservation == null)
+                return new HttpResponseMessage(HttpStatusCode.NotFound) { ReasonPhrase = "Reservation does not exist" };
 
-                dbReservation.Status = "accepted";
-                //if (user.Status.Equals("false") && dbReservation.Status.Equals("accepted"))
-                //    return new HttpResponseMessage(HttpStatusCode.NotAcceptable) { ReasonPhrase = "Reservation not editable. " };
-                //if(reservation.)
+            dbReservation.Status = "accepted";
+            //if (user.Status.Equals("false") && dbReservation.Status.Equals("accepted"))
+            //    return new HttpResponseMessage(HttpStatusCode.NotAcceptable) { ReasonPhrase = "Reservation not editable. " };
+            //if(reservation.)
 
-                _unitOfWork.ReservationRepository.Update(dbReservation);
-                _unitOfWork.Complete();
-                return new HttpResponseMessage(HttpStatusCode.OK) { ReasonPhrase = "Reservation updated" };
-         
+            _unitOfWork.ReservationRepository.Update(dbReservation);
+            _unitOfWork.Complete();
+            return new HttpResponseMessage(HttpStatusCode.OK) { ReasonPhrase = "Reservation updated" };
+
+        }
+        [HttpPut]
+        public HttpResponseMessage RejectReservation([FromUri] string id)
+        {
+            int Id = Int32.Parse(id);
+            //var user = _unitOfWork.UserRepository.GetAll().FirstOrDefault(p => p.Token == reservation.Token);
+            var dbReservation = _unitOfWork.ReservationRepository.GetAll().FirstOrDefault(p => p.Id == Id);
+            if (dbReservation == null)
+                return new HttpResponseMessage(HttpStatusCode.NotFound) { ReasonPhrase = "Reservation does not exist" };
+
+            dbReservation.Status = "rejected";
+            //if (user.Status.Equals("false") && dbReservation.Status.Equals("accepted"))
+            //    return new HttpResponseMessage(HttpStatusCode.NotAcceptable) { ReasonPhrase = "Reservation not editable. " };
+            //if(reservation.)
+
+            _unitOfWork.ReservationRepository.Update(dbReservation);
+            _unitOfWork.Complete();
+            return new HttpResponseMessage(HttpStatusCode.OK) { ReasonPhrase = "Reservation updated" };
+
         }
         [HttpDelete]
         public HttpResponseMessage DeleteReservation(int id)
