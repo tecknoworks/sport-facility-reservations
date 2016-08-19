@@ -1,5 +1,5 @@
-﻿using Client.Models;
-using Client.Services;
+﻿using Client.Services;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +8,32 @@ using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
-   public class DetailsReservationViewModel
+    [ImplementPropertyChanged]
+    public class DetailsReservationViewModel
     {
         public ServiceClient _serviceClient;
-        public string Username{ get; set; }
-        public string Phone { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Password { get; set; }
-        public bool IsOwner { get; set; }
+
+        public int Id;
+        public string Status;
 
         public DetailsReservationViewModel(ServiceClient serviceClient)
         {
             _serviceClient = serviceClient;
         }
 
-        public async Task UserDetailsAsync()
+        public async void AcceptedAsync()
         {
-            User user = new User(FirstName, LastName, Username, Password, Phone, IsOwner);
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            Phone = user.PhoneNumber;
+            Status = "Accept";
+            await _serviceClient.AcceptRequest(Id);        
         }
+
+        //public async void RejectedAsync(int id)
+        //{
+        //    Id = id;
+        //    Status = "Reject";
+        //}
+
+
     }
+
 }

@@ -11,7 +11,8 @@ namespace Repository.Models
     {
         public int Id { get; set; }
         public int UserID { get; set; }
-        public int FieldID { get; set; }     
+        public int FieldID { get; set; }
+        public string Status { get; set; }
         public DateTime StartHour { get; set; }
         [IgnoreDataMember]
         public virtual User User { get; set; }
