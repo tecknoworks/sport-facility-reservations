@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Domain\IFieldRepository.cs" />
     <Compile Include="Domain\IReservationRepository.cs" />
+    <Compile Include="DTOs\ReservationDTO.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FacilityContext.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />

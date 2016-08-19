@@ -19,7 +19,7 @@ namespace Client.Views
             _viewModel = App.Container.Resolve<DetailsViewModel>();
             BindingContext = _viewModel;
 
-            _viewModel.FieldId = item.id;
+            _viewModel.FieldId = item.Id;
 
 			var fieldName = new Label
 			{

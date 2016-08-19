@@ -52,6 +52,7 @@ namespace Client.Views
 
             await _viewModel.LoadGetUserByIdAsync();
 
+
             var labelFirstName = new Label
             {
                 Text = "First Name",
@@ -308,6 +309,10 @@ namespace Client.Views
             {
                 _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
             };
+            if (_viewModel.IsOwner)
+            {
+                await _viewModel.LoadGetFieldAsync();
+            }
 
             layout.Children.Add(ownerLayout);
 

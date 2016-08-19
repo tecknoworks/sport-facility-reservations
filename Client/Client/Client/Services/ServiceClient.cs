@@ -26,7 +26,7 @@ namespace Client.Services
                     const string uriTemplate = "http://tkw-sfr.azurewebsites.net/api/Login/LoginRequest?name={0}&password={1}";
                     var uri = string.Format(uriTemplate, username, password);
                     var response = await client.GetAsync(uri);
-                    var serializedUser = response.Content.ReadAsStringAsync().Result;
+                    var serializedUser = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<User>(serializedUser);
                     if (result == null)
                     {
@@ -56,14 +56,14 @@ namespace Client.Services
             }
         }
 
-        public async Task< User> GetUserByIdAsync(string token)
+        public async Task<User> GetUserByIdAsync(string token)
         {
             using (var client = new HttpClient())
             {
                 const string json = "http://tkw-sfr.azurewebsites.net/api/Login/GetUserById/?token={0}";
                 var uri = string.Format(json, token);
                 var resultJson = await client.GetAsync(uri);
-                var userObj = resultJson.Content.ReadAsStringAsync().Result;
+                var userObj =await resultJson.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<User>(userObj);
                 return result;
             }
@@ -72,13 +72,13 @@ namespace Client.Services
         public async Task<Field> GetFieldAsync(string token)
         {
             using (var client = new HttpClient())
-            {
-                const string json = "http://tkw-sfr.azurewebsites.net/api/Login/GetUserById/?token={0}";
-                var uri = string.Format(json, token);
-                var resultJson = await client.GetAsync(uri);
-                var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<Field>(userObj);
-                return result;
+            {          
+                    const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldOfOwner/?token={0}";
+                    var uri = string.Format(json, token);
+                    var resultJson = await client.GetAsync(uri);
+                    var fieldObj = await resultJson.Content.ReadAsStringAsync();
+                    var resultField = JsonConvert.DeserializeObject<Field>(fieldObj);
+                    return resultField;     
             }
         }
 
@@ -95,19 +95,19 @@ namespace Client.Services
 			}
 		}
 
-
         public async Task<List<Reservation>> GetReservedFieldsAsync(string token)
         {
             using (var client = new HttpClient())
             {
-                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetReservations/?token={0}";
+                const string json = "http://tkw-sfr.azurewebsites.net/api/Reservations/GetReservations/?token={0}";
                 var uri = string.Format(json, token);
                 var resultJson = await client.GetAsync(uri);
-                var userObj = resultJson.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<List <Reservation >> (userObj);
+                var userObj = await resultJson.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Reservation>>(userObj);
                 return result;
             }
         }
+
         public async Task AddUserAsync(User user)
         {
             using (var client = new HttpClient())
@@ -115,15 +115,35 @@ namespace Client.Services
                 var json = JsonConvert.SerializeObject(user);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/login/AddUser/", content);
-                if (result.StatusCode==System.Net.HttpStatusCode.OK)
-                {
-                }
-                else
-                {
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
                     throw new Exception(result.ReasonPhrase);
-                }
             }
         }
+
+        public async Task AcceptReservation(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(id);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync($"http://tkw-sfr.azurewebsites.net/api/Reservations/UpdateReservation/?id={id}", null);
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new Exception(result.ReasonPhrase);
+            }
+        }
+
+        public async Task RejectReservation(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(id);
+                var content = new StringContent (json, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync($"http://tkw-sfr.azurewebsites.net/api/Reservations/RejectReservation/?id={id}", null);
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new Exception(result.ReasonPhrase);
+            }
+        }
+
         public async Task UpdateUserAsync(User user)
         {
             using (var client = new HttpClient())
@@ -131,13 +151,8 @@ namespace Client.Services
                 var json = JsonConvert.SerializeObject(user);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PutAsync("http://tkw-sfr.azurewebsites.net/api/login/UpdateUser/", content);
-                if (result.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                }
-                else
-                {
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
                     throw new Exception(result.ReasonPhrase);
-                }
             }
         }
 
@@ -148,15 +163,11 @@ namespace Client.Services
                 var json = JsonConvert.SerializeObject(field);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/AddField/", content);
-                if (result.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                }
-                else
-                {
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
                     throw new Exception(result.ReasonPhrase);
-                }
             }
         }
+
         public async Task AddReservationAsync(Reservation reservation)
         {
             using (var client = new HttpClient())
@@ -166,7 +177,8 @@ namespace Client.Services
                     var json = JsonConvert.SerializeObject(reservation);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var result = await client.PostAsync("http://tkw-sfr.azurewebsites.net/api/Reservations/AddReservations/", content);
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
 
                 }

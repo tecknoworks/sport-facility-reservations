@@ -27,6 +27,10 @@ namespace Server.Controllers
             var fields = _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
             return fields;
         }
+        public IQueryable GetReservationOfPlayer(string token)
+        {
+            return _unitOfWork.ReservationRepository.GetReservationOfPlayer(token);
+        }
         public IEnumerable<Field> GetFields()
         {
             var fields = _unitOfWork.FieldRepository.GetAll();
@@ -108,12 +112,7 @@ namespace Server.Controllers
             _unitOfWork.FieldRepository.Remove(field);
             _unitOfWork.Complete();
             return Ok(field);
-        }
-        public IQueryable GetReservations(string token)
-        {
-            return _unitOfWork.ReservationRepository.GetView(token);
-        }
-
+        } 
     }
 
 }

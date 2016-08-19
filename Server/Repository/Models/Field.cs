@@ -20,9 +20,9 @@ namespace Repository.Models
         public string Location { get; set; }
         [Required]
         public int Type { get; set; }
-        public float Price { get; set; }
-        public int Width { get; set; }
-        public int Length { get; set; }
+        public float? Price { get; set; }
+        public int? Width { get; set; }
+        public int? Length { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string OwnerName { get; set; }
