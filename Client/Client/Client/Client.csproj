@@ -70,6 +70,7 @@
     <Compile Include="Views\LoginPage.cs" />
     <Compile Include="Views\RegisterPage.cs" />
     <Compile Include="Views\SearchPage.cs" />
+    <Compile Include="Models\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Commander, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

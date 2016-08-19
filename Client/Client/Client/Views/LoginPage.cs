@@ -30,7 +30,7 @@ namespace Client.Views
 
             Grid grid = new Grid
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
+				VerticalOptions = LayoutOptions.Start,
                 RowDefinitions =
                 {
                     new RowDefinition { Height = GridLength.Auto },
@@ -49,7 +49,8 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Email,
                 Text = "tudor",
-                Placeholder = "E-mail"
+                Placeholder = "E-mail",
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             _usernameEntry.SetBinding(Entry.TextProperty, "Username");
             grid.Children.Add(_usernameEntry, 0, 3);
@@ -58,7 +59,8 @@ namespace Client.Views
             {
                 Keyboard = Keyboard.Default,
                 Placeholder = "Password",
-                IsPassword = true
+                IsPassword = true,
+				HeightRequest = Constants.ENTRY_HEIGHT
             };
             passwordEntry.SetBinding(Entry.TextProperty, "Password");
             grid.Children.Add(passwordEntry, 0, 5);
@@ -70,9 +72,9 @@ namespace Client.Views
             grid.Children.Add(loginButton, 0, 6);
             loginButton.Clicked += LoginButton_Clicked;
 
-            var registerButton = new Button
-            {
-                Text = "Don't have an account?"
+			var registerButton = new Button
+			{
+				Text = "Don't have an account?"
 
             };
             grid.Children.Add(registerButton, 0, 8);
