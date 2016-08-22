@@ -16,24 +16,8 @@ namespace Client
     {
         protected override Xamarin.Forms.Page CreateMainPage()
         {
-            if (string.IsNullOrEmpty(Settings.Token))
-            {
-                var page = Container.Resolve<LoginPage>();
-                return new Xamarin.Forms.NavigationPage(page);
-            }
-            else
-            {
-                if (Settings.Status == false)
-                {
-                    var page = Container.Resolve<HomePage>("");
-                    return new Xamarin.Forms.NavigationPage(page);
-                }
-                else
-                {
-                    var page = Container.Resolve<OwnerHomePage>();
-                    return new Xamarin.Forms.NavigationPage(page);
-                }
-            }
+           var page = Container.Resolve<LoginPage>();
+           return new Xamarin.Forms.NavigationPage(page);
         }
 
         protected override void RegisterTypes()

@@ -225,7 +225,7 @@ namespace Client.Services
             {
 				const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldBy?token={0}&type={1}&name={2}&location={3}";
 				var uri = string.Format(json, token, type, name, city);
-                var resultJson = await client.GetAsync(uri);
+                 var resultJson = await client.GetAsync(uri);
                 var userObj = resultJson.Content.ReadAsStringAsync().Result;
                 var result = JsonConvert.DeserializeObject<List<Field>>(userObj);
                 if (result == null)

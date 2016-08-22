@@ -19,6 +19,7 @@ namespace Client.Views
         public LoginPage()
         {
             Title = "Login";
+			NavigationTo();
             Init();
         }
 
@@ -91,6 +92,21 @@ namespace Client.Views
 
             this.Content = grid;
         }
+
+		private async void NavigationTo()
+		{
+			if (!string.IsNullOrEmpty(Settings.Token))
+			{
+				if (Settings.Status == false)
+				{
+					await Navigation.PushAsync(new HomePage(""));
+				}
+				else
+				{
+					await Navigation.PushAsync(new OwnerHomePage());
+				}
+			}
+		}
 
         private async void FacebookLoginButton_Clicked(object sender, EventArgs e)
         {
