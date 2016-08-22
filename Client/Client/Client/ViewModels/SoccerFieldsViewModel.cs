@@ -36,7 +36,7 @@ namespace Client.ViewModels
 
         public async Task SearchVMAsync()
         {
-            var fields = await _serviceClient.SearchAsync(Settings.Token, Name, City);
+			var fields = await _serviceClient.SearchAsync(Settings.Token, Settings.FieldType, Name, City);
             Fields = new ObservableCollection<Field>(fields);
         }
 

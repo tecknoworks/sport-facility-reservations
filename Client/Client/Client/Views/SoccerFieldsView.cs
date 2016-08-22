@@ -81,30 +81,30 @@ namespace Client.ViewModels
 			stackLayout.Children.Add(searchButton);
             searchButton.Clicked += SearchButton_Clicked;
 
-            ListView listView = new ListView
-            {
-                ItemsSource = soccerFields,
-                ItemTemplate = new DataTemplate(() =>
-                {
-                    var name = new Label();
-                    name.SetBinding(Label.TextProperty, "Name");
-                    var city = new Label();
-                    city.SetBinding(Label.TextProperty, "City");
-                    return new ViewCell
-                    {
-                        View = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal,
-                            Children =
-                            {
-                                name,
-                                city
-                            }
-                        }
-                    };
-                }
-                )
-            };
+			ListView listView = new ListView
+			{
+				ItemsSource = soccerFields,
+				ItemTemplate = new DataTemplate(() =>
+				{
+					var name = new Label();
+					name.SetBinding(Label.TextProperty, "Name");
+					var city = new Label();
+					city.SetBinding(Label.TextProperty, "City");
+					return new ViewCell
+					{
+						View = new StackLayout
+						{
+							Orientation = StackOrientation.Horizontal,
+							Children =
+							{
+								name,
+								city
+							}
+						}
+					};
+				}
+				)
+			};
             listView.SetBinding(ListView.ItemsSourceProperty, "Fields");
 			stackLayout.Children.Add(listView);
 			Content = stackLayout;
