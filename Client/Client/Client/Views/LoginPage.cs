@@ -19,8 +19,8 @@ namespace Client.Views
         public LoginPage()
         {
             Title = "Login";
-			NavigationTo();
             Init();
+			NavigationTo();
         }
 
         public async Task Init()
@@ -106,6 +106,15 @@ namespace Client.Views
 					await Navigation.PushAsync(new OwnerHomePage());
 				}
 			}
+		}
+
+		protected override bool OnBackButtonPressed()
+		{
+			if (!string.IsNullOrEmpty(Settings.Token))
+			{
+				return true;
+			}
+			return base.OnBackButtonPressed();
 		}
 
         private async void FacebookLoginButton_Clicked(object sender, EventArgs e)

@@ -5,6 +5,7 @@ using Client.Models;
 using Client.Services;
 using Client.Services.Interfaces;
 using PropertyChanged;
+using Xamarin.Forms;
 
 namespace Client
 {
@@ -14,6 +15,26 @@ namespace Client
 		IServiceClient _serviceClient;
 		public string Field { get; set; }
 		public string Status { get; set; }
+		public Color detailColor;
+		public Color DetailColor
+		{
+			get
+			{
+				return detailColor;
+			}
+			set{
+				if (Status.Equals("accepted"))
+				{
+					detailColor = Color.Green;
+				}
+				else if (Status.Equals("rejected"))
+				{
+					detailColor = Color.Red;
+				}
+			}
+		}
+
+
 
 		public List<Reservation> Reservations { get; set; }
 

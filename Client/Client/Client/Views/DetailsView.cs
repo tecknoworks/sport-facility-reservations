@@ -98,6 +98,7 @@ namespace Client.Views
         private async void ReserveButton_Clicked(object sender, EventArgs e)
         {
             await _viewModel.ReserveAsync();
+			await DisplayAlert("", "Your reservation was registered. Please check if accepted", "OK");
         }
     }
 }

@@ -33,8 +33,8 @@ namespace Client
 			var cell = new DataTemplate(typeof(TextCell));
 			cell.SetBinding(TextCell.TextProperty, "Field");
 			cell.SetBinding(TextCell.DetailProperty, "Status");
+			cell.SetBinding(TextCell.DetailColorProperty, "DetailColor");
 			listView.ItemTemplate = cell;
-
 
 			listView.SetBinding(ListView.ItemsSourceProperty, "Reservations");
 			stack.Children.Add(listView);
