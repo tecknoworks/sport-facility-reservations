@@ -30,6 +30,7 @@ namespace Repository.Repositories
                              Field = f.Name,
                              StartHour = r.StartHour,
                              PhoneNumber = u.PhoneNumber,
+                             Status=r.Status,
                          });
             return query;
         }

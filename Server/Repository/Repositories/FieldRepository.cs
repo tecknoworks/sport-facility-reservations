@@ -40,6 +40,14 @@ namespace Repository.Repositories
                 return query.ToList();
             }
         }
+        public IEnumerable<Field> FilterFieldsBy(string location, string name, int type, int length, int width)
+        {
+            return FacilityContext.Fields.Where(p => (p.Name == name && p.Location == location && p.Type == type && p.Length == length && p.Width == width)
+                                                || (p.Location == location)
+                                                || (p.Type == type)
+                                                || (p.Length == length)
+                                                || (p.Width == width));
+        }
         public IEnumerable<Field> GetFieldsOrderedByPrice()
         {
             return FacilityContext.Fields.OrderByDescending(c => c.Price).ToList();

@@ -27,6 +27,10 @@ namespace Server.Controllers
             var fields = _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.Type == type);
             return fields;
         }
+        public IEnumerable<Field> GetFilteredFields(string name, string location, int type, int length, int width)
+        {
+            return _unitOfWork.FieldRepository.FilterFieldsBy(name, location, type, length, width);
+        }
         public IQueryable GetReservationOfPlayer(string token)
         {
             return _unitOfWork.ReservationRepository.GetReservationOfPlayer(token);
@@ -65,22 +69,26 @@ namespace Server.Controllers
                 }
             return null;
         }
-        public IEnumerable<Field> GetFieldBy(string token, string name, string location)
+        public IEnumerable<Field> GetFieldBy(string token, string name, string location, int type)
         {
             var users = _unitOfWork.UserRepository.GetAll();
             foreach (var user in users)
                 if (user.Token.Equals(token))
                 {
+
                     var fields = GetFields();
+                    
                     if (!string.IsNullOrEmpty(location) && string.IsNullOrEmpty(name))
                         return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase));
                     else if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(location))
                         return fields.Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-                    else if (!string.IsNullOrEmpty(location) && !string.IsNullOrEmpty(name))
+                    else if (!string.IsNullOrEmpty(location) && !string.IsNullOrEmpty(name) )
                         return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase))
-                                       .Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+                                      .Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                                      .Where(x => x.Type.Equals(type));
+
                     else
-                        return fields;
+                        return fields.Where(x => x.Type.Equals(type));
                 }
             return null;
         }
@@ -112,7 +120,7 @@ namespace Server.Controllers
             _unitOfWork.FieldRepository.Remove(field);
             _unitOfWork.Complete();
             return Ok(field);
-        } 
+        }
     }
 
 }

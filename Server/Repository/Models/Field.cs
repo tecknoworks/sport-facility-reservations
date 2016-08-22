@@ -26,11 +26,11 @@ namespace Repository.Models
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string OwnerName { get; set; }
-        public List<DateTime> Availability { get; set; }
+        
         [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        
         //[ForeignKey("OwnerId")]
         //public virtual User User { get; set; }
     }
+
 }

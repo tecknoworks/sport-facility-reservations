@@ -12,5 +12,6 @@ namespace Repository.Domain
                                       Func<IQueryable<Field>, IOrderedQueryable<Field>> orderBy = null,
                                       string includeProperties = "");
         IEnumerable<Field> GetFieldsOrderedByPrice();
+        IEnumerable<Field> FilterFieldsBy(string name, string location, int type, int length, int width);
     }
 }
