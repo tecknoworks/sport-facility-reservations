@@ -75,18 +75,17 @@ namespace Server.Controllers
             foreach (var user in users)
                 if (user.Token.Equals(token))
                 {
-
                     var fields = GetFields();
-                    
                     if (!string.IsNullOrEmpty(location) && string.IsNullOrEmpty(name))
-                        return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase));
+                        return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase)
+                                                && (x.Type.Equals(type)));
                     else if (!string.IsNullOrEmpty(name) && string.IsNullOrEmpty(location))
-                        return fields.Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-                    else if (!string.IsNullOrEmpty(location) && !string.IsNullOrEmpty(name) )
-                        return fields.Where(x => x.Location.Equals(location, StringComparison.OrdinalIgnoreCase))
-                                      .Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
-                                      .Where(x => x.Type.Equals(type));
-
+                        return fields.Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                                                && (x.Type.Equals(type)));
+                    else if (!string.IsNullOrEmpty(location) && !string.IsNullOrEmpty(name))
+                        return fields.Where(x => x.Type.Equals(type) &&
+                                     (x.Location.Equals(location, StringComparison.OrdinalIgnoreCase)) &&
+                                     (x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)));
                     else
                         return fields.Where(x => x.Type.Equals(type));
                 }
