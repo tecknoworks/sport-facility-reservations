@@ -53,6 +53,7 @@
     <Compile Include="ViewModels\FieldsListViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MyReservationsViewModel.cs" />
     <Compile Include="ViewModels\ReservationPageViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SearchPageViewModel.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Views\EditMyAccountPage.cs" />
     <Compile Include="Views\FieldsListView.cs" />
     <Compile Include="Views\Login.cs" />
+    <Compile Include="Views\MyReservationsPage.cs" />
     <Compile Include="Views\OwnerHomePage.cs" />
     <Compile Include="Views\PopupLayout.cs" />
     <Compile Include="Views\ReservationPage.cs" />

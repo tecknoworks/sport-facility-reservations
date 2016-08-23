@@ -24,6 +24,8 @@ namespace Client.Services
         private static readonly bool StatusDefault = false;
         const string FirstNameKey = "FirstName";
         private static readonly string FirstNameDefault = string.Empty;
+		const string FieldTypeKey = "Type";
+		private static readonly int FieldTypeDefault = 0;
 
         public static string Token
         {
@@ -41,5 +43,12 @@ namespace Client.Services
             get { return AppSettings.GetValueOrDefault<string>(FirstNameKey, FirstNameDefault); }
             set { AppSettings.AddOrUpdateValue<string>(FirstNameKey, value); }
         }
+
+		public static int FieldType
+		{
+			get { return AppSettings.GetValueOrDefault<int>(FieldTypeKey, FieldTypeDefault); }
+			set { AppSettings.AddOrUpdateValue<int>(FieldTypeKey, value); }
+		}
+
     }
 }

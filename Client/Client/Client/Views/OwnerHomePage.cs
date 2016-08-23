@@ -14,6 +14,7 @@ namespace Client.Views
     {
         public OwnerHomePage()
         {
+			NavigationPage.SetHasBackButton(this, false);
 			var reservationPage = new ReservationPage();
 			reservationPage.Title = "Reservations";
 			reservationPage.Icon = "list-16.png";
@@ -23,5 +24,6 @@ namespace Client.Views
             Children.Add(homePage);
             //Children.Add(new HomePagee());
         }
+
     }
 }

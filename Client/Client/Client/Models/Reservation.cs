@@ -17,6 +17,7 @@ namespace Client.Models
         public string Token { get; set; }
         public string Field { get; set; }
         public DateTime StartHour { get; set; }
+		public string Status { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }

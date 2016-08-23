@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
+using Client.Services;
 
 namespace Client.Views
 {
@@ -32,9 +33,9 @@ namespace Client.Views
                 Source = "football_field.jpg"
                
             };
-            var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += OnTapGestureRecognizerTapped;
-            soccerFields.GestureRecognizers.Add(tapGestureRecognizer);
+            var tapGestureRecognizerSoccer = new TapGestureRecognizer();
+            tapGestureRecognizerSoccer.Tapped += OnTapGestureRecognizerTappedSoccer;
+            soccerFields.GestureRecognizers.Add(tapGestureRecognizerSoccer);
 
             var tennisLabel = new Label
             {
@@ -42,13 +43,11 @@ namespace Client.Views
             };
             var tennisFields = new Image
             {
-                Source = "tennis_field.png",
-               // WidthRequest = 300,
-               // HeightRequest = 200
+                Source = "tennis_field2.png"
             };
-            var tapGestureRecognizer2 = new TapGestureRecognizer();
-            tapGestureRecognizer2.Tapped += OnTapGestureRecognizerTapped2;
-            tennisFields.GestureRecognizers.Add(tapGestureRecognizer2);
+            var tapGestureRecognizerTennis = new TapGestureRecognizer();
+            tapGestureRecognizerTennis.Tapped += OnTapGestureRecognizerTappedTennis;
+            tennisFields.GestureRecognizers.Add(tapGestureRecognizerTennis);
 
             var squashlabel = new Label
             {
@@ -56,12 +55,11 @@ namespace Client.Views
             };
             var squashfields = new Image
             {
-                Source = "squash2.jpg",
-               // WidthRequest = 300,
-               // HeightRequest = 200
+                Source = "squash.jpg"
             };
-            squashfields.GestureRecognizers.Add(new TapGestureRecognizer(sender => { squashfields.Opacity = 0.6; squashfields.FadeTo(1); }));
-
+			var tapGestureRecognizerSquash = new TapGestureRecognizer();
+			tapGestureRecognizerSquash.Tapped += OnTapGestureRecognizerTappedSquash;
+			squashfields.GestureRecognizers.Add(tapGestureRecognizerSquash);
             Content = new StackLayout
             {
                 Children =
@@ -73,15 +71,23 @@ namespace Client.Views
             };
         }
 
-        public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
+        public async void OnTapGestureRecognizerTappedSoccer(object sender, EventArgs args)
         {
+			Settings.FieldType = 0;
             await Navigation.PushAsync(new SoccerFieldsView());
         }
 
-        public async void OnTapGestureRecognizerTapped2(object sender, EventArgs args)
+        public async void OnTapGestureRecognizerTappedTennis(object sender, EventArgs args)
         {
-            await Navigation.PushAsync(new OwnerHomePage());
+			Settings.FieldType = 1;
+			await Navigation.PushAsync(new SoccerFieldsView());
         }
+
+		public async void OnTapGestureRecognizerTappedSquash(object sender, EventArgs args)
+		{
+			Settings.FieldType = 2;
+			await Navigation.PushAsync(new SoccerFieldsView());
+		}
 
         protected override void OnSizeAllocated(double width, double height)
         {

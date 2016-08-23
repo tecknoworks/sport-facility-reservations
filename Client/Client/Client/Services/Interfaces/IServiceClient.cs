@@ -22,10 +22,11 @@ namespace Client.Services.Interfaces
         Task AddFieldAsync(Field field);
         Task UpdateUserAsync(User user);
         List<Field> Search(string filter);
-        Task<IEnumerable<Field>> SearchAsync(string token, string filter1, string filter2);
+        Task<IEnumerable<Field>> SearchAsync(string token, int type, string filter1, string filter2);
         Task<List<Field>> SearchAsync(string token, string filter1);
         List<Field> Search(DateTime availability);
         Task AddReservationAsync( Reservation reservation);
+		Task<List<Reservation>> GetReservationsAsync(string token);
     }
 }
     

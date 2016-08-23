@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
+using Client.Services;
 
 namespace Client.Views
 {
@@ -20,6 +21,7 @@ namespace Client.Views
             Title = "Home";
             _greetingText = greetingText;
             Init();
+
         }
         public async Task Init()
         {
@@ -68,6 +70,17 @@ namespace Client.Views
             };
             viewFieldsButton.Clicked += viewFieldsButton_Clicked;
 
+			var myReservationsButton = new Button
+			{
+				Text = "My Reservations",
+				BorderWidth = BORDER,
+				WidthRequest = 200,
+				HeightRequest = 50,
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.CenterAndExpand
+			};
+			myReservationsButton.Clicked += myReservationsButton_Cliked;
+
             var editAccountButton = new Button
             {
                 Text = "My Account",
@@ -82,10 +95,16 @@ namespace Client.Views
             contentLayout.Children.Add(viewFieldsButton);
             contentLayout.Children.Add(searchButton);
             contentLayout.Children.Add(editAccountButton);
+			contentLayout.Children.Add(myReservationsButton);
             contentLayout.Children.Add(signOutButton);
 
             Content = contentLayout;
         }
+
+		public async void myReservationsButton_Cliked(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new MyReservationsPage());
+		}
 
         private async void editAccountButton_Clicked(object sender, EventArgs e)
         {

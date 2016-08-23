@@ -19,6 +19,8 @@ namespace Client.ViewModels
     {
         public string GreetingText { get; set; }
         public User User { get; set; }
+		public Reservation Reservation { get; set;}
+		public string ReservationMessage { get; set; }
         public string Token
         {
             get
@@ -38,19 +40,12 @@ namespace Client.ViewModels
         {
             Token=string.Empty;
         }
-
-        //string _title = "HomePage";
-        //public string Title
-        //{
-        //    get { return _title; }
-        //    set { SetProperty(ref _title, value); }
-        //}
         
-        //public IServiceClient _serviceClient;
+        public IServiceClient _serviceClient;
 
-        //public HomeViewModel(IServiceClient serviceClient)
-        //{
-        //    _serviceClient = serviceClient;
-        //}
+        public HomeViewModel(IServiceClient serviceClient)
+        {
+            _serviceClient = serviceClient;
+        }
     }
 }
