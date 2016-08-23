@@ -50,8 +50,7 @@ namespace Client.Views
             });
 
 
-            await _viewModel.LoadGetUserByIdAsync();
-
+            //await _viewModel.LoadGetUserByIdAsync();
 
             var labelFirstName = new Label
             {
@@ -262,6 +261,7 @@ namespace Client.Views
 			};
             sports.Items.Add("Football");
             sports.Items.Add("Tennis");
+            sports.Items.Add("Squash");
             sports.SetBinding(Picker.SelectedIndexProperty, "SportIndex");
 
             var layout = new StackLayout
@@ -309,10 +309,8 @@ namespace Client.Views
             {
                 _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
             };
-            if (_viewModel.IsOwner)
-            {
-                await _viewModel.LoadGetFieldAsync();
-            }
+
+                await _viewModel.GetFieldAsync();          
 
             layout.Children.Add(ownerLayout);
 
