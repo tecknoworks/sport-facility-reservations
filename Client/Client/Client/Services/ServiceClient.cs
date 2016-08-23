@@ -218,14 +218,14 @@ namespace Client.Services
             return confirmPassword.Equals(password) ? "Password match" : "Password doesn't match";
         }
 
-        public async Task<IEnumerable<Field>> SearchAsync(string token, string name, string city)
+        public async Task<IEnumerable<Field>> SearchAsync(string token, int type, string name, string city)
         {
             //return FieldsSeeder.GetData().Where(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.Location.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
             using (var client = new HttpClient())
             {
-                const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldBy?token={0}&name={1}&location={2}";
-                var uri = string.Format(json, token, name, city);
-                var resultJson = await client.GetAsync(uri);
+				const string json = "http://tkw-sfr.azurewebsites.net/api/MainPage/GetFieldBy?token={0}&type={1}&name={2}&location={3}";
+				var uri = string.Format(json, token, type, name, city);
+                 var resultJson = await client.GetAsync(uri);
                 var userObj = resultJson.Content.ReadAsStringAsync().Result;
                 var result = JsonConvert.DeserializeObject<List<Field>>(userObj);
                 if (result == null)

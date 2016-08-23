@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
 using Client.Views;
+using Client.Models;
 
 namespace Client.ViewModels
 {
@@ -16,7 +17,7 @@ namespace Client.ViewModels
 
         public SoccerFieldsView()
         {
-            Title = "Soccer Field";
+            Title = "Search";
             Init();
         }
 
@@ -81,31 +82,22 @@ namespace Client.ViewModels
 			stackLayout.Children.Add(searchButton);
             searchButton.Clicked += SearchButton_Clicked;
 
-            ListView listView = new ListView
-            {
-                ItemsSource = soccerFields,
-                ItemTemplate = new DataTemplate(() =>
-                {
-                    var name = new Label();
-                    name.SetBinding(Label.TextProperty, "Name");
-                    var city = new Label();
-                    city.SetBinding(Label.TextProperty, "City");
-                    return new ViewCell
-                    {
-                        View = new StackLayout
-                        {
-                            Orientation = StackOrientation.Horizontal,
-                            Children =
-                            {
-                                name,
-                                city
-                            }
-                        }
-                    };
-                }
-                )
-            };
-            listView.SetBinding(ListView.ItemsSourceProperty, "Fields");
+			ListView listView = new ListView();
+			listView.ItemsSource = _viewModel.Fields;
+			var cell = new DataTemplate(typeof(TextCell));
+			cell.SetBinding(TextCell.TextProperty, "Name");
+			cell.SetBinding(TextCell.DetailProperty, "Location");
+			listView.ItemTemplate = cell;
+
+			listView.ItemTapped += (sender, args) =>
+			{
+				if (listView.SelectedItem == null)
+					return;
+				this.Navigation.PushAsync(new NewsDetailsView(listView.SelectedItem as Field));
+				listView.SelectedItem = null;
+			};
+
+			listView.SetBinding(ListView.ItemsSourceProperty, "Fields");
 			stackLayout.Children.Add(listView);
 			Content = stackLayout;
 

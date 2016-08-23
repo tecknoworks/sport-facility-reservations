@@ -20,6 +20,7 @@ namespace Client.Views
         {
             Title = "Login";
             Init();
+			NavigationTo();
         }
 
         public async Task Init()
@@ -91,6 +92,30 @@ namespace Client.Views
 
             this.Content = grid;
         }
+
+		private async void NavigationTo()
+		{
+			if (!string.IsNullOrEmpty(Settings.Token))
+			{
+				if (Settings.Status == false)
+				{
+					await Navigation.PushAsync(new HomePage(""));
+				}
+				else
+				{
+					await Navigation.PushAsync(new OwnerHomePage());
+				}
+			}
+		}
+
+		protected override bool OnBackButtonPressed()
+		{
+			if (!string.IsNullOrEmpty(Settings.Token))
+			{
+				return true;
+			}
+			return base.OnBackButtonPressed();
+		}
 
         private async void FacebookLoginButton_Clicked(object sender, EventArgs e)
         {
