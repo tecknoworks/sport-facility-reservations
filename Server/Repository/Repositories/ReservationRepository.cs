@@ -30,9 +30,9 @@ namespace Repository.Repositories
                              Field = f.Name,
                              StartHour = r.StartHour,
                              PhoneNumber = u.PhoneNumber,
-                             Status=r.Status,
-                         });
-            return query;
+                             Status = r.Status,
+                         });            
+            return query.OrderBy(p => p.StartHour);
         }
         public IQueryable GetReservationOfPlayer(string token)
         {
@@ -49,8 +49,8 @@ namespace Repository.Repositories
                              Month = r.StartHour.Month,
                              Year = r.StartHour.Year,
                              Status = r.Status,
-                             Field=f.Name,
-                             Token=token, 
+                             Field = f.Name,
+                             Token = token,
                          });
             return query;
         }
