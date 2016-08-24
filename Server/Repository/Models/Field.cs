@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Models
 {
@@ -26,11 +23,11 @@ namespace Repository.Models
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public string OwnerName { get; set; }
-        public List<DateTime> Availability { get; set; }
+        public List<int> Availability { get; set; }       
         [IgnoreDataMember]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        
         //[ForeignKey("OwnerId")]
         //public virtual User User { get; set; }
     }
+
 }
