@@ -40,10 +40,20 @@ namespace Server.Controllers
             var fields = _unitOfWork.FieldRepository.GetAll();
             return fields;
         }
-        public IEnumerable<Field> GetFieldOfOwner(string token)
+        [HttpGet]
+        public IHttpActionResult GetFieldOfOwner([FromUri]string token)
         {
             var user = _unitOfWork.UserRepository.GetAll().First(p => p.Token == token);
-            return _unitOfWork.FieldRepository.GetFieldsByColumn(filter: q => q.OwnerName == user.UserName);
+            if (user.Status == true)
+            {
+                var field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(p => p.OwnerName.Equals(user.UserName));
+                if (field == null)
+                {
+                    return NotFound();
+                }
+                return Ok(field);
+            }
+            else return BadRequest();
         }
         public IHttpActionResult GetFieldByName(string name)
         {
@@ -120,6 +130,26 @@ namespace Server.Controllers
             _unitOfWork.Complete();
             return Ok(field);
         }
-    }
+        [HttpPut]
+        public HttpResponseMessage UpdateField(Field field)
+        {
+            var dbField = _unitOfWork.FieldRepository.GetAll().First(p => p.ID == field.ID);
+            if (dbField == null)
+                return new HttpResponseMessage(HttpStatusCode.NotFound) { ReasonPhrase = "Field does not exist" };
+            dbField.Location = field.Location;
+            dbField.Length = field.Length;
+            dbField.Name = field.Name;
+            dbField.OwnerName = field.OwnerName;
+            dbField.Price = field.Price;
+            dbField.StartTime = field.StartTime;
+            dbField.EndTime = field.EndTime;
+            dbField.Width = field.Width;
+            dbField.Length = field.Length;
+            dbField.Type = field.Type;
 
+            _unitOfWork.FieldRepository.Update(dbField);
+            _unitOfWork.Complete();
+            return new HttpResponseMessage(HttpStatusCode.OK) { ReasonPhrase = "Field updated" };
+        }
+    }
 }
