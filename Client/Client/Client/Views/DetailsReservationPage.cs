@@ -25,6 +25,7 @@ namespace Client.Views
 
             Grid grid = new Grid
             {
+                Padding = new Thickness(0, 8, 0, 8),
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.Start,
                 RowDefinitions =
@@ -37,35 +38,32 @@ namespace Client.Views
                 ColumnDefinitions =
                 {
                     new ColumnDefinition {Width=GridLength.Auto },
+                    new ColumnDefinition {Width=GridLength.Auto },
                     new ColumnDefinition {Width=GridLength.Auto }
                 }
             };
 
             var firstName = new Label
             {
-                Text = reservation.FirstName,
-                HorizontalOptions = LayoutOptions.Start
+                Text = reservation.FirstName,       
             };
             grid.Children.Add(firstName, 0, 0);
 
             var lastName = new Label
             {
-                Text = reservation.LastName,
-                HorizontalOptions = LayoutOptions.Start
+                Text = reservation.LastName,      
             };
             grid.Children.Add(lastName, 1, 0);
 
             var phone = new Label
             {
-                Text = reservation.PhoneNumber,
-                HorizontalOptions = LayoutOptions.Start
+                Text = reservation.PhoneNumber,    
             };
             grid.Children.Add(phone, 0, 1);
 
             acceptBtn = new Button
             {
                 Text = "Accept",
-                HorizontalOptions = LayoutOptions.EndAndExpand,
                 Font = Font.SystemFontOfSize(NamedSize.Micro)
             };
             grid.Children.Add(acceptBtn, 0, 2);
@@ -74,7 +72,6 @@ namespace Client.Views
             rejectBtn = new Button
             {
                 Text = "Reject",
-                HorizontalOptions = LayoutOptions.EndAndExpand,
                 Font = Font.SystemFontOfSize(NamedSize.Micro)
             };
             grid.Children.Add(rejectBtn, 1, 2);
@@ -87,14 +84,17 @@ namespace Client.Views
         {
             _viewModel.AcceptedAsync();
             acceptBtn.BackgroundColor = Color.Green;
-            rejectBtn.IsEnabled = false;
-            
+            rejectBtn.BackgroundColor = Color.Default;
+            await Navigation.PushAsync(new ReservationPage());
+
+
         }
         private async void RejectButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.RejectedAsync();
             rejectBtn.BackgroundColor = Color.Red;
-            acceptBtn.IsEnabled = false;
+            acceptBtn.BackgroundColor = Color.Default;
+            await Navigation.PushAsync(new ReservationPage());
         }
     }
 }

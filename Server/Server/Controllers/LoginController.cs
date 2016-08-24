@@ -69,8 +69,10 @@ namespace Server.Controllers
             {
                 if (user1.UserName.Equals(user.UserName))
                 {
-                    var message = string.Format("User Name {0} is taken ", user.UserName);
-                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, message);
+                    return new HttpResponseMessage(HttpStatusCode.Conflict)
+                    {
+                        ReasonPhrase = "User Name" + user.UserName + " is taken"
+                    };
                 }
             }
             if (user.Token == null)
@@ -104,6 +106,12 @@ namespace Server.Controllers
             dbUser.LastName = user.LastName;
             dbUser.Password = user.Password;
             dbUser.PhoneNumber = user.PhoneNumber;
+            if (dbUser.Status == true && user.Status == false)
+            {
+                var field = _unitOfWork.FieldRepository.GetAll().FirstOrDefault(x => x.OwnerName.Equals(dbUser.UserName));
+                _unitOfWork.FieldRepository.Remove(field);
+                _unitOfWork.Complete();
+            }
             dbUser.Status = user.Status;
             dbUser.Token = user.Token;
             _unitOfWork.UserRepository.Update(dbUser);

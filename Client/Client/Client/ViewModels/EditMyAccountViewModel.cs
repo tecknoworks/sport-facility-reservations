@@ -56,7 +56,7 @@ namespace Client.ViewModels
             else
                 Status = 1;
         }
-        public async Task LoadGetFieldAsync()
+        public async Task GetFieldAsync()
         { 
             Field = await _serviceClient.GetFieldAsync(Settings.Token);
             FieldName = Field.Name;
