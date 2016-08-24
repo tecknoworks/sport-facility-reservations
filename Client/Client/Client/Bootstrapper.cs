@@ -24,7 +24,7 @@ namespace Client
         {
             Client.App.Container = Container;
             Container.RegisterType<IServiceClient, ServiceClient>();
-            Container.RegisterType<HomePage>(new InjectionConstructor(""));
+			Container.RegisterType<HomePage>(new InjectionConstructor("Hello " + Settings.FirstName));
         }
     }
 }

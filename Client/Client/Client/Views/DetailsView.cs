@@ -37,10 +37,21 @@ namespace Client.Views
 
 			var fieldType = new Label
 			{
-				Text = "Type:  " + item.Type,
 				FontSize = Constants.LABEL_FONT_SIZE,
 				HorizontalOptions = LayoutOptions.StartAndExpand
 			};
+
+			if (item.Type == 0)
+			{
+				fieldType.Text = "Type:  Soccer Field";
+			}
+			else if (item.Type == 1)
+			{
+				fieldType.Text = "Type:  Tennis Field";
+			}
+			else {
+				fieldType.Text = "Type:  Squash Field";
+			}
 
 			var fieldProgram = new Label
 			{

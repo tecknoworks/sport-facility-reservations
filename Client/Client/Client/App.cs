@@ -23,14 +23,15 @@ namespace Client
         }
 
         public static async Task NavigateOnCancel()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
+		{
+			await App.Current.MainPage.Navigation.PopToRootAsync();
         }
 
         public static async Task NavigateToProfile(string message)
         {
             await App.Current.MainPage.Navigation.PushAsync(new HomePage(message));
         }
+
         public App()
         {
             Bootstrapper bs = new Bootstrapper();

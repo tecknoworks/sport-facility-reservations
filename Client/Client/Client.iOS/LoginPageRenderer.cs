@@ -40,7 +40,6 @@ namespace Client.iOS
                     var accessToken = eventArgs.Account.Properties["access_token"].ToString();
                     var expiresIn = Convert.ToDouble(eventArgs.Account.Properties["expires_in"]);
                     var expiryDate = DateTime.Now + TimeSpan.FromSeconds(expiresIn);
-
                     var request = new OAuth2Request("GET", new Uri("https://graph.facebook.com/me?fields=id,first_name,email"), null, eventArgs.Account);
                     var response = await request.GetResponseAsync();
                     var obj = JObject.Parse(response.GetResponseText());
@@ -49,7 +48,6 @@ namespace Client.iOS
                     var username = obj["email"].ToString();
                     User user = new User(id, username);
                     vm.GetUser(user);
-                    //App.Instance.SaveToken(eventArgs.Account.Properties["access_token"]);
                     await App.NavigateToProfile(string.Format("Hello {0}", name));
                 }
                 else

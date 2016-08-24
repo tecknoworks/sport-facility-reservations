@@ -11,7 +11,6 @@ namespace Client.Views
     {
         public Login()
         {
-
         }
     }
 }

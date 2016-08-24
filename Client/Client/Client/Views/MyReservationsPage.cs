@@ -33,55 +33,14 @@ namespace Client
 			var cell = new DataTemplate(typeof(TextCell));
 			cell.SetBinding(TextCell.TextProperty, "Field");
 			cell.SetBinding(TextCell.DetailProperty, "Status");
-			cell.SetBinding(TextCell.DetailColorProperty, "DetailColor");
+			cell.SetValue(TextCell.DetailColorProperty, _viewModel.DetailColor);
+
 			listView.ItemTemplate = cell;
 
 			listView.SetBinding(ListView.ItemsSourceProperty, "Reservations");
+			listView.SeparatorVisibility = SeparatorVisibility.None;
 			stack.Children.Add(listView);
 			Content = stack;
-
-
-			//ListView myReservationsListView = new ListView
-			//{
-			//	ItemsSource = _viewModel.Reservations,
-			//	ItemTemplate = new DataTemplate(() =>
-			//	{
-			//		Label name = new Label
-			//		{
-			//			Text = "Field Name"
-			//		};
-
-			//		Button reservationStatus = new Button();
-
-			//		if (_viewModel.Reservations.Status.Equals("accepted"))
-			//		{
-			//			reservationStatus.Text = "Accepted";
-			//			reservationStatus.TextColor = Color.Green;
-			//		}
-			//		else if (_viewModel.Reservations.Status.Equals("rejected"))
-			//		{
-			//			reservationStatus.Text = "Rejected";
-			//			reservationStatus.TextColor = Color.Red;
-			//		}
-			//		else {
-			//			reservationStatus.Text = "Pending";
-			//			reservationStatus.TextColor = Color.FromHex("#ffb732");
-			//		}
-
-			//		return new ViewCell
-			//		{
-			//			View = new StackLayout
-			//			{
-			//				Padding = new Thickness(0, 5),
-			//				Orientation = StackOrientation.Horizontal,
-			//				Children =
-			//				{
-			//					name
-			//				}
-			//			}
-			//		};
-			//	})
-			//};
 		}
 	}
 }

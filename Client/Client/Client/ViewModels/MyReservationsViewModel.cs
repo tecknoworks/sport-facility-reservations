@@ -15,26 +15,7 @@ namespace Client
 		IServiceClient _serviceClient;
 		public string Field { get; set; }
 		public string Status { get; set; }
-		public Color detailColor;
-		public Color DetailColor
-		{
-			get
-			{
-				return detailColor;
-			}
-			set{
-				if (Status.Equals("accepted"))
-				{
-					detailColor = Color.Green;
-				}
-				else if (Status.Equals("rejected"))
-				{
-					detailColor = Color.Red;
-				}
-			}
-		}
-
-
+		public Color DetailColor { get; set;}
 
 		public List<Reservation> Reservations { get; set; }
 
@@ -46,6 +27,7 @@ namespace Client
 		public async Task LoadReservationsAsync()
 		{
 			Reservations = await _serviceClient.GetReservationsAsync(Settings.Token);
+
 		}
 
 	}

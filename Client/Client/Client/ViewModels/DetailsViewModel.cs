@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Client.ViewModels
 {
-    //[ImplementPropertyChanged]
+    [ImplementPropertyChanged]
     public class DetailsViewModel
     {
         public ServiceClient _serviceClient;
@@ -27,7 +27,6 @@ namespace Client.ViewModels
             _serviceClient = serviceClient;
         }
 
-       // [OnCommand("ResCommand")]
         public async Task ReserveAsync()
         {
            Reservation reservation = new Reservation(Settings.Token, FieldId, Time.Hours, Date.Day, Date.Month, Date.Year,FirstName,LastName,Phone);
