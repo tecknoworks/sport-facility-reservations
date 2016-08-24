@@ -155,6 +155,17 @@ namespace Client.Services
                     throw new Exception(result.ReasonPhrase);
             }
         }
+        public async Task UpdateFieldAsync(Field field)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(field);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync("http://tkw-sfr.azurewebsites.net/api/login/UpdateUser/", content);
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new Exception(result.ReasonPhrase);
+            }
+        }
 
         public async Task AddFieldAsync(Field field)
         {

@@ -114,7 +114,7 @@ namespace Client.Views
         private async void SignOutButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.SignOut();
-            await Navigation.PopAsync();
+            //await Navigation.PopAsync();
             NavigationPage.SetHasBackButton(this, false);
             await Navigation.PushAsync(new LoginPage());
         }

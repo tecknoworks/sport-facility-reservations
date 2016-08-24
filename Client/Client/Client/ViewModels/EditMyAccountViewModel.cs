@@ -41,7 +41,7 @@ namespace Client.ViewModels
         {
             _serviceClient = serviceClient;
         }
-        public async Task LoadGetUserByIdAsync()
+        public async Task GetUserByIdAsync()
         {
             User = await _serviceClient.GetUserByIdAsync(Settings.Token);
             FirstName = User.FirstName;
@@ -84,5 +84,19 @@ namespace Client.ViewModels
                 Status = 1;
             await _serviceClient.UpdateUserAsync(User);
         }
+        //public async Task UpdateField()
+        //{
+        //    Field field = new Field(SportIndex, FieldName, Adress, Length, Width, StartTime, EndTime, Price, OwnerName);
+        //    Field.Type = SportIndex;
+        //    Field.Name = FieldName;
+        //    Field.Location = Adress;
+        //    Field.Length = Legth;
+        //    Field.Width = Width;
+        //    Field.StartTime = StartTime;
+        //    Field.EndTime = EndTime;
+        //    Field.OwnerName = OwnerName;
+        //    await _serviceClient.UpdateFieldAsync(Field);
+        //}
+
     }
 }

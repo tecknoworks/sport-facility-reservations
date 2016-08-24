@@ -36,6 +36,7 @@ namespace Client.Views
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () => {
                     await _viewModel.UpdateUser();
+
                     if (_viewModel.IsOwner)
                     {
                         //await Navigation.PopAsync();
@@ -50,7 +51,9 @@ namespace Client.Views
             });
 
 
-            //await _viewModel.LoadGetUserByIdAsync();
+            await _viewModel.GetUserByIdAsync();
+
+            await _viewModel.GetFieldAsync(); 
 
             var labelFirstName = new Label
             {
@@ -308,9 +311,7 @@ namespace Client.Views
             type.SelectedIndexChanged += (sender, args) =>
             {
                 _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
-            };
-
-                await _viewModel.GetFieldAsync();          
+            };                
 
             layout.Children.Add(ownerLayout);
 

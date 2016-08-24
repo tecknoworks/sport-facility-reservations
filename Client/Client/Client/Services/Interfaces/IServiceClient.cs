@@ -21,6 +21,7 @@ namespace Client.Services.Interfaces
         Task AddUserAsync(User user);
         Task AddFieldAsync(Field field);
         Task UpdateUserAsync(User user);
+        Task UpdateFieldAsync(Field field);
         List<Field> Search(string filter);
         Task<IEnumerable<Field>> SearchAsync(string token, int type, string filter1, string filter2);
         Task<List<Field>> SearchAsync(string token, string filter1);

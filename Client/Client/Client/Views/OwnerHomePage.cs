@@ -10,20 +10,18 @@ using Client.Services;
 
 namespace Client.Views
 {
-    class OwnerHomePage : TabbedPage
+    class OwnerHomePage :CarouselPage
     {
         public OwnerHomePage()
         {
 			NavigationPage.SetHasBackButton(this, false);
-			var reservationPage = new ReservationPage();
+            var homePage = new HomePage($"Hello, {Settings.FirstName}");
+            homePage.Icon = "home-16.png";
+            Children.Add(homePage);
+            var reservationPage = new ReservationPage();
 			reservationPage.Title = "Reservations";
 			reservationPage.Icon = "list-16.png";
 			Children.Add(reservationPage);
-			var homePage = new HomePage($"Hello, {Settings.FirstName}");
-			homePage.Icon = "home-16.png";
-            Children.Add(homePage);
-            //Children.Add(new HomePagee());
         }
-
     }
 }

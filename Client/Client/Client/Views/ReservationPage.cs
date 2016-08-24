@@ -49,7 +49,6 @@ namespace Client.Views
                             dataLabel,
                             statusLabel
                         }
-
                     };
                     nameLabel.SetBinding(Label.TextProperty, "Field");
                     dataLabel.SetBinding(Label.TextProperty, "StartHour");
@@ -68,11 +67,6 @@ namespace Client.Views
                 listView.SelectedItem = null;
             };
             listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
-
-            if (_viewModel.Status.Equals("accepted"))
-            {
-                nameLabel.TextColor = Color.Green;
-            }
 
             Content = new StackLayout
             {
