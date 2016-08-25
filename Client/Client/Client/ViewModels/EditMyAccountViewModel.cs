@@ -57,7 +57,7 @@ namespace Client.ViewModels
                 Status = 1;
         }
         public async Task GetFieldAsync()
-        { 
+        {
             Field = await _serviceClient.GetFieldAsync(Settings.Token);
             FieldName = Field.Name;
             SportIndex = Field.Type;
@@ -84,19 +84,37 @@ namespace Client.ViewModels
                 Status = 1;
             await _serviceClient.UpdateUserAsync(User);
         }
-        //public async Task UpdateField()
-        //{
-        //    Field field = new Field(SportIndex, FieldName, Adress, Length, Width, StartTime, EndTime, Price, OwnerName);
-        //    Field.Type = SportIndex;
-        //    Field.Name = FieldName;
-        //    Field.Location = Adress;
-        //    Field.Length = Legth;
-        //    Field.Width = Width;
-        //    Field.StartTime = StartTime;
-        //    Field.EndTime = EndTime;
-        //    Field.OwnerName = OwnerName;
-        //    await _serviceClient.UpdateFieldAsync(Field);
-        //}
+        public async Task UpdateField()
+        {
+            int? length = null;
+            int convertedLength;
+            if (int.TryParse(Length, out convertedLength))
+                length = convertedLength;
 
+            int? width = null;
+            int convertedWidth;
+            if (int.TryParse(Width, out convertedWidth))
+                width = convertedWidth;
+
+            float? price = null;
+            float convertedPrice;
+            if (float.TryParse(Price, out convertedPrice))
+                price = convertedPrice;
+
+
+
+
+            Field field = new Field(SportIndex, FieldName, Adress, length, width, StartTime, EndTime, price, OwnerName);
+            Field.Type = SportIndex;
+            Field.Name = FieldName;
+            Field.Location = Adress;
+            Field.Length = length;
+            Field.Width = width;
+            Field.StartTime = StartTime;
+            Field.EndTime = EndTime;
+            Field.Price = price;
+            Field.OwnerName = User.Username;
+            await _serviceClient.UpdateFieldAsync(Field);
+        }
     }
 }

@@ -142,6 +142,8 @@
     <AndroidResource Include="Resources\drawable\tennis_field.png" />
     <AndroidResource Include="Resources\drawable\squash_field.jpg" />
     <AndroidResource Include="Resources\drawable\squash2.jpg" />
+    <AndroidResource Include="Resources\drawable\squash.jpg" />
+    <AndroidResource Include="Resources\drawable\tennis_field2.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Client\Client.csproj">

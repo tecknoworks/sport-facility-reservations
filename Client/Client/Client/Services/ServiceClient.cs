@@ -118,31 +118,7 @@ namespace Client.Services
                 if (result.StatusCode != System.Net.HttpStatusCode.OK)
                     throw new Exception(result.ReasonPhrase);
             }
-        }
-
-        public async Task AcceptReservation(int id)
-        {
-            using (var client = new HttpClient())
-            {
-                var json = JsonConvert.SerializeObject(id);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PutAsync($"http://tkw-sfr.azurewebsites.net/api/Reservations/UpdateReservation/?id={id}", null);
-                if (result.StatusCode != System.Net.HttpStatusCode.OK)
-                    throw new Exception(result.ReasonPhrase);
-            }
-        }
-
-        public async Task RejectReservation(int id)
-        {
-            using (var client = new HttpClient())
-            {
-                var json = JsonConvert.SerializeObject(id);
-                var content = new StringContent (json, Encoding.UTF8, "application/json");
-                var result = await client.PutAsync($"http://tkw-sfr.azurewebsites.net/api/Reservations/RejectReservation/?id={id}", null);
-                if (result.StatusCode != System.Net.HttpStatusCode.OK)
-                    throw new Exception(result.ReasonPhrase);
-            }
-        }
+        }    
 
         public async Task UpdateUserAsync(User user)
         {
@@ -155,13 +131,14 @@ namespace Client.Services
                     throw new Exception(result.ReasonPhrase);
             }
         }
+
         public async Task UpdateFieldAsync(Field field)
         {
             using (var client = new HttpClient())
             {
                 var json = JsonConvert.SerializeObject(field);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PutAsync("http://tkw-sfr.azurewebsites.net/api/login/UpdateUser/", content);
+                var result = await client.PutAsync("http://tkw-sfr.azurewebsites.net/api/MainPage/UpdateField/", content);
                 if (result.StatusCode != System.Net.HttpStatusCode.OK)
                     throw new Exception(result.ReasonPhrase);
             }
@@ -193,6 +170,30 @@ namespace Client.Services
                 {
 
                 }
+            }
+        }
+
+        public async Task AcceptReservation(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(id);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync($"http://tkw-sfr.azurewebsites.net/api/Reservations/UpdateReservation/?id={id}", null);
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new Exception(result.ReasonPhrase);
+            }
+        }
+
+        public async Task RejectReservation(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(id);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync($"http://tkw-sfr.azurewebsites.net/api/Reservations/RejectReservation/?id={id}", null);
+                if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    throw new Exception(result.ReasonPhrase);
             }
         }
 

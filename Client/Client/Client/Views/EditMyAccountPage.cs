@@ -35,7 +35,9 @@ namespace Client.Views
                 Name = "Save",
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () => {
+
                     await _viewModel.UpdateUser();
+                    await _viewModel.UpdateField();
 
                     if (_viewModel.IsOwner)
                     {
