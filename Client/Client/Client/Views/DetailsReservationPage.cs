@@ -54,6 +54,20 @@ namespace Client.Views
             };
             grid.Children.Add(phone, 1, 1);
 
+			var dateLayout = new Label
+			{
+				Text = "Date and Hour: ",
+				VerticalOptions = LayoutOptions.StartAndExpand
+			};
+			grid.Children.Add(dateLayout, 0, 2);
+
+			var date = new Label
+			{
+				Text = reservation.StartHour.ToString(),
+				VerticalOptions = LayoutOptions.StartAndExpand
+			};
+			grid.Children.Add(date, 1, 2);
+
             acceptBtn = new Button
             {
                 Text = "Accept",
@@ -61,7 +75,7 @@ namespace Client.Views
 				FontSize = Constants.LABEL_FONT_SIZE,
 				VerticalOptions = LayoutOptions.StartAndExpand
 			};
-            grid.Children.Add(acceptBtn, 0, 2);
+            grid.Children.Add(acceptBtn, 0, 3);
             acceptBtn.Clicked += AcceptButton_Clicked;
 
             rejectBtn = new Button
@@ -71,7 +85,7 @@ namespace Client.Views
 				FontSize = Constants.LABEL_FONT_SIZE,
 				VerticalOptions = LayoutOptions.StartAndExpand
             };
-            grid.Children.Add(rejectBtn, 1, 2);
+            grid.Children.Add(rejectBtn, 1, 3);
             rejectBtn.Clicked += RejectButton_Clicked;
 			stack.Children.Add(grid);
 

@@ -32,11 +32,17 @@ namespace Client.Views
 
                 ItemTemplate = new DataTemplate(() =>
                 {
-					Label nameLabel = new Label();
+					Label nameLabel = new Label
+					{
+						HorizontalOptions = LayoutOptions.Start
+					};
 					nameLabel.SetBinding(Label.TextProperty, "Field");
                     Label dataLabel = new Label();
 					dataLabel.SetBinding(Label.TextProperty, "StartHour");
-                    Label statusLabel = new Label();
+					Label statusLabel = new Label
+					{
+						HorizontalOptions = LayoutOptions.End
+					};
 					statusLabel.SetBinding(Label.TextProperty, "Status");
 
                     var stack = new StackLayout
@@ -46,7 +52,6 @@ namespace Client.Views
                         Children =
                         {
                             nameLabel,
-                            dataLabel,
                             statusLabel
                         }
                     };                   
@@ -69,7 +74,7 @@ namespace Client.Views
 
             Content = new StackLayout
             {
-				Padding = 10,
+				Padding = 7,
                 Orientation = StackOrientation.Horizontal,
                 Children =
                 {

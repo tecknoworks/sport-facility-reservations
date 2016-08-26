@@ -109,6 +109,7 @@ namespace Client.Views
         {
             await _viewModel.ReserveAsync();
 			await DisplayAlert("", "Your reservation was registered. Please check if accepted", "OK");
+			await Navigation.PushAsync(new HomePage(""));
         }
     }
 }
