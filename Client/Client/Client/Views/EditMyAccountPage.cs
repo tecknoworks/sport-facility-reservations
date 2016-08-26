@@ -50,7 +50,7 @@ namespace Client.Views
             });
 
 
-            //await _viewModel.LoadGetUserByIdAsync();
+            await _viewModel.LoadGetUserByIdAsync();
 
             var labelFirstName = new Label
             {

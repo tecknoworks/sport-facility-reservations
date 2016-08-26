@@ -14,9 +14,7 @@ namespace Client
 	{
 		IServiceClient _serviceClient;
 		public string Field { get; set; }
-		public string Status { get; set; }
-		public Color DetailColor { get; set;}
-
+		public string Status { get; set;}
 		public List<Reservation> Reservations { get; set; }
 
 		public MyReservationsViewModel(IServiceClient serviceClient)

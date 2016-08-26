@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Microsoft.Practices.Unity;
 using System.Threading.Tasks;
+using Client.CustomCell;
 
 namespace Client
 {
@@ -29,17 +30,17 @@ namespace Client
 			};
 
 			ListView listView = new ListView();
+			var cell = new DataTemplate(typeof(CustomCelll));
 			listView.ItemsSource = _viewModel.Reservations;
-			var cell = new DataTemplate(typeof(TextCell));
-			cell.SetBinding(TextCell.TextProperty, "Field");
-			cell.SetBinding(TextCell.DetailProperty, "Status");
-			cell.SetValue(TextCell.DetailColorProperty, _viewModel.DetailColor);
-
 			listView.ItemTemplate = cell;
+			cell.SetBinding(CustomCelll.NameProperty, "Field");
+			cell.SetBinding(CustomCelll.StatusProperty, "Status");
 
 			listView.SetBinding(ListView.ItemsSourceProperty, "Reservations");
+
 			listView.SeparatorVisibility = SeparatorVisibility.None;
 			stack.Children.Add(listView);
+
 			Content = stack;
 		}
 	}

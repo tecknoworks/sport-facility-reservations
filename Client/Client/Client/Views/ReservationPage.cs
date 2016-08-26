@@ -22,22 +22,23 @@ namespace Client.Views
         {
             _viewModel = App.Container.Resolve<ReservationPageViewModel>();
             BindingContext = _viewModel;
-            var nameLabel = new Label();
+            
 
             await _viewModel.LoadReservedFieldsAsync();
-
 
             var listView = new ListView
             {
                 HorizontalOptions = LayoutOptions.Start,
-
                 ItemsSource = _viewModel.ReservedFields,
 
                 ItemTemplate = new DataTemplate(() =>
                 {
-                 
-                    var dataLabel = new Label();
-                    var statusLabel = new Label();
+					Label nameLabel = new Label();
+					nameLabel.SetBinding(Label.TextProperty, "Field");
+                    Label dataLabel = new Label();
+					dataLabel.SetBinding(Label.TextProperty, "StartHour");
+                    Label statusLabel = new Label();
+					statusLabel.SetBinding(Label.TextProperty, "Status");
 
                     var stack = new StackLayout
                     {
@@ -50,16 +51,15 @@ namespace Client.Views
                             statusLabel
                         }
 
-                    };
-                    nameLabel.SetBinding(Label.TextProperty, "Field");
-                    dataLabel.SetBinding(Label.TextProperty, "StartHour");
-                    statusLabel.SetBinding(Label.TextProperty, "Status");                   
-                    return new ViewCell
+                    };                   
+                    
+					return new ViewCell
                     {
                         View = stack
                     };
                 })
             };
+
             listView.ItemTapped += (sender, args) =>
             {
                 if (listView.SelectedItem == null)
@@ -68,11 +68,6 @@ namespace Client.Views
                 listView.SelectedItem = null;
             };
             listView.SetBinding(ListView.ItemsSourceProperty, "ReservedFields");
-
-            if (_viewModel.Status.Equals("accepted"))
-            {
-                nameLabel.TextColor = Color.Green;
-            }
 
             Content = new StackLayout
             {

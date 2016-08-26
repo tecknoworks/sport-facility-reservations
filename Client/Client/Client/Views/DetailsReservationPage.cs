@@ -23,61 +23,58 @@ namespace Client.Views
 
             _viewModel.Id = reservation.Id;
 
-            Grid grid = new Grid
-            {
-                Padding = new Thickness(0, 8, 0, 8),
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                VerticalOptions = LayoutOptions.Start,
-                RowDefinitions =
-                {
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Auto },
+			var stack = new StackLayout { Padding = 30, VerticalOptions = LayoutOptions.Start };
 
-                },
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition {Width=GridLength.Auto },
-                    new ColumnDefinition {Width=GridLength.Auto },
-                    new ColumnDefinition {Width=GridLength.Auto }
-                }
-            };
+			var nameLabel = new Label
+			{
+				Text = "Pending reservation from: ",
+				FontSize = Constants.LABEL_FONT_SIZE
+			};
+			stack.Children.Add(nameLabel);
 
-            var firstName = new Label
+            var fullName = new Label
             {
-                Text = reservation.FirstName,       
+				Text = reservation.FirstName + " " + reservation.LastName,       
             };
-            grid.Children.Add(firstName, 0, 0);
+            stack.Children.Add(fullName);
 
-            var lastName = new Label
-            {
-                Text = reservation.LastName,      
-            };
-            grid.Children.Add(lastName, 1, 0);
+			var phoneLabel = new Label
+			{
+				Text = "Phone: ",
+				FontSize = Constants.LABEL_FONT_SIZE
+			};
+			stack.Children.Add(phoneLabel);
 
             var phone = new Label
             {
                 Text = reservation.PhoneNumber,    
             };
-            grid.Children.Add(phone, 0, 1);
+            stack.Children.Add(phone);
+
+			var grid = new Grid();
 
             acceptBtn = new Button
             {
                 Text = "Accept",
-                Font = Font.SystemFontOfSize(NamedSize.Micro)
-            };
-            grid.Children.Add(acceptBtn, 0, 2);
+				TextColor = Color.Green,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				VerticalOptions = LayoutOptions.StartAndExpand
+			};
+            grid.Children.Add(acceptBtn, 0, 0);
             acceptBtn.Clicked += AcceptButton_Clicked;
 
             rejectBtn = new Button
             {
                 Text = "Reject",
-                Font = Font.SystemFontOfSize(NamedSize.Micro)
+				TextColor = Color.Red,
+				FontSize = Constants.LABEL_FONT_SIZE,
+				VerticalOptions = LayoutOptions.StartAndExpand
             };
-            grid.Children.Add(rejectBtn, 1, 2);
+            grid.Children.Add(rejectBtn, 0, 1);
             rejectBtn.Clicked += RejectButton_Clicked;
+			stack.Children.Add(grid);
 
-            Content = grid;
+            Content = stack;
 
         }
         private async void AcceptButton_Clicked(object sender, EventArgs e)

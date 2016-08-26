@@ -2,12 +2,9 @@
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Client.Services;
-using Commander;
-using Android.Graphics;
+using Xamarin.Forms;
 
 namespace Client.ViewModels
 {
@@ -20,6 +17,7 @@ namespace Client.ViewModels
         public List<Models.Reservation> ReservedFields { get; set; }
         public string Status { get; set; }
         public Color Color { get; set; }
+
         public ReservationPageViewModel(IServiceClient serviceClient)
         {
             _serviceClient = serviceClient;

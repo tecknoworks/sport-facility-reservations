@@ -73,6 +73,10 @@
     <Compile Include="Views\RegisterPage.cs" />
     <Compile Include="Views\SearchPage.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="CustomCell\MyCell.xaml.cs">
+      <DependentUpon>MyCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomCell\CustomCelll.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Commander, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -164,6 +168,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\CrossPushNotificationListener.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomCell\MyCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomCell\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
