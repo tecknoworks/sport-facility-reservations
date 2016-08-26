@@ -75,13 +75,12 @@ namespace Client.Views
             };
             date.SetBinding(DatePicker.DateProperty, "Date");
 
-            var time = new TimePicker
-            {
-                Format = "HH:mm",
-                Time = new TimeSpan(DateTime.Now.Hour, 0, 0),
-				HeightRequest = Constants.ENTRY_HEIGHT
-            };
-            time.SetBinding(TimePicker.TimeProperty, "Time");
+           var timePicker = new TimePicker
+		   {
+			   Format = "HH:mm",
+			   HeightRequest = Constants.ENTRY_HEIGHT,
+			   Time = new TimeSpan(DateTime.Now.Hour + 1, 0, 0)
+		   };
             
             var button = new Button
             {
@@ -100,7 +99,7 @@ namespace Client.Views
 					fieldProgram,
 					fieldPrice,
                     date,
-                    time,
+                    timePicker,
                     button
                 }
             };

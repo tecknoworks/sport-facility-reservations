@@ -20,7 +20,8 @@ namespace Client.Views
         {
             Title = "Home";
             _greetingText = greetingText;
-            Init();
+			NavigationPage.SetHasBackButton(this, false);
+			Init();
 
         }
         public async Task Init()

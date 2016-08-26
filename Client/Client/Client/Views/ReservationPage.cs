@@ -22,7 +22,6 @@ namespace Client.Views
         {
             _viewModel = App.Container.Resolve<ReservationPageViewModel>();
             BindingContext = _viewModel;
-            
 
             await _viewModel.LoadReservedFieldsAsync();
 
@@ -70,6 +69,7 @@ namespace Client.Views
 
             Content = new StackLayout
             {
+				Padding = 10,
                 Orientation = StackOrientation.Horizontal,
                 Children =
                 {

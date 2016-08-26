@@ -14,6 +14,7 @@ namespace Client.ViewModels
     {
         public string Name { get; set; }
         public string City { get; set; }
+		public TimeSpan Time { get; set; }
         public DateTime Availability { get; set; }
         private ObservableCollection<Field> field;
         public ObservableCollection<Field> Fields

@@ -23,35 +23,36 @@ namespace Client.Views
 
             _viewModel.Id = reservation.Id;
 
-			var stack = new StackLayout { Padding = 30, VerticalOptions = LayoutOptions.Start };
+			var stack = new StackLayout { Padding = 30, HorizontalOptions = LayoutOptions.Start };
+			var grid = new Grid();
 
 			var nameLabel = new Label
 			{
-				Text = "Pending reservation from: ",
-				FontSize = Constants.LABEL_FONT_SIZE
+				Text = "Made by: ",
+				FontSize = Constants.LABEL_FONT_SIZE 
 			};
-			stack.Children.Add(nameLabel);
+			grid.Children.Add(nameLabel, 0, 0);
 
             var fullName = new Label
             {
-				Text = reservation.FirstName + " " + reservation.LastName,       
+				Text = reservation.FirstName + " " + reservation.LastName, 
+				VerticalOptions = LayoutOptions.StartAndExpand
             };
-            stack.Children.Add(fullName);
+            grid.Children.Add(fullName, 1, 0);
 
 			var phoneLabel = new Label
 			{
 				Text = "Phone: ",
-				FontSize = Constants.LABEL_FONT_SIZE
+				FontSize = Constants.LABEL_FONT_SIZE 
 			};
-			stack.Children.Add(phoneLabel);
+			grid.Children.Add(phoneLabel, 0, 1);
 
             var phone = new Label
             {
-                Text = reservation.PhoneNumber,    
+                Text = reservation.PhoneNumber, 
+				VerticalOptions = LayoutOptions.StartAndExpand
             };
-            stack.Children.Add(phone);
-
-			var grid = new Grid();
+            grid.Children.Add(phone, 1, 1);
 
             acceptBtn = new Button
             {
@@ -60,7 +61,7 @@ namespace Client.Views
 				FontSize = Constants.LABEL_FONT_SIZE,
 				VerticalOptions = LayoutOptions.StartAndExpand
 			};
-            grid.Children.Add(acceptBtn, 0, 0);
+            grid.Children.Add(acceptBtn, 0, 2);
             acceptBtn.Clicked += AcceptButton_Clicked;
 
             rejectBtn = new Button
@@ -70,7 +71,7 @@ namespace Client.Views
 				FontSize = Constants.LABEL_FONT_SIZE,
 				VerticalOptions = LayoutOptions.StartAndExpand
             };
-            grid.Children.Add(rejectBtn, 0, 1);
+            grid.Children.Add(rejectBtn, 1, 2);
             rejectBtn.Clicked += RejectButton_Clicked;
 			stack.Children.Add(grid);
 
