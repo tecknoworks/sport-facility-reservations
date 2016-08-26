@@ -15,10 +15,16 @@ namespace Client.CustomCell
 
 		public StackLayout cellWrapper = new StackLayout
 		{
-			Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5),
-			HorizontalOptions = LayoutOptions.StartAndExpand
+			Padding = new Thickness(10, Device.OnPlatform(10, 0, 0), 10, 5),
+			VerticalOptions = LayoutOptions.FillAndExpand,
+			HorizontalOptions = LayoutOptions.FillAndExpand,
 		};
-		public StackLayout horizontalLayout = new StackLayout();
+		public StackLayout horizontalLayout = new StackLayout
+		{
+			VerticalOptions = LayoutOptions.FillAndExpand,
+			HorizontalOptions = LayoutOptions.FillAndExpand,
+			Orientation = StackOrientation.Horizontal
+		};
 
 		public static readonly BindableProperty NameProperty = BindableProperty.Create("Field", typeof(string), typeof(ViewCell), "Name");
 
