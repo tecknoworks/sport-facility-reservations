@@ -50,7 +50,6 @@ namespace Client.Views
                             dataLabel,
                             statusLabel
                         }
-
                     };                   
                     
 					return new ViewCell

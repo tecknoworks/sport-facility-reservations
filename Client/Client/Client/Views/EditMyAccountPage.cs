@@ -35,7 +35,10 @@ namespace Client.Views
                 Name = "Save",
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () => {
+
                     await _viewModel.UpdateUser();
+                    await _viewModel.UpdateField();
+
                     if (_viewModel.IsOwner)
                     {
                         //await Navigation.PopAsync();
@@ -49,8 +52,9 @@ namespace Client.Views
                 } )
             });
 
+            await _viewModel.GetUserByIdAsync();
 
-            await _viewModel.LoadGetUserByIdAsync();
+            await _viewModel.GetFieldAsync(); 
 
             var labelFirstName = new Label
             {
@@ -308,9 +312,7 @@ namespace Client.Views
             type.SelectedIndexChanged += (sender, args) =>
             {
                 _viewModel.IsOwner = type.SelectedIndex == PICKER_OWNER_INDEX;
-            };
-
-                await _viewModel.GetFieldAsync();          
+            };                
 
             layout.Children.Add(ownerLayout);
 

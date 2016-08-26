@@ -82,16 +82,14 @@ namespace Client.Views
             _viewModel.AcceptedAsync();
             acceptBtn.BackgroundColor = Color.Green;
             rejectBtn.BackgroundColor = Color.Default;
-            await Navigation.PushAsync(new ReservationPage());
-
-
+            await Navigation.PushAsync(new OwnerHomePage());
         }
         private async void RejectButton_Clicked(object sender, EventArgs e)
         {
             _viewModel.RejectedAsync();
             rejectBtn.BackgroundColor = Color.Red;
             acceptBtn.BackgroundColor = Color.Default;
-            await Navigation.PushAsync(new ReservationPage());
+            await Navigation.PushAsync(new OwnerHomePage());
         }
     }
 }
